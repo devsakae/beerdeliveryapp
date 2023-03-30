@@ -1,28 +1,46 @@
 import React, { useState } from 'react';
-// import requestLogin from '../services/request';
+import axios from 'axios';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // const login = async (event) => {
-  //   event.preventDefault();
+  function handleEmailChange(event) {
+    setEmail(event.target.value);
+  }
 
-  //   const a = await requestLogin('/login', { email, password });
-  //   console.log(a);
-  // };
+  function handlePasswordChange(event) {
+    setPassword(event.target.value);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    axios.post('http://localhost:3001/login', {
+      email,
+      password,
+    }, {
+      mode: 'no-cors',
+    })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
     <div className="Login">
-      <form method="POST" action="localhost:3001/login">
+      <form onSubmit={ handleSubmit }>
         <label htmlFor="email">
           Login:
           <input
             type="email"
             name="email"
             value={ email }
-            data-test-id="common_login__input-email"
-            onChange={ ({ target: { value } }) => setEmail(value) }
+            data-testid="common_login__input-email"
+            onChange={ handleEmailChange }
           />
         </label>
         <label htmlFor="password">
@@ -31,24 +49,35 @@ function Login() {
             type="password"
             name="password"
             value={ password }
-            data-test-id="common_login__input-password"
-            onChange={ ({ target: { value } }) => setPassword(value) }
+            data-testid="common_login__input-password"
+            onChange={ handlePasswordChange }
           />
         </label>
-        <input
+        {/* <input
           type="submit"
           value="Submit"
-          // onClick={ ({ target: { value } }) => login(value) }
-          data-test-id="common_login__button-login"
-        />
-        <input
+          data-testid="common_login__button-login"
+        /> */}
+        <button
+          type="submit"
+          data-testid="common_login__button-login"
+        >
+          Submit
+        </button>
+        <button
+          type="submit"
+          data-testid="common_login__button-register"
+        >
+          Ainda não tenho conta
+        </button>
+        {/* <input
           type="button"
           value="Ainda não tenho conta"
-          data-test-id="common_login__button-register"
-        />
+          data-testid="common_login__button-register"
+        /> */}
         <span
           id="error-msg"
-          data-test-id="common_login__element-invalid-email"
+          data-testid="common_login__element-invalid-email"
         />
       </form>
     </div>
