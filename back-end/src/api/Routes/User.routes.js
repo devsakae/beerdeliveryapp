@@ -5,7 +5,7 @@ const route = Router();
 
 route.post(
   '/',
-  UserController.findUserByEmail,
+  UserController.Login,
 );
 
 module.exports = route;

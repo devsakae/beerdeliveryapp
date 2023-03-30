@@ -1,10 +1,16 @@
+const { scryptSync } = require('crypto');
 const { UserService } = require('../Services');
 
-const findUserByEmail = async (req, res) => {
-  const { email } = req.body;
-  const user = await UserService.findUserByEmail(email);
-  if (!user) return res.status(404).json({ message: 'Not found' });
-  return res.status(201).json(user);
+const Login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const userFound = await UserService.findUserByEmail(email);
+    if (!userFound) return res.status(404).json({ message: 'Not found' });
+    scryptSync(password, userFound.password, 64); // Guilherme tentando entender como funciona 😵‍💫
+    return res.status(201).json(userFound);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
-module.exports = { findUserByEmail };
+module.exports = { Login };
