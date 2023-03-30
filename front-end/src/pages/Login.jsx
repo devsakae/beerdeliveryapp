@@ -4,13 +4,25 @@ import axios from 'axios';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isActiveButton, setIsActiveButton] = useState(true);
+
+  function handleButton() {
+    const NUMBER_MIN = 5;
+    const regexEmail = /\S+@\S+\.\S+/;
+    const validEmail = regexEmail.test(email);
+    const validPassword = password.length >= NUMBER_MIN;
+    const validData = (!validEmail || !validPassword);
+    setIsActiveButton(validData);
+  }
 
   function handleEmailChange(event) {
     setEmail(event.target.value);
+    handleButton();
   }
 
   function handlePasswordChange(event) {
     setPassword(event.target.value);
+    handleButton();
   }
 
   function handleSubmit(event) {
@@ -53,14 +65,10 @@ function Login() {
             onChange={ handlePasswordChange }
           />
         </label>
-        {/* <input
-          type="submit"
-          value="Submit"
-          data-testid="common_login__button-login"
-        /> */}
         <button
           type="submit"
           data-testid="common_login__button-login"
+          disabled={ isActiveButton }
         >
           Submit
         </button>
@@ -70,11 +78,6 @@ function Login() {
         >
           Ainda não tenho conta
         </button>
-        {/* <input
-          type="button"
-          value="Ainda não tenho conta"
-          data-testid="common_login__button-register"
-        /> */}
         <span
           id="error-msg"
           data-testid="common_login__element-invalid-email"
