@@ -1,9 +1,5 @@
-const UserModel = require('../../database/models/User.model');
+const { User } = require('../../database/models');
 
-const register = async (user) => {
-  // const newUser = await UserModel.create(user);
-  // return newUser;
-  return user;
-};
+const findUserByEmail = async (email) => User.findOne({ where: { email } });
 
-module.exports = { register };
+module.exports = { findUserByEmail };

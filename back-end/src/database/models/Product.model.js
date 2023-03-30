@@ -15,3 +15,5 @@ const ProductModel = (sequelize, DataTypes) => {
 
   return Product;
 };
+
+module.exports = ProductModel;
