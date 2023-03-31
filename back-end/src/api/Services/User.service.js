@@ -1,10 +1,16 @@
+const { Op } = require('sequelize');
 const { User } = require('../../database/models');
 
 const findUserByEmail = async (email) => User.findOne({ where: { email } });
 
 const createUser = async (payload) => {
   // Verifica se usuário já existe (nome e email - req 10)
-  const check = await User.findOne({ where: { email: payload.email, name: payload.name } });
+  const check = await User.findOne({ where: { 
+    [Op.or]: [
+      { email: payload.email },
+      { name: payload.name },
+    ],
+  } });
   if (check) throw new Error('EXISTANT_USER');
   // Manipula o objeto de criação para inserir o role padrão
   const newuser = { ...payload, role: 'customer' };

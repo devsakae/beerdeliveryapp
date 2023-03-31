@@ -1,18 +1,22 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import style from './User.module.css';
 
 const MIN_NAME_LENGTH = 12;
 const MIN_PASSWORD_LENGTH = 6;
 const regexEmail = /\S+@\S+\.\S+/;
+const SUCCESSFULL_STATUS = 201;
+const REACT_DEFAULT_PORT = 3001;
 
-function Register() {
+export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isActiveButton, setIsActiveButton] = useState(true);
   const [existantUser, setExistantUser] = useState(false);
   const history = useHistory();
+  const PATH = `http://localhost:${process.env.PORT || REACT_DEFAULT_PORT}`;
 
   useEffect(() => {
     const validName = name.length >= MIN_NAME_LENGTH;
@@ -22,22 +26,13 @@ function Register() {
     setIsActiveButton(validData);
   }, [name, email, password]);
 
-  function handleNameChange(event) {
-    setName(event.target.value);
-  }
-
-  function handleEmailChange(event) {
-    setEmail(event.target.value);
-  }
-
-  function handlePasswordChange(event) {
-    setPassword(event.target.value);
-  }
-
-  function handleSubmit(event) {
+  const handleNameChange = (event) => setName(event.target.value);
+  const handleEmailChange = (event) => setEmail(event.target.value);
+  const handlePasswordChange = (event) => setPassword(event.target.value);
+  const handleSubmit = (event) => {
     setExistantUser(false);
     event.preventDefault();
-    axios.post('http://localhost:3001/register', {
+    axios.post(`${PATH}/register`, {
       name,
       email,
       password,
@@ -45,19 +40,17 @@ function Register() {
       mode: 'no-cors',
     })
       .then((response) => {
-        if (response.status === 201) history.push('/customer/products');
-        else alert('Erro no cadastro');
+        if (response.status === SUCCESSFULL_STATUS) history.push('/customer/products');
       })
       .catch((error) => {
-        if (error.status === 409) setExistantUser(true);
-        else alert('Erro no cadastro');
-        return;
+        setExistantUser(true);
+        console.log(error);
       });
-  }
+  };
   // Estamos usando react-router-dom v5.6.1, que não tem suporte para Navigate
   // { userLoggedIn && <Navigate to="/customers/products" /> }
   return (
-    <div className="Login">
+    <div className={ style.userBox }>
       <form onSubmit={ handleSubmit }>
         <label htmlFor="name">
           Nome:
@@ -96,16 +89,23 @@ function Register() {
         >
           Cadastrar
         </button>
-        { existantUser &&
-          (
-          <span id="error-msg" data-testid="common_register__element-invalid_register">
-            Usuário já cadastrado
-          </span>
-          )
-        }
+        <button
+          type="submit"
+          onClick={ () => history.push('/login') }
+        >
+          Já tenho cadastro
+        </button>
+        { existantUser
+          && (
+            <span
+              id="error-msg"
+              data-testid="common_register__element-invalid_register"
+              hidden={ !existantUser }
+            >
+              Favor verificar sua conta
+            </span>
+          )}
       </form>
     </div>
   );
 }
-
-export default Register;
