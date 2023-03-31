@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DetailsOrder from '../Components/DetailsOrder';
+import Header from '../Components/Header';
 import TableOrder from '../Components/TableOrder';
 
 function Checkout() {
@@ -26,6 +27,7 @@ function Checkout() {
   }
   return (
     <div>
+      <Header />
       <TableOrder
         orderItens={ orderItens }
         total={ totalOrderPrice }

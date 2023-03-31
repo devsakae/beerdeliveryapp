@@ -4,9 +4,9 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import Register from './Components/RegisterBox';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   return (
