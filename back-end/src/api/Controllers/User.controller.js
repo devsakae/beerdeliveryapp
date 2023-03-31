@@ -15,4 +15,15 @@ const Login = async (req, res) => {
   }
 };
 
-module.exports = { Login };
+const createUser = async (req, res, next) => {
+  try {
+    const password = md5(req.body.password);
+    const payload = { ...req.body, password };
+    const user = await UserService.createUser(payload);
+    return res.status(201).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { Login, createUser };

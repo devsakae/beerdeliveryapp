@@ -1,0 +1,20 @@
+.userBox {
+  align-items: center;
+  border: 1px black solid;
+  display: flex;
+  height: 60vh;
+  justify-content: center;
+  margin: 0 auto;
+  width: 60vw;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+button {
+  height: 30px;
+  width: 200px;
+}
