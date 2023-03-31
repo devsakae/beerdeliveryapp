@@ -7,7 +7,6 @@ const MIN_NAME_LENGTH = 12;
 const MIN_PASSWORD_LENGTH = 6;
 const regexEmail = /\S+@\S+\.\S+/;
 const SUCCESSFULL_STATUS = 201;
-const REACT_DEFAULT_PORT = 3001;
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -16,7 +15,7 @@ export default function Register() {
   const [isActiveButton, setIsActiveButton] = useState(true);
   const [existantUser, setExistantUser] = useState(false);
   const history = useHistory();
-  const PATH = `http://localhost:${process.env.PORT || REACT_DEFAULT_PORT}`;
+  const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
   useEffect(() => {
     const validName = name.length >= MIN_NAME_LENGTH;
