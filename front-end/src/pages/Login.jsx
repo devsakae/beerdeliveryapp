@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isActiveButton, setIsActiveButton] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
 
   function handleButton() {
     const NUMBER_MIN = 5;
@@ -35,12 +37,14 @@ function Login() {
       mode: 'no-cors',
     })
       .then((response) => {
-        console.log(response.data);
+        if (response.data === 'OK') setIsLogged(true);
       })
       .catch((error) => {
         console.log(error);
       });
   }
+
+  if (isLogged) return <Redirect to="/customer/products" />;
 
   return (
     <div className="Login">

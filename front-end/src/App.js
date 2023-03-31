@@ -7,12 +7,14 @@ import {
   Redirect,
 } from 'react-router-dom';
 import Login from './pages/Login';
+import CustomerProducts from './pages/CustomerProducts';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/login" component={ Login } />
+        <Route exact path="/customer/products" component={ CustomerProducts } />
         <Route exact path="/" render={ () => <Redirect to="/login" /> } />
       </Switch>
     </BrowserRouter>
