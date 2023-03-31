@@ -14,8 +14,7 @@ const createProduct = async (req, res, next) => {
 
 const getAllProducts = async (req, res, next) => {
    try {
-    const { body } = req;
-    const products = await ProductService.getAllProducts(body);
+    const products = await ProductService.getAllProducts();
     if (!products) return res.status(404).json({ message: 'Not Found' });
     return res.status(200).json(products);
    } catch (error) {
