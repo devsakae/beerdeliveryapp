@@ -1,13 +1,12 @@
 import React from 'react';
 import {
   BrowserRouter, Redirect, Route,
-  Switch,
+  Switch
 } from 'react-router-dom';
 
 import Register from './Components/RegisterBox';
-import Vazio from './Components/Vazio';
-import Login from './pages/Login';
 import CustomerProducts from './pages/CustomerProducts';
+import Login from './pages/Login';
 
 function App() {
   return (
