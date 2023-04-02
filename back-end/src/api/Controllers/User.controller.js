@@ -1,7 +1,7 @@
 const md5 = require('md5');
 const { UserService } = require('../Services');
 
-const Login = async (req, res) => {
+const Login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const userFound = await UserService.findUserByEmail(email);
@@ -11,7 +11,7 @@ const Login = async (req, res) => {
     }
     return res.status(200).json('OK');
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return next(error);
   }
 };
 
