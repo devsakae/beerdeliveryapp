@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { removeKeyFromLocalStorage } from '../services/localStorage';
+import { getFromLocalStorage, removeKeyFromLocalStorage } from '../services/localStorage';
 
 export default function Header() {
+  const { name } = getFromLocalStorage('user');
   return (
     <nav>
       <Link
@@ -18,12 +19,12 @@ export default function Header() {
         Meus Pedidos
       </Link>
       <div data-testid="customer_products__element-navbar-user-full-name">
-        Fulano Bezerra
+        { name }
       </div>
       <Link
         to="/"
         data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => removeKeyFromLocalStorage('fazo4_user') }
+        onClick={ () => removeKeyFromLocalStorage('user') }
       >
         Sair
       </Link>
