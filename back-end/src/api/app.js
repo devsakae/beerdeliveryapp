@@ -17,11 +17,13 @@ app.use('/register', NewUserRouter);
 // Rota de customers
 app.use('/products', CustomerRouter);
 
-app.get('rodrigo', (req, res) => res.status(200).json({ message: 'Olá' }))
+app.get('rodrigo', (req, res) => res.status(200).json({ message: 'Olá' }));
 
 // Middleware de erro (!! pode ser melhor trabalhado em outro arquivo !!)
 app.use((error, _req, res, _next) => {
-  if (error.message === 'EXISTANT_USER') return res.send(409);
+  if (error.message === 'INVALID_CREDENTIAL') return res.status(401).json({ error: error.message });
+  if (error.message === 'USER_NOT_FOUND') return res.status(404).json({ error: error.message });
+  if (error.message === 'EXISTANT_USER') return res.status(409).json({ error: error.message });
   return res.status(500).json({ error: error.message });
 });
 

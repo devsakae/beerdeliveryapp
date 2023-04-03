@@ -1,59 +1,55 @@
-import React, { useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { saveToLocalStorage } from '../services/localStorage';
+import style from './User.module.css';
+
+const MIN_PASSWORD_LENGTH = 6;
+const regexEmail = /\S+@\S+\.\S+/;
+const SUCCESSFULL_STATUS = 200;
+const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isActiveButton, setIsActiveButton] = useState(true);
-  const [isLogged, setIsLogged] = useState(false);
-
+  const [invalidUser, setInvalidUser] = useState(false);
   const history = useHistory();
 
-  function handleButton() {
-    const NUMBER_MIN = 5;
-    const regexEmail = /\S+@\S+\.\S+/;
+  useEffect(() => {
     const validEmail = regexEmail.test(email);
-    const validPassword = password.length >= NUMBER_MIN;
+    const validPassword = password.length >= MIN_PASSWORD_LENGTH;
     const validData = (!validEmail || !validPassword);
     setIsActiveButton(validData);
-  }
+  }, [email, password]);
 
-  function handleEmailChange(event) {
-    setEmail(event.target.value);
-    handleButton();
-  }
-
-  function handlePasswordChange(event) {
-    setPassword(event.target.value);
-    handleButton();
-  }
-
-  function handleRegisterClick() {
-    history.push('/register');
-  }
-
-  function handleSubmit(event) {
+  const handleEmailChange = (event) => setEmail(event.target.value);
+  const handlePasswordChange = (event) => setPassword(event.target.value);
+  const handleSubmit = (event) => {
     event.preventDefault();
-
-    axios.post('http://localhost:3001/login', {
+    setInvalidUser(false);
+    axios.post(`${PATH}/login`, {
       email,
       password,
     }, {
       mode: 'no-cors',
     })
       .then((response) => {
-        if (response.data === 'OK') setIsLogged(true);
+        if (response.status === SUCCESSFULL_STATUS) {
+          saveToLocalStorage('fazo4_user', response.data);
+          history.push('/customer/products');
+        }
       })
       .catch((error) => {
+        setInvalidUser(true);
+        setEmail('');
+        setPassword('');
         console.log(error);
       });
-  }
-
-  if (isLogged) return <Redirect to="/customer/products" />;
+  };
 
   return (
-    <div className="Login">
+    <div className={ style.userBox }>
       <form onSubmit={ handleSubmit }>
         <label htmlFor="email">
           Login:
@@ -85,14 +81,17 @@ function Login() {
         <button
           type="submit"
           data-testid="common_login__button-register"
-          onClick={ handleRegisterClick }
+          onClick={ () => history.push('/register') }
         >
           Ainda não tenho conta
         </button>
-        <span
+        <div
           id="error-msg"
           data-testid="common_login__element-invalid-email"
-        />
+          hidden={ !invalidUser }
+        >
+          Favor verificar sua conta
+        </div>
       </form>
     </div>
   );

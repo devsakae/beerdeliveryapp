@@ -1,7 +1,16 @@
+const md5 = require('md5');
 const { Op } = require('sequelize');
 const { User } = require('../../database/models');
+const { createToken } = require('../Utils/Jwt');
 
-const findUserByEmail = async (email) => User.findOne({ where: { email } });
+const findUserByEmail = async (userData) => {
+  const response = await User.findOne({ where: { email: userData.email } });
+  if (!response) throw new Error('USER_NOT_FOUND');
+  if (md5(userData.password) !== response.password) throw new Error('INVALID_CREDENTIAL');
+  const { id, name, email, role } = response;
+  const token = createToken({ id, name, email, role });
+  return { name, email, role, token };
+};
 
 const createUser = async (payload) => {
   // Verifica se usuário já existe (nome e email - req 10)
@@ -17,8 +26,9 @@ const createUser = async (payload) => {
   // Manipula o objeto de criação para inserir o role padrão
   const newuser = { ...payload, role: 'customer' };
   const response = await User.create(newuser);
-  // if (!response) throw new Error('CREATE_USER_ERROR');
-  return response.id;
+  const { id, name, email, role } = response;
+  const token = createToken({ id, name, email, role });
+  return { name, email, role, token };
 };
 
 module.exports = { findUserByEmail, createUser };
