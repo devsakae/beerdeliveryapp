@@ -98,13 +98,13 @@ export default function Register() {
         >
           Já tenho cadastro
         </button>
-        <span
+        <div
           id="error-msg"
           data-testid="common_register__element-invalid_register"
           hidden={ !existantUser }
         >
           Favor verificar sua conta
-        </span>
+        </div>
       </form>
     </div>
   );

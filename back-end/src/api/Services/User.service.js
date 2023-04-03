@@ -6,7 +6,7 @@ const { createToken } = require('../Utils/Jwt');
 const findUserByEmail = async (userData) => {
   const response = await User.findOne({ where: { email: userData.email } });
   if (!response) throw new Error('USER_NOT_FOUND');
-  if (md5(userData.password) !== response.password) throw new Error('INVALID_CREDENTIALS');
+  if (md5(userData.password) !== response.password) throw new Error('INVALID_CREDENTIAL');
   const { id, name, email, role } = response;
   const token = createToken({ id, name, email, role });
   return { name, email, role, token };

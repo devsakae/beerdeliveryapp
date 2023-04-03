@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   BrowserRouter, Redirect, Route,
-  Switch,
+  Switch
 } from 'react-router-dom';
 
 import Checkout from './pages/Checkout';
