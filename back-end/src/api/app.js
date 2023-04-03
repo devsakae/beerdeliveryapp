@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { UserRouter, NewUserRouter, CustomerRouter } = require('./Routes');
+const { UserRouter, NewUserRouter, CustomerRouter, SaleRouter } = require('./Routes');
 
 const app = express();
 
@@ -16,12 +16,16 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 app.use('/login', UserRouter);
 // Rota de cadastro de usuários
 app.use('/register', NewUserRouter);
-// Rota de customers
-app.use('/customer', CustomerRouter);
+// Rota de clientes
+app.use('/products', CustomerRouter);
+// Rota de vendas
+app.use('/sales', SaleRouter);
 
 // Middleware de erro (!! pode ser melhor trabalhado em outro arquivo !!)
 app.use((error, _req, res, _next) => {
-  if (error.message === 'EXISTANT_USER') return res.send(409);
+  if (error.message === 'INVALID_CREDENTIAL') return res.status(401).json({ error: error.message });
+  if (error.message === 'USER_NOT_FOUND') return res.status(404).json({ error: error.message });
+  if (error.message === 'EXISTANT_USER') return res.status(409).json({ error: error.message });
   return res.status(500).json({ error: error.message });
 });
 

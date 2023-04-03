@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { removeKeyFromLocalStorage } from '../services/localStorage';
 
 export default function Header() {
   return (
@@ -22,6 +23,7 @@ export default function Header() {
       <Link
         to="/"
         data-testid="customer_products__element-navbar-link-logout"
+        onClick={ () => removeKeyFromLocalStorage('fazo4_user') }
       >
         Sair
       </Link>

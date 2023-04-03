@@ -1,17 +1,12 @@
 const md5 = require('md5');
 const { UserService } = require('../Services');
 
-const Login = async (req, res) => {
+const Login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const userFound = await UserService.findUserByEmail(email);
-    if (!userFound) return res.status(404).json({ message: 'Not found' });
-    if (md5(password) !== userFound.password) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-    return res.status(200).json('OK');
+    const response = await UserService.findUserByEmail(req.body);
+    return res.status(200).json(response);
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return next(error);
   }
 };
 
@@ -22,7 +17,7 @@ const createUser = async (req, res, next) => {
     const user = await UserService.createUser(payload);
     return res.status(201).json(user);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
