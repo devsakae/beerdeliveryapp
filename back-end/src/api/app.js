@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { UserRouter, NewUserRouter, CustomerRouter } = require('./Routes');
+const { UserRouter, NewUserRouter, CustomerRouter, SaleRouter } = require('./Routes');
 
 const app = express();
 
@@ -14,10 +14,10 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 app.use('/login', UserRouter);
 // Rota de cadastro de usuários
 app.use('/register', NewUserRouter);
-// Rota de customers
+// Rota de clientes
 app.use('/products', CustomerRouter);
-
-app.get('rodrigo', (req, res) => res.status(200).json({ message: 'Olá' }));
+// Rota de vendas
+app.use('/sales', SaleRouter);
 
 // Middleware de erro (!! pode ser melhor trabalhado em outro arquivo !!)
 app.use((error, _req, res, _next) => {

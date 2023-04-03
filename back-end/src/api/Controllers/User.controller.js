@@ -6,7 +6,7 @@ const Login = async (req, res, next) => {
     const response = await UserService.findUserByEmail(req.body);
     return res.status(200).json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -17,7 +17,7 @@ const createUser = async (req, res, next) => {
     const user = await UserService.createUser(payload);
     return res.status(201).json(user);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
