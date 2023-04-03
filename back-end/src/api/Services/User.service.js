@@ -9,7 +9,7 @@ const findUserByEmail = async (userData) => {
   if (md5(userData.password) !== response.password) throw new Error('INVALID_CREDENTIALS');
   const { id, name, email, role } = response;
   const token = createToken({ id, name, email, role });
-  return { token };
+  return { name, email, role, token };
 }
 
 const createUser = async (payload) => {
@@ -28,7 +28,7 @@ const createUser = async (payload) => {
   const response = await User.create(newuser);
   const { id, name, email, role } = response;
   const token = createToken({ id, name, email, role });
-  return { token };
+  return { name, email, role, token };
 };
 
 module.exports = { findUserByEmail, createUser };

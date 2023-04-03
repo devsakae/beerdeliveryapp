@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { saveToLocalStorage } from '../services/localStorage';
 import style from './User.module.css';
 
 const MIN_NAME_LENGTH = 12;
@@ -39,7 +40,10 @@ export default function Register() {
       mode: 'no-cors',
     })
       .then((response) => {
-        if (response.status === SUCCESSFULL_STATUS) history.push('/customer/products');
+        if (response.status === SUCCESSFULL_STATUS) {
+          saveToLocalStorage('fazo4_user', response.data);
+          history.push('/customer/products');
+        } 
       })
       .catch((error) => {
         setExistantUser(true);
@@ -94,16 +98,13 @@ export default function Register() {
         >
           Já tenho cadastro
         </button>
-        { existantUser
-          && (
-            <span
-              id="error-msg"
-              data-testid="common_register__element-invalid_register"
-              hidden={ !existantUser }
-            >
-              Favor verificar sua conta
-            </span>
-          )}
+        <span
+          id="error-msg"
+          data-testid="common_register__element-invalid_register"
+          hidden={ !existantUser }
+        >
+          Favor verificar sua conta
+        </span>
       </form>
     </div>
   );
