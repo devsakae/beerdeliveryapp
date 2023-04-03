@@ -8,6 +8,8 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use('/images', express.static('./src/images'));
+
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 // Rota de login de usuários
