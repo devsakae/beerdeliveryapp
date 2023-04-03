@@ -15,6 +15,7 @@ function Login() {
   const [isActiveButton, setIsActiveButton] = useState(true);
   const [invalidUser, setInvalidUser] = useState(false);
   const history = useHistory();
+  let goto = '/customer/products';
 
   useEffect(() => {
     const validEmail = regexEmail.test(email);
@@ -37,7 +38,8 @@ function Login() {
       .then((response) => {
         if (response.status === SUCCESSFULL_STATUS) {
           saveToLocalStorage('user', response.data);
-          history.push('/customer/products');
+          if (response.data.role === 'administrator') goto = '/admin/manage';
+          history.push(goto);
         }
       })
       .catch((error) => {
