@@ -1,7 +1,7 @@
 const md5 = require('md5');
 const { Op } = require('sequelize');
 const { User } = require('../../database/models');
-const { createToken } = require('../Utils/jwt');
+const { createToken } = require('../Utils/Jwt');
 
 const findUserByEmail = async (userData) => {
   const response = await User.findOne({ where: { email: userData.email } });
@@ -10,7 +10,7 @@ const findUserByEmail = async (userData) => {
   const { id, name, email, role } = response;
   const token = createToken({ id, name, email, role });
   return { name, email, role, token };
-}
+};
 
 const createUser = async (payload) => {
   // Verifica se usuário já existe (nome e email - req 10)

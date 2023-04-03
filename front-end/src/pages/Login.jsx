@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { saveToLocalStorage } from '../services/localStorage';
 import style from './User.module.css';
 
-const MIN_PASSWORD_LENGTH = 5;
+const MIN_PASSWORD_LENGTH = 6;
 const regexEmail = /\S+@\S+\.\S+/;
 const SUCCESSFULL_STATUS = 200;
 const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
@@ -15,7 +15,7 @@ function Login() {
   const [isActiveButton, setIsActiveButton] = useState(true);
   const [invalidUser, setInvalidUser] = useState(false);
   const history = useHistory();
-  
+
   useEffect(() => {
     const validEmail = regexEmail.test(email);
     const validPassword = password.length >= MIN_PASSWORD_LENGTH;
@@ -42,9 +42,11 @@ function Login() {
       })
       .catch((error) => {
         setInvalidUser(true);
+        setEmail('');
+        setPassword('');
         console.log(error);
       });
-  }
+  };
 
   return (
     <div className={ style.userBox }>
@@ -83,13 +85,13 @@ function Login() {
         >
           Ainda não tenho conta
         </button>
-        <span
+        <div
           id="error-msg"
           data-testid="common_login__element-invalid-email"
           hidden={ !invalidUser }
         >
           Favor verificar sua conta
-        </span>
+        </div>
       </form>
     </div>
   );

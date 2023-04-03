@@ -1,7 +1,7 @@
 const md5 = require('md5');
 const { UserService } = require('../Services');
 
-const Login = async (req, res) => {
+const Login = async (req, res, next) => {
   try {
     const response = await UserService.findUserByEmail(req.body);
     return res.status(200).json(response);

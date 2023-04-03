@@ -43,7 +43,7 @@ export default function Register() {
         if (response.status === SUCCESSFULL_STATUS) {
           saveToLocalStorage('fazo4_user', response.data);
           history.push('/customer/products');
-        } 
+        }
       })
       .catch((error) => {
         setExistantUser(true);
