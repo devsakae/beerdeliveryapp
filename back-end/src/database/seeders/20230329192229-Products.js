@@ -1,3 +1,5 @@
+'use strict';
+
 const seed = [{
   id: 1,
   name: 'Skol Lata 250ml',
