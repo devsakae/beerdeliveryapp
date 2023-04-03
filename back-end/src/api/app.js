@@ -8,6 +8,8 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use('/images', express.static('./src/images'));
+
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 // Rota de login de usuários
@@ -15,9 +17,7 @@ app.use('/login', UserRouter);
 // Rota de cadastro de usuários
 app.use('/register', NewUserRouter);
 // Rota de customers
-app.use('/products', CustomerRouter);
-
-app.get('rodrigo', (req, res) => res.status(200).json({ message: 'Olá' }))
+app.use('/customer', CustomerRouter);
 
 // Middleware de erro (!! pode ser melhor trabalhado em outro arquivo !!)
 app.use((error, _req, res, _next) => {
