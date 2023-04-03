@@ -30,8 +30,8 @@ export default function Register() {
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
   const handleSubmit = (event) => {
-    setExistantUser(false);
     event.preventDefault();
+    setExistantUser(false);
     axios.post(`${PATH}/register`, {
       name,
       email,
