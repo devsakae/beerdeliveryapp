@@ -3,7 +3,7 @@ const { ProductController } = require('../Controllers');
 
 const CustomerRouter = Router();
 
-CustomerRouter.get('/products', ProductController.getAllProducts);
-CustomerRouter.post('/products', ProductController.createProduct);
+CustomerRouter.get('/', ProductController.getAllProducts);
+CustomerRouter.post('/', ProductController.createProduct);
 
 module.exports = CustomerRouter;
