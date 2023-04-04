@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import style from './AddUser.module.css';
+import './AddUser.css';
 
 const MIN_NAME_LENGTH = 12;
 const MIN_PASSWORD_LENGTH = 6;
@@ -24,13 +24,18 @@ export default function AddUser() {
     setIsActiveButton(validData);
   }, [name, email, password]);
 
+  const clearInputs = () => {
+    setEmail('');
+    setName('');
+    setPassword('');
+  };
   const handleNameChange = (event) => setName(event.target.value);
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
   const handleRoleChange = (event) => setRole(event.target.value);
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post(`${PATH}/register`, {
+    axios.post(`${PATH}/admin/newuser`, {
       name,
       email,
       password,
@@ -40,29 +45,33 @@ export default function AddUser() {
     })
       .then((response) => {
         if (response.status === SUCCESSFULL_STATUS) {
-          setError('Usuário criado com sucesso');
+          setError('Usuário criado com sucesso!');
+          setTimeout(() => setError(''), 3000);
         }
       })
       .catch((err) => {
         setError(err.message);
-      });
+      })
+      .finally(() => clearInputs());
   };
 
   return (
-    <section className={ style.container }>
+    <section>
       <div
+        className="messagebox"
         data-testid="admin_manage__element-invalid-register"
         hidden={ !error }
       >
         { error }
       </div>
       <h2>Cadastrar novo usuário</h2>
-      <form className={ style.row }>
+      <form className="addNewUser">
         <label htmlFor="nome">
           <input
             type="text"
             id="nome"
             name="nome"
+            value={ name }
             placeholder="Nome e sobrenome"
             data-testid="admin_manage__input-name"
             onChange={ handleNameChange }
@@ -73,6 +82,7 @@ export default function AddUser() {
             type="email"
             id="email"
             name="email"
+            value={ email }
             placeholder="endereço@email.com"
             data-testid="admin_manage__input-email"
             onChange={ handleEmailChange }
@@ -83,6 +93,7 @@ export default function AddUser() {
             type="password"
             id="password"
             name="password"
+            value={ password }
             placeholder="Password"
             data-testid="admin_manage__input-password"
             onChange={ handlePasswordChange }
