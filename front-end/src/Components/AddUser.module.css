@@ -1,8 +1,29 @@
-section {
+.container {
   align-items: center;
+  background-color: antiquewhite;
+  margin: 0 auto;
+  padding: 5px;
+  width: 95vw;
 }
 
-form {
+.row {
+  align-items: center;
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+input {
+  height: 25px;
+  min-width: 50px;
+}
+
+option, select, button {
+  height: 30px;
+  width: 120px;
+}
+
+button:enabled {
+  background-color: darkolivegreen;
+  color: white;
 }

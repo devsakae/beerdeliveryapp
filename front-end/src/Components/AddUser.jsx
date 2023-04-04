@@ -49,7 +49,7 @@ export default function AddUser() {
   };
 
   return (
-    <section className={ style }>
+    <section className={ style.container }>
       <div
         data-testid="admin_manage__element-invalid-register"
         hidden={ !error }
@@ -57,7 +57,7 @@ export default function AddUser() {
         { error }
       </div>
       <h2>Cadastrar novo usuário</h2>
-      <form>
+      <form className={ style.row }>
         <label htmlFor="nome">
           <input
             type="text"
