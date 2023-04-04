@@ -6,6 +6,7 @@ const MIN_NAME_LENGTH = 12;
 const MIN_PASSWORD_LENGTH = 6;
 const regexEmail = /\S+@\S+\.\S+/;
 const SUCCESSFULL_STATUS = 201;
+const THREE_SECONDS_IN_MS = 3000;
 
 export default function AddUser() {
   const [name, setName] = useState('');
@@ -46,7 +47,7 @@ export default function AddUser() {
       .then((response) => {
         if (response.status === SUCCESSFULL_STATUS) {
           setError('Usuário criado com sucesso!');
-          setTimeout(() => setError(''), 3000);
+          setTimeout(() => setError(''), THREE_SECONDS_IN_MS);
         }
       })
       .catch((err) => {

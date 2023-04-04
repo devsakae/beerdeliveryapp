@@ -1,5 +1,6 @@
 const md5 = require('md5');
 const { UserService } = require('../Services');
+
 const hashPassword = (data) => md5(data);
 
 const Login = async (req, res, next) => {
