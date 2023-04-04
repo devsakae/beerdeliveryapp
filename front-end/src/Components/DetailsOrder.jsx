@@ -1,39 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { requestRole } from '../services/request';
 
 export default function DetailsOrder() {
   const [seller, setSeller] = useState('');
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
-
-  function handleSellerChange({ target }) {
-    setSeller(target.value);
-  }
-
-  function handleAddressChange({ target }) {
-    setAddress(target.value);
-  }
-
-  function handleNumberChange({ target }) {
-    setNumber(target.value);
-  }
+  const [listSellers, setListSellers] = useState([]);
 
   function handleSubmit(event) {
     event.preventDefault();
-
-    console.log();
-    // axios.post('http://localhost:3001/login', {
-    //   email,
-    //   password,
-    // }, {
-    //   mode: 'no-cors',
-    // })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   }
+
+  useEffect(() => {
+    try {
+      const getRole = async () => {
+        const list = await requestRole('/login/role');
+        setListSellers(list);
+      }; getRole();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <div>
@@ -41,14 +28,18 @@ export default function DetailsOrder() {
       <form onSubmit={ handleSubmit }>
         <label htmlFor="seller">
           P. Vendedora Responsável:
-          <input
-            type="text"
-            id="seller"
+          <select
+            onChange={ ({ target: { value } }) => setSeller(value) }
+            data-testid="customer_checkout__select-seller"
             name="seller"
             value={ seller }
-            onChange={ handleSellerChange }
-            data-testid="customer_checkout__select-seller"
-          />
+          >
+            {listSellers.length > 0 && (
+              listSellers.map((s, i) => (
+                <option key={ `${s.name}-${i}` }>{s.name}</option>
+              ))
+            )}
+          </select>
         </label>
         <label htmlFor="address">
           Endereço:
@@ -57,7 +48,7 @@ export default function DetailsOrder() {
             id="address"
             name="address"
             value={ address }
-            onChange={ handleAddressChange }
+            onChange={ ({ target: { value } }) => setAddress(value) }
             data-testid="customer_checkout__input-address"
           />
         </label>
@@ -68,7 +59,7 @@ export default function DetailsOrder() {
             id="number"
             name="number"
             value={ number }
-            onChange={ handleNumberChange }
+            onChange={ ({ target: { value } }) => setNumber(value) }
             data-testid="customer_checkout__input-address-number"
           />
         </label>

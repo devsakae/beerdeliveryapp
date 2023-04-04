@@ -68,7 +68,7 @@ export default function TableOrder({
 }
 
 TableOrder.propTypes = {
-  orderItens: arrayOf(shape).isRequired,
-  total: number.isRequired,
-  deleteItem: func.isRequired,
-};
+  orderItens: arrayOf(shape),
+  total: number,
+  deleteItem: func,
+}.isRequired;

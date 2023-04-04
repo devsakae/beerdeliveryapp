@@ -4,4 +4,10 @@ const CustomerRouter = require('./Customer.routes');
 const SaleRouter = require('./Sale.routes');
 const AdminRouter = require('./Admin.routes');
 
-module.exports = { UserRouter, NewUserRouter, CustomerRouter, SaleRouter, AdminRouter };
+module.exports = {
+  UserRouter,
+  NewUserRouter,
+  CustomerRouter,
+  SaleRouter,
+  AdminRouter,
+};
