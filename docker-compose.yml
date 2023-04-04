@@ -5,7 +5,7 @@ services:
     container_name: fazo4-db
     platform: linux/x86_64
     ports:
-      - 3002:3306
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=senhaDoDB
     restart: 'always'

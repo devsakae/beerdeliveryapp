@@ -2,42 +2,50 @@ import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
 
 function Products() {
-  // const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
     async function fetchProducts() {
-      const response = await fetch('http://localhost:3001/customer/products');
+      const response = await fetch('http://localhost:3001/products');
       const data = await response.json();
       const initCart = data.map((p) => ({ quantity: 0, item: { ...p } }));
-      // setProducts(data);
       setCart(initCart);
     }
 
     fetchProducts();
   }, []);
 
-  // const updateTotal = () => {
-
-  // };
-
   const addItem = (prod) => {
     const prodIndex = cart.findIndex(({ item }) => item.id === prod.item.id);
     const newCart = [...cart];
-    // console.log('prodIndex: ', prodIndex);
     newCart[prodIndex].quantity += 1;
     setCart(newCart);
     const newAmount = +newCart[prodIndex].item.price;
     setTotal(total + newAmount);
   };
 
-  const removeItem = () => {
-
+  const removeItem = (prod) => {
+    const prodIndex = cart.findIndex(({ item }) => item.id === prod.item.id);
+    const newCart = [...cart];
+    if (newCart[prodIndex].quantity > 0) {
+      newCart[prodIndex].quantity -= 1;
+      setCart(newCart);
+      const newAmount = +newCart[prodIndex].item.price;
+      setTotal(total - newAmount);
+    }
   };
 
-  const handleQuantityChange = ({ target }) => {
-    setQuantity(target.value);
+  const handleQuantityChange = (evt, prod) => {
+    const prodIndex = cart.findIndex(({ item }) => item.id === prod.item.id);
+    const newCart = [...cart];
+    newCart[prodIndex].quantity = +evt.target.value;
+    setCart(newCart);
+    let newTotal = 0;
+    for (let i = 0; i < newCart.length; i += 1) {
+      newTotal += newCart[i].quantity * newCart[i].item.price;
+    }
+    setTotal(newTotal);
   };
 
   return (
@@ -50,7 +58,11 @@ function Products() {
         <span
           data-testid="customer_products__checkout-bottom-value"
         >
-          { `Ver Carrinho: R$ ${total.toFixed(2)}` }
+          { new Intl.NumberFormat('pt-br', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+            .format(total) }
         </span>
       </button>
       <div>
@@ -77,20 +89,20 @@ function Products() {
                 <p
                   data-testid={ `customer_products__element-card-title-${prod.item.id}` }
                 >
-                  { prod.name }
+                  { prod.item.name }
                 </p>
                 <button
                   type="button"
                   data-testid={ `customer_products__button-card-rm-item-${prod.item.id}` }
-                  onClick={ removeItem }
+                  onClick={ () => removeItem(prod) }
                 >
                   -
                 </button>
                 <input
-                  type="number"
+                  type="text"
                   value={ prod.quantity }
                   data-testid={ `customer_products__input-card-quantity-${prod.item.id}` }
-                  onChange={ handleQuantityChange }
+                  onChange={ (evt) => handleQuantityChange(evt, prod) }
                 />
                 <button
                   type="button"
