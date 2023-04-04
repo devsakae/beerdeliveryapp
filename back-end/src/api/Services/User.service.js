@@ -23,8 +23,8 @@ const createUser = async (payload) => {
     },
   });
   if (check) throw new Error('EXISTANT_USER');
-  // Manipula o objeto de criação para inserir o role padrão
-  const newuser = { ...payload, role: 'customer' };
+  // Manipula o objeto de criação para inserir o role padrão, caso não seja especificado
+  const newuser = { role: 'customer', ...payload };
   const response = await User.create(newuser);
   const { id, name, email, role } = response;
   const token = createToken({ id, name, email, role });

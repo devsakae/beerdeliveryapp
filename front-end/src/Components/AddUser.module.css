@@ -1,0 +1,8 @@
+section {
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+}

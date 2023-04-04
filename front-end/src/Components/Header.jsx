@@ -1,33 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getFromLocalStorage, removeKeyFromLocalStorage } from '../services/localStorage';
+import {
+  getFromLocalStorage,
+  removeKeyFromLocalStorage,
+} from '../services/localStorage';
+import style from './Header.module.css';
+import MenuAdmin from './MenuAdmin';
+import MenuCustomer from './MenuCustomer';
+import MenuSeller from './MenuSeller';
 
 export default function Header() {
-  const { name } = getFromLocalStorage('user');
+  const { name, role } = getFromLocalStorage('user');
+  const userIsAdmin = role === 'administrator';
+  const userIsSeller = role === 'seller';
+  const userIsCustomer = role === 'customer';
   return (
-    <nav>
-      <Link
-        to="/customer/products"
-        data-testid="customer_products__element-navbar-link-products"
-      >
-        Produtos
-      </Link>
-      <Link
-        to="/customer/orders"
-        data-testid="customer_products__element-navbar-link-orders"
-      >
-        Meus Pedidos
-      </Link>
-      <div data-testid="customer_products__element-navbar-user-full-name">
-        { name }
-      </div>
-      <Link
-        to="/"
-        data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => removeKeyFromLocalStorage('user') }
-      >
-        Sair
-      </Link>
-    </nav>
+    <header>
+      <nav className={ style }>
+        <div>
+          { userIsAdmin && <MenuAdmin /> }
+          { userIsSeller && <MenuSeller /> }
+          { userIsCustomer && <MenuCustomer /> }
+        </div>
+        <div
+          data-testid="customer_products__element-navbar-user-full-name"
+        >
+          {name}
+        </div>
+        <div>
+          <Link
+            to="/"
+            data-testid="customer_products__element-navbar-link-logout"
+            onClick={ () => removeKeyFromLocalStorage('user') }
+          >
+            Sair
+          </Link>
+        </div>
+      </nav>
+    </header>
   );
 }
