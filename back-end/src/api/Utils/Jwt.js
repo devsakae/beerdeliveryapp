@@ -1,13 +1,19 @@
 const jwt = require('jsonwebtoken');
 require('dotenv/config');
-// Como pegar do arquivo .key? A princípio setado para pegar do .env
-// const secret = require('../../../jwt.evaluation.key');
-const jwtKey = process.env.JWT_SECRET || 'secret_key';
-// const jwtKey = require("fs")
-//   .readFileSync("./back-end/jwt.evaluation.key", { encoding: "utf-8" });
+
+// const jwtKey = process.env.JWT_SECRET || 'secret_key';
+const fs = require('fs');
+const path = require('path');
+
+const getKey = path.join(__dirname, '..', '..', '..', 'jwt.evaluation.key');
+const jwtKey = () => {
+  const data = fs.readFileSync(getKey, 'utf-8');
+  return data;
+};
+const myKey = jwtKey();
 
 const createToken = (payload) => {
-  const token = jwt.sign(payload, jwtKey, { algorithm: 'HS256', expiresIn: '7d' });
+  const token = jwt.sign(payload, myKey, { algorithm: 'HS256', expiresIn: '7d' });
   return token;
 };
 
