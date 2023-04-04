@@ -1,6 +1,8 @@
 const md5 = require('md5');
 const { UserService } = require('../Services');
 
+const hashPassword = (data) => md5(data);
+
 const Login = async (req, res, next) => {
   try {
     const response = await UserService.findUserByEmail(req.body);
@@ -12,7 +14,19 @@ const Login = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
   try {
-    const password = md5(req.body.password);
+    const password = hashPassword(req.body.password);
+    const { name, email } = req.body;
+    const payload = { name, email, password };
+    const user = await UserService.createUser(payload);
+    return res.status(201).json(user);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const addNewUser = async (req, res, next) => {
+  try {
+    const password = hashPassword(req.body.password);
     const payload = { ...req.body, password };
     const user = await UserService.createUser(payload);
     return res.status(201).json(user);
@@ -21,4 +35,4 @@ const createUser = async (req, res, next) => {
   }
 };
 
-module.exports = { Login, createUser };
+module.exports = { Login, createUser, addNewUser };
