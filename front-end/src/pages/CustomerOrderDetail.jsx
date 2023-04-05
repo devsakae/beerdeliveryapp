@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import CustomerOrderDetailRow from '../Components/CustomerOrderDetailRow';
 import Header from '../Components/Header';
 
@@ -6,7 +6,6 @@ const { useParams } = require('react-router-dom');
 
 function CustomerOrderDetail() {
   const { id } = useParams();
-  const [total, setTotal] = useState(0);
   // const [order, setOrder] = useState({});
   // const [orderItems, setOrderItems] = useState([]);
 
@@ -14,7 +13,16 @@ function CustomerOrderDetail() {
 
   const orderItems = [ // mock
     {
+      // Seller
+      seller: 'Vendedor 1',
+
+      // Sale
       id: 1,
+      saleDate: '12/12/24',
+      status: 'Entregue',
+      total: 20,
+
+      // sale_product -> Product
       name: 'Item 1',
       price: 10,
       quantity: 2,
@@ -29,8 +37,6 @@ function CustomerOrderDetail() {
     //   setOrderItems(order.orderItems);
     // };
     // fetchOrder();
-    // setTotal(orderItems.reduce((acc, { subtotal }) => acc + subtotal, 0));
-    setTotal(1);
   }, [id]);
 
   return (
@@ -42,22 +48,22 @@ function CustomerOrderDetail() {
             <td
               data-testid={ `${prefix}_element-order-details-label-order-id` }
             >
-              Pedido 0001
+              { orderItems[0].id }
             </td>
             <td
               data-testid={ `${prefix}_element-order-details-label-seller-name` }
             >
-              Nome Vendedor
+              { orderItems[0].seller }
             </td>
             <td
               data-testid={ `${prefix}_element-order-details-label-order-date` }
             >
-              12/12/24
+              { orderItems[0].saleDate }
             </td>
             <td
               data-testid={ `${prefix}_element-order-details-label-delivery-status${id}` }
             >
-              Entregue
+              { orderItems[0].status }
             </td>
           </tr>
         </tbody>
@@ -85,7 +91,7 @@ function CustomerOrderDetail() {
       <span
         data-testid="customer_order_details__element-order-total-price"
       >
-        {total}
+        { orderItems[0].total }
       </span>
     </div>
   );
