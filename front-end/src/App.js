@@ -13,7 +13,6 @@ import Register from './pages/Register';
 import CustomerOrderDetail from './pages/CustomerOrderDetail';
 import SellerOrders from './pages/SellerOrders';
 
-
 function App() {
   return (
     <BrowserRouter>
