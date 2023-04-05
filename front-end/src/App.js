@@ -19,11 +19,11 @@ function App() {
         <Route exact path="/login" component={ Login } />
         <Route exact path="/register" component={ Register } />
         {/* <AdminProvider> */}
-          <CartProvider>
-            <Route exact path="/admin/manage" component={ Admin } />
-            <Route exact path="/customer/checkout" component={ Checkout } />
-            <Route exact path="/customer/products" component={ Products } />
-          </CartProvider>
+        <CartProvider>
+          <Route exact path="/admin/manage" component={ Admin } />
+          <Route exact path="/customer/checkout" component={ Checkout } />
+          <Route exact path="/customer/products" component={ Products } />
+        </CartProvider>
         {/* </AdminProvider> */}
       </Switch>
     </BrowserRouter>

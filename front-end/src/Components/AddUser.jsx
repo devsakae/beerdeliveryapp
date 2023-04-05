@@ -45,8 +45,8 @@ export default function AddUser() {
       role,
     }, {
       headers: {
-        'Authorization': userData.token,
-      }
+        Authorization: userData.token,
+      },
     }, {
       mode: 'no-cors',
     })

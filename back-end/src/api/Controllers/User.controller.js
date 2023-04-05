@@ -36,9 +36,7 @@ const createUser = async (req, res, next) => {
 
 const addNewUser = async (req, res, next) => {
   try {
-    console.log('entrou no controller');
     validateToken(req.headers.authorization);
-    console.log('passou do validate');
     const password = hashPassword(req.body.password);
     const payload = { ...req.body, password };
     const user = await UserService.createUser(payload);
