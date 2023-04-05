@@ -1,4 +1,4 @@
-const { Product } = require('../../database/models');
+const { Product, sequelize } = require('../../database/models');
 // const ErrorNotFound = require('../../middlewares/errors');
 
 const createProduct = async (body) => {
@@ -12,7 +12,21 @@ const getAllProducts = async () => {
   return products;
 };
 
+const getAllBySale = async (id) => {
+  const query = `SELECT id, name, price, url_image 
+  from products as p
+  JOIN sales_products as sp 
+  ON sp.sale_id = ${id}
+  WHERE sp.product_id = p.id 
+  GROUP BY p.id`;
+  const products = await sequelize.query(query, {
+    type: sequelize.QueryTypes.SELECT,
+  });
+  return products;
+};
+
 module.exports = {
   createProduct,
   getAllProducts,
+  getAllBySale,
 };

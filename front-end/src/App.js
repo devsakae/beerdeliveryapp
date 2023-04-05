@@ -11,6 +11,8 @@ import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Products from './pages/Products';
 import Register from './pages/Register';
+import SellersOdersD from './pages/SellerOrderDetails';
+import SellerDetailsProvider from './Context/SellerDetailsProvider';
 
 function App() {
   return (
@@ -26,6 +28,10 @@ function App() {
         <AdminProvider>
           <Route exact path="/admin/manage" component={ Admin } />
         </AdminProvider>
+        <Route exact path="/admin/manage" component={ Admin } />
+        <SellerDetailsProvider>
+          <Route exact path="/seller/orders" component={ SellersOdersD } />
+        </SellerDetailsProvider>
       </Switch>
     </BrowserRouter>
   );

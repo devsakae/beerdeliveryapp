@@ -1,7 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-
-const { UserRouter, NewUserRouter, CustomerRouter, SaleRouter, AdminRouter } = require('./Routes');
+const { 
+  UserRouter, 
+  NewUserRouter, 
+  CustomerRouter, 
+  SaleRouter, 
+  AdminRouter, 
+  SaleProductRouter,
+} = require('./Routes');
 
 const app = express();
 
@@ -23,6 +29,8 @@ app.use('/products', CustomerRouter);
 app.use('/sales', SaleRouter);
 // Painel de admin
 app.use('/admin', AdminRouter);
+
+app.use('/sales_product', SaleProductRouter);
 
 // Middleware de erro (!! pode ser melhor trabalhado em outro arquivo !!)
 app.use((error, _req, res, _next) => {

@@ -22,7 +22,19 @@ const getAllProducts = async (req, res, next) => {
    }
 };
 
+const getAllBySale = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const product = await ProductService.getAllBySale(id);
+        if (!product) throw new Error('ProductId not found in Sale_products');
+        res.status(200).json(product);
+    } catch (error) {
+        return next();    
+    }
+};
+
 module.exports = {
     createProduct,
     getAllProducts,
+    getAllBySale,
 };

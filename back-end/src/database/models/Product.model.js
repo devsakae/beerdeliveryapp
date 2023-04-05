@@ -2,13 +2,18 @@
 
 const ProductModel = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncremet: true,
+    },
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL(10, 2),
     urlImage: DataTypes.STRING,
   }, {
     tableName: 'products',
     underscored: true,
-    timestamps: false
+    timestamps: false,
   });
 
   // Product.associate = (models) => {
