@@ -1,11 +1,12 @@
-import React from 'react';
-import { func, arrayOf, number, shape } from 'prop-types';
+import React, { useContext } from 'react';
+import cartContext from '../Context/CartContext';
 
-export default function TableOrder({
-  orderItens,
-  total,
-  deleteItem,
-}) {
+export default function TableOrder() {
+  const {
+    cart,
+    total,
+    deleteItem,
+  } = useContext(cartContext);
   return (
     <div>
       <p>Finalizar Pedido</p>
@@ -21,7 +22,7 @@ export default function TableOrder({
           </tr>
         </thead>
         <tbody>
-          {orderItens.map((item, i) => (
+          {cart.filter((p) => p.quantity > 0).map((prod, i) => (
             <tr key={ i }>
               <td
                 data-testid={ `customer_checkout__element-order-table-item-number-${i}` }
@@ -31,22 +32,30 @@ export default function TableOrder({
               <td
                 data-testid={ `customer_checkout__element-order-table-name-${i}` }
               >
-                {item.descricao}
+                {prod.item.name}
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-quantity-${i}` }
               >
-                {item.quantidade}
+                {prod.quantity}
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
               >
-                {item.valorUnitario}
+                {new Intl.NumberFormat('pt-br', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })
+                  .format(prod.item.price)}
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
               >
-                {item.quantidade * item.valorUnitario}
+                { new Intl.NumberFormat('pt-br', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })
+                  .format(prod.item.price * prod.quantity) }
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-remove-${i}` }
@@ -62,13 +71,15 @@ export default function TableOrder({
           ))}
         </tbody>
       </table>
-      <p>{`Total: R$${total}`}</p>
+      <p
+        data-testid="customer_checkout__element-order-total-price"
+      >
+        {`Total: R$${new Intl.NumberFormat('pt-br', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+          .format(total)}`}
+      </p>
     </div>
   );
 }
-
-TableOrder.propTypes = {
-  orderItens: arrayOf(shape).isRequired,
-  total: number.isRequired,
-  deleteItem: func.isRequired,
-};

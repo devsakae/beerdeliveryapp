@@ -5,6 +5,8 @@ import './AddUser.css';
 const MIN_NAME_LENGTH = 12;
 const MIN_PASSWORD_LENGTH = 6;
 const regexEmail = /\S+@\S+\.\S+/;
+const API_HOST = process.env.REACT_APP_HOSTNAME;
+const API_PORT = process.env.REACT_APP_BACKEND_PORT;
 const SUCCESSFULL_STATUS = 201;
 const THREE_SECONDS_IN_MS = 3000;
 
@@ -13,9 +15,52 @@ export default function AddUser() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('seller');
-  const [isActiveButton, setIsActiveButton] = useState(false);
   const [error, setError] = useState('');
-  const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
+  const [isActiveButton, setIsActiveButton] = useState(false);
+
+  const PATH = `http://${API_HOST}:${API_PORT}`;
+
+  const clearInputs = () => {
+    setEmail('');
+    setName('');
+    setPassword('');
+  };
+
+  const handleName = (event) => setName(event.target.value);
+  const handleEmail = (event) => setEmail(event.target.value);
+  const handlePassword = (event) => setPassword(event.target.value);
+  const handleRole = (event) => setRole(event.target.value);
+  const handleError = (err) => setError(err);
+  const handleSubmit = (event) => {
+    const userData = JSON.parse(localStorage.getItem('user')) || undefined;
+    if (!userData) {
+      handleError('Você não está logado como admin');
+      return;
+    }
+    event.preventDefault();
+    axios.post(`${PATH}/admin/newuser`, {
+      name,
+      email,
+      password,
+      role,
+    }, {
+      headers: {
+        Authorization: userData.token,
+      },
+    }, {
+      mode: 'no-cors',
+    })
+      .then((response) => {
+        if (response.status === SUCCESSFULL_STATUS) {
+          setError('Usuário criado com sucesso!');
+          setTimeout(() => handleError(''), THREE_SECONDS_IN_MS);
+        }
+      })
+      .catch((err) => {
+        handleError(err.message);
+      })
+      .finally(() => clearInputs());
+  };
 
   useEffect(() => {
     const validName = name.length >= MIN_NAME_LENGTH;
@@ -24,37 +69,6 @@ export default function AddUser() {
     const validData = (!validEmail || !validPassword || !validName);
     setIsActiveButton(validData);
   }, [name, email, password]);
-
-  const clearInputs = () => {
-    setEmail('');
-    setName('');
-    setPassword('');
-  };
-  const handleNameChange = (event) => setName(event.target.value);
-  const handleEmailChange = (event) => setEmail(event.target.value);
-  const handlePasswordChange = (event) => setPassword(event.target.value);
-  const handleRoleChange = (event) => setRole(event.target.value);
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios.post(`${PATH}/admin/newuser`, {
-      name,
-      email,
-      password,
-      role,
-    }, {
-      mode: 'no-cors',
-    })
-      .then((response) => {
-        if (response.status === SUCCESSFULL_STATUS) {
-          setError('Usuário criado com sucesso!');
-          setTimeout(() => setError(''), THREE_SECONDS_IN_MS);
-        }
-      })
-      .catch((err) => {
-        setError(err.message);
-      })
-      .finally(() => clearInputs());
-  };
 
   return (
     <section>
@@ -75,7 +89,7 @@ export default function AddUser() {
             value={ name }
             placeholder="Nome e sobrenome"
             data-testid="admin_manage__input-name"
-            onChange={ handleNameChange }
+            onChange={ handleName }
           />
         </label>
         <label htmlFor="email">
@@ -86,7 +100,7 @@ export default function AddUser() {
             value={ email }
             placeholder="endereço@email.com"
             data-testid="admin_manage__input-email"
-            onChange={ handleEmailChange }
+            onChange={ handleEmail }
           />
         </label>
         <label htmlFor="password">
@@ -97,7 +111,7 @@ export default function AddUser() {
             value={ password }
             placeholder="Password"
             data-testid="admin_manage__input-password"
-            onChange={ handlePasswordChange }
+            onChange={ handlePassword }
           />
         </label>
         <label htmlFor="role">
@@ -105,7 +119,7 @@ export default function AddUser() {
             id="role"
             name="role"
             data-testid="admin_manage__select-role"
-            onChange={ handleRoleChange }
+            onChange={ handleRole }
           >
             <option value="seller">Vendedor</option>
             <option value="customer">Cliente</option>

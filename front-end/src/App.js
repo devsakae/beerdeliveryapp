@@ -3,6 +3,8 @@ import {
   BrowserRouter, Redirect, Route,
   Switch,
 } from 'react-router-dom';
+
+import CartProvider from './Context/CartProvider';
 import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
@@ -14,13 +16,17 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/login" component={ Login } />
-        <Route exact path="/customer/orders/:id" component={ CustomerOrderDetail } />
-        <Route exact path="/customer/checkout" component={ Checkout } />
-        <Route exact path="/customer/products" component={ Products } />
         <Route exact path="/" render={ () => <Redirect to="/login" /> } />
+        <Route exact path="/login" component={ Login } />
         <Route exact path="/register" component={ Register } />
-        <Route exact path="/admin/manage" component={ Admin } />
+        <Route exact path="/customer/orders/:id" component={ CustomerOrderDetail } />
+        {/* <AdminProvider> */}
+        <CartProvider>
+          <Route exact path="/admin/manage" component={ Admin } />
+          <Route exact path="/customer/checkout" component={ Checkout } />
+          <Route exact path="/customer/products" component={ Products } />
+        </CartProvider>
+        {/* </AdminProvider> */}
       </Switch>
     </BrowserRouter>
   );
