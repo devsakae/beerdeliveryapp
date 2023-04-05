@@ -8,12 +8,14 @@ import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Products from './pages/Products';
 import Register from './pages/Register';
+import CustomerOrderDetail from './pages/CustomerOrderDetail';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/login" component={ Login } />
+        <Route exact path="/customer/orders/:id" component={ CustomerOrderDetail } />
         <Route exact path="/customer/checkout" component={ Checkout } />
         <Route exact path="/customer/products" component={ Products } />
         <Route exact path="/" render={ () => <Redirect to="/login" /> } />
