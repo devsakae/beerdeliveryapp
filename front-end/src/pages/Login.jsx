@@ -39,6 +39,7 @@ function Login() {
         if (response.status === SUCCESSFULL_STATUS) {
           saveToLocalStorage('user', response.data);
           if (response.data.role === 'administrator') goto = '/admin/manage';
+          if (response.data.role === 'seller') goto = '/seller/orders';
           history.push(goto);
         }
       })

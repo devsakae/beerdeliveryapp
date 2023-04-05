@@ -42,7 +42,11 @@ export default function TableOrder() {
               <td
                 data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
               >
-                {prod.item.price}
+                {new Intl.NumberFormat('pt-br', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })
+                  .format(prod.item.price)}
               </td>
               <td
                 data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
@@ -70,14 +74,12 @@ export default function TableOrder() {
       <p
         data-testid="customer_checkout__element-order-total-price"
       >
-        {`Total: R$${total}`}
+        {`Total: R$${new Intl.NumberFormat('pt-br', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+          .format(total)}`}
       </p>
     </div>
   );
 }
-
-TableOrder.propTypes = {
-  orderItens: arrayOf(shape),
-  total: number,
-  deleteItem: func,
-}.isRequired;
