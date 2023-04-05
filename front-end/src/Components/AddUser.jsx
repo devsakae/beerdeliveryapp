@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import AdminContext from '../Context/AdminContext';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import './AddUser.css';
 
 const MIN_NAME_LENGTH = 12;
@@ -19,7 +19,6 @@ export default function AddUser() {
   const [isActiveButton, setIsActiveButton] = useState(false);
 
   const PATH = `http://${API_HOST}:${API_PORT}`;
-  const Context = useContext(AdminContext);
 
   const clearInputs = () => {
     setEmail('');
@@ -33,6 +32,11 @@ export default function AddUser() {
   const handleRole = (event) => setRole(event.target.value);
   const handleError = (err) => setError(err);
   const handleSubmit = (event) => {
+    const userData = JSON.parse(localStorage.getItem('user')) || undefined;
+    if (!userData) {
+      handleError('Você não está logado como admin');
+      return;
+    }
     event.preventDefault();
     axios.post(`${PATH}/admin/newuser`, {
       name,
@@ -41,8 +45,9 @@ export default function AddUser() {
       role,
     }, {
       headers: {
-        Authorization: userLogged.token,
-      },
+        'Authorization': userData.token,
+      }
+    }, {
       mode: 'no-cors',
     })
       .then((response) => {
