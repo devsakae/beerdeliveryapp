@@ -12,6 +12,15 @@ const Login = async (req, res, next) => {
   }
 };
 
+const getUsersSellers = async (_req, res, next) => {
+  try {
+    const users = await UserService.getUsersSellers();
+    return res.status(200).json(users);
+  } catch (error) {
+    return next(error);
+  }
+};
+
 const createUser = async (req, res, next) => {
   try {
     const password = hashPassword(req.body.password);
@@ -35,4 +44,4 @@ const addNewUser = async (req, res, next) => {
   }
 };
 
-module.exports = { Login, createUser, addNewUser };
+module.exports = { Login, getUsersSellers, createUser, addNewUser };

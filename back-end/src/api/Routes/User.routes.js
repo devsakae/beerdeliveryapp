@@ -8,4 +8,9 @@ route.post(
   UserController.Login,
 );
 
+route.get(
+  '/role',
+  UserController.getUsersSellers,
+);
+
 module.exports = route;

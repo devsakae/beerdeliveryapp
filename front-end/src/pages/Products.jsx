@@ -1,52 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../Components/Header';
+import cartContext from '../Context/CartContext';
 
 function Products() {
-  const [total, setTotal] = useState(0);
-  const [cart, setCart] = useState([]);
+  const history = useHistory();
+
+  const {
+    cart,
+    total,
+    fetchProducts,
+    increaseQuantity,
+    decreaseQuantity,
+    handleQuantityChange,
+  } = useContext(cartContext);
 
   useEffect(() => {
-    async function fetchProducts() {
-      const response = await fetch('http://localhost:3001/products');
-      const data = await response.json();
-      const initCart = data.map((p) => ({ quantity: 0, item: { ...p } }));
-      setCart(initCart);
-    }
-
     fetchProducts();
-  }, []);
-
-  const addItem = (prod) => {
-    const prodIndex = cart.findIndex(({ item }) => item.id === prod.item.id);
-    const newCart = [...cart];
-    newCart[prodIndex].quantity += 1;
-    setCart(newCart);
-    const newAmount = +newCart[prodIndex].item.price;
-    setTotal(total + newAmount);
-  };
-
-  const removeItem = (prod) => {
-    const prodIndex = cart.findIndex(({ item }) => item.id === prod.item.id);
-    const newCart = [...cart];
-    if (newCart[prodIndex].quantity > 0) {
-      newCart[prodIndex].quantity -= 1;
-      setCart(newCart);
-      const newAmount = +newCart[prodIndex].item.price;
-      setTotal(total - newAmount);
-    }
-  };
-
-  const handleQuantityChange = (evt, prod) => {
-    const prodIndex = cart.findIndex(({ item }) => item.id === prod.item.id);
-    const newCart = [...cart];
-    newCart[prodIndex].quantity = +evt.target.value;
-    setCart(newCart);
-    let newTotal = 0;
-    for (let i = 0; i < newCart.length; i += 1) {
-      newTotal += newCart[i].quantity * newCart[i].item.price;
-    }
-    setTotal(newTotal);
-  };
+  }, [fetchProducts]);
 
   return (
     <div>
@@ -54,6 +25,8 @@ function Products() {
       <button
         type="button"
         data-testid="customer_products__button-cart"
+        onClick={ () => history.push('/customer/checkout') }
+        disabled={ total === 0 }
       >
         <span
           data-testid="customer_products__checkout-bottom-value"
@@ -94,7 +67,7 @@ function Products() {
                 <button
                   type="button"
                   data-testid={ `customer_products__button-card-rm-item-${prod.item.id}` }
-                  onClick={ () => removeItem(prod) }
+                  onClick={ () => decreaseQuantity(prod) }
                 >
                   -
                 </button>
@@ -109,7 +82,7 @@ function Products() {
                   data-testid={
                     `customer_products__button-card-add-item-${prod.item.id}`
                   }
-                  onClick={ () => addItem(prod) }
+                  onClick={ () => increaseQuantity(prod) }
                 >
                   +
                 </button>
