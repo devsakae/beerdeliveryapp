@@ -11,6 +11,8 @@ import Login from './pages/Login';
 import Products from './pages/Products';
 import Register from './pages/Register';
 import CustomerOrderDetail from './pages/CustomerOrderDetail';
+import SellerOrders from './pages/SellerOrders';
+
 
 function App() {
   return (
@@ -20,13 +22,12 @@ function App() {
         <Route exact path="/login" component={ Login } />
         <Route exact path="/register" component={ Register } />
         <Route exact path="/customer/orders/:id" component={ CustomerOrderDetail } />
-        {/* <AdminProvider> */}
+        <Route exact path="/seller/orders" component={ SellerOrders } />
         <CartProvider>
           <Route exact path="/admin/manage" component={ Admin } />
           <Route exact path="/customer/checkout" component={ Checkout } />
           <Route exact path="/customer/products" component={ Products } />
         </CartProvider>
-        {/* </AdminProvider> */}
       </Switch>
     </BrowserRouter>
   );
