@@ -1,7 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 
-const { UserRouter, NewUserRouter, CustomerRouter, SaleRouter, AdminRouter } = require('./Routes');
+const { 
+  UserRouter,
+  NewUserRouter,
+  CustomerRouter,
+  SaleRouter,
+  AdminRouter,
+  SaleProductRouter,
+} = require('./Routes');
 
 const app = express();
 
@@ -21,6 +28,8 @@ app.use('/register', NewUserRouter);
 app.use('/products', CustomerRouter);
 // Rota de vendas
 app.use('/sales', SaleRouter);
+// Rota Detalhada de vendas e produtos
+app.use('/sale_product', SaleProductRouter);
 // Painel de admin
 app.use('/admin', AdminRouter);
 
