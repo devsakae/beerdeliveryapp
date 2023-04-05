@@ -1,6 +1,6 @@
 const md5 = require('md5');
 const { UserService } = require('../Services');
-const { decodedToken, validateToken } = require('../Utils/Jwt');
+const { validateToken } = require('../Utils/Jwt');
 
 const hashPassword = (data) => md5(data);
 
