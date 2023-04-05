@@ -4,7 +4,6 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import AdminProvider from './Context/AdminProvider';
 import CartProvider from './Context/CartProvider';
 import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';
@@ -22,12 +21,10 @@ function App() {
         <Route exact path="/register" component={ Register } />
         <Route exact path="/seller/orders" component={ SellerOrders } />
         <CartProvider>
+          <Route exact path="/admin/manage" component={ Admin } />
           <Route exact path="/customer/checkout" component={ Checkout } />
           <Route exact path="/customer/products" component={ Products } />
         </CartProvider>
-        <AdminProvider>
-          <Route exact path="/admin/manage" component={ Admin } />
-        </AdminProvider>
       </Switch>
     </BrowserRouter>
   );

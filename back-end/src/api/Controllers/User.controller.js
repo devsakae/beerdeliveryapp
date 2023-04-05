@@ -1,5 +1,6 @@
 const md5 = require('md5');
 const { UserService } = require('../Services');
+const { validateToken } = require('../Utils/Jwt');
 
 const hashPassword = (data) => md5(data);
 
@@ -35,6 +36,7 @@ const createUser = async (req, res, next) => {
 
 const addNewUser = async (req, res, next) => {
   try {
+    validateToken(req.headers.authorization);
     const password = hashPassword(req.body.password);
     const payload = { ...req.body, password };
     const user = await UserService.createUser(payload);
