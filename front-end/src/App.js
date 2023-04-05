@@ -16,13 +16,13 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/login" component={ Login } />
         <Route exact path="/" render={ () => <Redirect to="/login" /> } />
+        <Route exact path="/login" component={ Login } />
+        <Route exact path="/register" component={ Register } />
         <CartProvider>
           <Route exact path="/customer/checkout" component={ Checkout } />
           <Route exact path="/customer/products" component={ Products } />
         </CartProvider>
-        <Route exact path="/register" component={ Register } />
         <AdminProvider>
           <Route exact path="/admin/manage" component={ Admin } />
         </AdminProvider>
