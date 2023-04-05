@@ -11,6 +11,7 @@ import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Products from './pages/Products';
 import Register from './pages/Register';
+import SellerOrders from './pages/SellerOrders';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/" render={ () => <Redirect to="/login" /> } />
         <Route exact path="/login" component={ Login } />
         <Route exact path="/register" component={ Register } />
+        <Route exact path="/seller/orders" component={ SellerOrders } />
         <CartProvider>
           <Route exact path="/customer/checkout" component={ Checkout } />
           <Route exact path="/customer/products" component={ Products } />
