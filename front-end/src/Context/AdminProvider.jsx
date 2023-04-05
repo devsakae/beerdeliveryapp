@@ -55,12 +55,12 @@ export default function AdminProvider({ children }) {
         setError(err.message);
       })
       .finally(() => clearInputs());
-  }, []);
+  }, [PATH, name, email, password, role, userLogged.token]);
 
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
     createNewUser();
-  }, []);
+  }, [createNewUser]);
 
   const context = useMemo(() => ({
     userLogged,
