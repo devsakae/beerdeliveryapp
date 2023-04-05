@@ -5,7 +5,7 @@ const getAllSales = async (_req, res, next) => {
     const dataValues = await SaleService.getAllSales();
     return res.status(200).json(dataValues);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -15,7 +15,7 @@ const getSaleById = async (req, res, next) => {
     const { dataValues } = await SaleService.getSaleById(id);
     return res.status(200).json(dataValues);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -24,7 +24,7 @@ const registerSale = async (req, res, next) => {
     const { dataValues } = await SaleService.registerSale(req.body);
     return res.status(201).json(dataValues);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -37,7 +37,7 @@ const updateSale = async (req, res, next) => {
       message: `sale with id ${id} updated successfully`, ...dataValues,
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -50,7 +50,7 @@ const deleteSale = async (req, res, next) => {
       message: 'successfully deleted sale', ...dataValues,
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 

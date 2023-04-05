@@ -75,3 +75,9 @@ export default function TableOrder() {
     </div>
   );
 }
+
+TableOrder.propTypes = {
+  orderItens: arrayOf(shape),
+  total: number,
+  deleteItem: func,
+}.isRequired;

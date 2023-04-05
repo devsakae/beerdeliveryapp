@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+
 const { UserRouter, NewUserRouter, CustomerRouter, SaleRouter, AdminRouter } = require('./Routes');
 
 const app = express();

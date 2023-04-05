@@ -12,6 +12,9 @@ const findUserByEmail = async (userData) => {
   return { name, email, role, token };
 };
 
+const getUsersSellers = async () =>
+  User.findAll({ where: { role: 'seller' }, attributes: { exclude: ['password'] } });
+
 const createUser = async (payload) => {
   // Verifica se usuário já existe (nome e email - req 10)
   const check = await User.findOne({
@@ -31,4 +34,4 @@ const createUser = async (payload) => {
   return { name, email, role, token };
 };
 
-module.exports = { findUserByEmail, createUser };
+module.exports = { findUserByEmail, getUsersSellers, createUser };
