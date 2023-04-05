@@ -1,9 +1,13 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getFromLocalStorage } from '../services/localStorage';
 import AdminContext from './AdminContext';
-const API_HOST = process.env.REACT_APP_HOSTNAME
-const API_PORT = process.env.REACT_APP_BACKEND_PORT
+
+const API_HOST = process.env.REACT_APP_HOSTNAME;
+const API_PORT = process.env.REACT_APP_BACKEND_PORT;
+const SUCCESSFULL_STATUS = 201;
+const THREE_SECONDS_IN_MS = 3000;
 
 export default function AdminProvider({ children }) {
   const [userLogged, setUserLogged] = useState('');
@@ -24,13 +28,12 @@ export default function AdminProvider({ children }) {
     setName('');
     setPassword('');
   };
-  const handleNameChange = useCallback((event) => setName(event.target.value), []);
-  const handleEmailChange = useCallback((event) => setEmail(event.target.value), []);
-  const handlePasswordChange = useCallback((event) => setPassword(event.target.value), []);
-  const handleRoleChange = useCallback((event) => setRole(event.target.value), []);
+  const handleName = useCallback((event) => setName(event.target.value), []);
+  const handleEmail = useCallback((event) => setEmail(event.target.value), []);
+  const handlePassword = useCallback((event) => setPassword(event.target.value), []);
+  const handleRole = useCallback((event) => setRole(event.target.value), []);
   const handleError = useCallback((arg) => setError(arg), []);
-  const handleSubmit = useCallback((event) => {
-    event.preventDefault();
+  const createNewUser = useCallback(() => {
     axios.post(`${PATH}/admin/newuser`, {
       name,
       email,
@@ -43,15 +46,20 @@ export default function AdminProvider({ children }) {
       mode: 'no-cors',
     })
       .then((response) => {
-        if (response.status === 201) {
+        if (response.status === SUCCESSFULL_STATUS) {
           setError('Usuário criado com sucesso!');
-          setTimeout(() => setError(''), 3000);
+          setTimeout(() => setError(''), THREE_SECONDS_IN_MS);
         }
       })
       .catch((err) => {
         setError(err.message);
       })
       .finally(() => clearInputs());
+  }, []);
+
+  const handleSubmit = useCallback((event) => {
+    event.preventDefault();
+    createNewUser();
   }, []);
 
   const context = useMemo(() => ({
@@ -62,15 +70,15 @@ export default function AdminProvider({ children }) {
     role,
     error,
     PATH,
-    handleNameChange,
-    handleEmailChange,
-    handlePasswordChange,
-    handleRoleChange,
+    handleName,
+    handleEmail,
+    handlePassword,
+    handleRole,
     handleSubmit,
     handleError,
   }), [userLogged, name, email, password, role, error, PATH,
-    handleNameChange, handleEmailChange, handlePasswordChange,
-    handleRoleChange, handleSubmit, handleError]);
+    handleName, handleEmail, handlePassword,
+    handleRole, handleSubmit, handleError]);
 
   return (
     <AdminContext.Provider value={ context }>
@@ -78,3 +86,7 @@ export default function AdminProvider({ children }) {
     </AdminContext.Provider>
   );
 }
+
+AdminProvider.propTypes = {
+  children: PropTypes.node,
+}.isrequired;

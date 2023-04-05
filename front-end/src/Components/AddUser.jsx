@@ -37,7 +37,7 @@ export default function AddUser() {
             value={ Context.name }
             placeholder="Nome e sobrenome"
             data-testid="admin_manage__input-name"
-            onChange={ Context.handleNameChange }
+            onChange={ Context.handleName }
           />
         </label>
         <label htmlFor="email">
@@ -48,7 +48,7 @@ export default function AddUser() {
             value={ Context.email }
             placeholder="endereço@email.com"
             data-testid="admin_manage__input-email"
-            onChange={ Context.handleEmailChange }
+            onChange={ Context.handleEmail }
           />
         </label>
         <label htmlFor="password">
@@ -59,7 +59,7 @@ export default function AddUser() {
             value={ Context.password }
             placeholder="Password"
             data-testid="admin_manage__input-password"
-            onChange={ Context.handlePasswordChange }
+            onChange={ Context.handlePassword }
           />
         </label>
         <label htmlFor="role">
@@ -67,7 +67,7 @@ export default function AddUser() {
             id="role"
             name="role"
             data-testid="admin_manage__select-role"
-            onChange={ Context.handleRoleChange }
+            onChange={ Context.handleRole }
           >
             <option value="seller">Vendedor</option>
             <option value="customer">Cliente</option>
