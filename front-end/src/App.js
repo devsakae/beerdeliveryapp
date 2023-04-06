@@ -11,8 +11,7 @@ import Checkout from './pages/Checkout';
 import Login from './pages/Login';
 import Products from './pages/Products';
 import Register from './pages/Register';
-import SellersOdersD from './pages/SellerOrderDetails';
-import SellerDetailsProvider from './Context/SellerDetailsProvider';
+import SellersOdersDetails from './Components/SellerOrdersDetails';
 
 function App() {
   return (
@@ -20,18 +19,13 @@ function App() {
       <Switch>
         <Route exact path="/login" component={ Login } />
         <Route exact path="/" render={ () => <Redirect to="/login" /> } />
+        <Route exact path="/register" component={ Register } />
+        <Route exact path="/admin/manage" component={ Admin } />
+        <Route exact path="/seller/orders/:id" component={ SellersOdersDetails } />
         <CartProvider>
           <Route exact path="/customer/checkout" component={ Checkout } />
           <Route exact path="/customer/products" component={ Products } />
         </CartProvider>
-        <Route exact path="/register" component={ Register } />
-        <AdminProvider>
-          <Route exact path="/admin/manage" component={ Admin } />
-        </AdminProvider>
-        <Route exact path="/admin/manage" component={ Admin } />
-        <SellerDetailsProvider>
-          <Route exact path="/seller/orders" component={ SellersOdersD } />
-        </SellerDetailsProvider>
       </Switch>
     </BrowserRouter>
   );

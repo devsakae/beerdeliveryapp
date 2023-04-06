@@ -13,7 +13,7 @@ const getAllProducts = async () => {
 };
 
 const getAllBySale = async (id) => {
-  const query = `SELECT id, name, price, url_image 
+  const query = `SELECT name, price, sp.quantity, (price * sp.quantity) as sub_total
   from products as p
   JOIN sales_products as sp 
   ON sp.sale_id = ${id}

@@ -24,7 +24,9 @@ const getAllProducts = async (req, res, next) => {
 
 const getAllBySale = async (req, res, next) => {
     try {
+        // res.send(req);
         const { id } = req.params;
+        // console.log(id);
         const product = await ProductService.getAllBySale(id);
         if (!product) throw new Error('ProductId not found in Sale_products');
         res.status(200).json(product);

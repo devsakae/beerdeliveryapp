@@ -1,25 +1,29 @@
-import React, { useContext } from 'react';
-import MyContext from '../Context/SellerDetailsContext';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 export default function SellersOdersDetails() {
-  const { productsById, salesProduct } = useContext(MyContext);
-
-  const newArr = productsById.map((product) => {
-    const sProducts = salesProduct.filter((sp) => sp.productId === product.id);
-    return {
-      ...product,
-      ...sProducts[0],
-    };
-  });
-
-  const subTotal = (quantity, price) => {
-    const result = (quantity * price).toFixed(2);
-    return result.toString().replace(/\./, ',');
-  };
-
+  const [sale, setSale] = useState([]);
+  const { id } = useParams();
+  // console.log(id);
+  useEffect(() => {
+    axios.get(`${PATH}/products/sale/1`, {
+    }, {
+      mode: 'no-cors',
+    })
+      .then((response) => {
+        setSale(response);
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <div>
-      {newArr.map((product, index) => (
+      {/* {newArr.map((product, index) => (
         <table key={ index }>
           <thead>
             <tr>
@@ -71,7 +75,7 @@ export default function SellersOdersDetails() {
             </tr>
           </tbody>
         </table>
-      ))}
+      ))} */}
     </div>
   );
 }

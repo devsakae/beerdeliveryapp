@@ -1,12 +1,5 @@
-'use strict';
-
 const SaleModel = (sequelize, DataTypes) => {
   const Sale = sequelize.define('Sale', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autiIncrement: true,
-    },
     userId: DataTypes.INTEGER,
     sellerId: DataTypes.INTEGER,
     totalPrice: DataTypes.DECIMAL(10, 2),
