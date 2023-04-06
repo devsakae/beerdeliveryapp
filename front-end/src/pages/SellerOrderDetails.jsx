@@ -5,6 +5,7 @@ import Header from '../Components/Header';
 import StatusOrder from '../Components/StatusOrder';
 import TableSellersOdersDetails from '../Components/TableSellerOrdersDetails';
 import { getFromLocalStorage } from '../services/localStorage';
+
 const path = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 export default function SellerOrderDetails() {
@@ -13,21 +14,23 @@ export default function SellerOrderDetails() {
 
   useEffect(() => {
     const { token } = getFromLocalStorage('user');
-    axios.get(`${path}/sales/${id}`,
-    {
-      headers: {
-        'Authorization': token,
+    axios.get(
+      `${path}/sales/${id}`,
+      {
+        headers: {
+          Authorization: token,
+        },
       },
-    },
-    {
-      mode: 'no-corse',
-    })
-    .then((response) => {
-      setOrder(response.data);
-      console.log(response);
-    })
-    .catch((err) => console.log(err));
-  }, []);
+      {
+        mode: 'no-corse',
+      },
+    )
+      .then((response) => {
+        setOrder(response.data);
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
 
   return (
     <>
@@ -35,5 +38,5 @@ export default function SellerOrderDetails() {
       <StatusOrder order={ order } />
       <TableSellersOdersDetails />
     </>
-  )
+  );
 }

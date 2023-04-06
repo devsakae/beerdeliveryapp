@@ -1,19 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-export default function StatusOrder(props) {
+export default function StatusOrder({ order }) {
+  const [btnPreparing, setBtnPreparing] = useState(true);
+  const [btnDelivery, setBtnDelivery] = useState(true);
+
+  useEffect(() => {
+    if (order.status === 'Pendente') setBtnPreparing(false);
+    if (order.status === 'Preparando') setBtnDelivery(false);
+  }, [order.status]);
+
   return (
-    <div style={{ display: "flex", gap: "15px" }}>
+    <div style={ { display: 'flex', gap: '15px' } }>
       <div
         data-testid="seller_order_details__element-order-details-label-order-id"
-      >{ props.order.id }</div>
+      >
+        { order.id }
+
+      </div>
       <div
         data-testid="seller_order_details__element-order-details-label-order-date"
-      >{ props.order.saleDate }</div>
+      >
+        { order.saleDate }
+
+      </div>
       <div
         data-testid="seller_order_details__element-order-details-label-delivery-status"
-      >{ props.order.status }</div>
-      <button>Botão 1</button>
-      <button>Botão 2</button>
+      >
+        { order.status }
+
+      </div>
+      <button
+        type="button"
+        disabled={ btnPreparing }
+        data-testid="seller_order_details__button-preparing-check"
+      >
+        PREPARAR PEDIDO
+
+      </button>
+      <button
+        type="button"
+        disabled={ btnDelivery }
+        data-testid="seller_order_details__button-dispatch-check"
+      >
+        SAIU PARA ENTREGA
+
+      </button>
     </div>
-  )
+  );
 }
+
+StatusOrder.propTypes = {
+  id: PropTypes.number,
+  saleDate: PropTypes.string,
+  status: PropTypes.string,
+}.isRequired;
