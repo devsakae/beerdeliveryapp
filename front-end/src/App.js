@@ -4,7 +4,6 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import AdminProvider from './Context/AdminProvider';
 import CartProvider from './Context/CartProvider';
 import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';

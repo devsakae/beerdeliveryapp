@@ -6,76 +6,77 @@ const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_B
 
 export default function SellersOdersDetails() {
   const [sale, setSale] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  // console.log(id);
+
   useEffect(() => {
-    axios.get(`${PATH}/products/sale/1`, {
-    }, {
-      mode: 'no-cors',
-    })
+    axios
+      .get(
+        `${PATH}/products/sale/${id}`,
+        {},
+        {
+          mode: 'no-cors',
+        },
+      )
       .then((response) => {
-        setSale(response);
         console.log(response);
+        setSale(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [id]);
   return (
-    <div>
-      {/* {newArr.map((product, index) => (
-        <table key={ index }>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Sub-total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th
-                data-testid={ `seller_order_details__element-order-table-item-number-
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Descrição</th>
+          <th>Quantidade</th>
+          <th>Valor Unitário</th>
+          <th>Sub-total</th>
+        </tr>
+      </thead>
+      <tbody>
+        { !loading && sale.map((product, index) => (
+          <tr key={ index }>
+            <td
+              data-testid={
+                `seller_order_details__element-order-table-item-number-${index}`
+              }
+            >
+              {index + 1}
+            </td>
+            <td
+              data-testid={ `seller_order_details__element-order-table-name-
                 ${index}` }
-              >
-                {index + 1}
-              </th>
-              <th
-                data-testid={ `seller_order_details__element-order-table-name-
+            >
+              {product.name}
+            </td>
+            <td
+              data-testid={ `seller_order_details__element-order-table-quantity-
                 ${index}` }
-              >
-                {product.name}
-              </th>
-              <th
-                data-testid={ `seller_order_details__element-order-table-quantity-
-                ${index}` }
-              >
-                { product.quantity }
-              </th>
-              <th>
-                R$
-                <p
-                  data-testid={ `seller_order_details__element-order-table-unit-price-
-                  ${index}` }
-                >
-                  { product.price.replace('.', ',') }
-                </p>
-              </th>
-              <th>
-                R$
-                <p
-                  data-testid={ `seller_order_details__element-order-table-sub-total-
-                  ${index}` }
-                >
-                  { subTotal(product.quantity, product.price) }
-                </p>
-              </th>
-            </tr>
-          </tbody>
-        </table>
-      ))} */}
-    </div>
+            >
+              {product.quantity}
+            </td>
+            <td
+              data-testid={
+                `seller_order_details__element-order-table-unit-price-${index}`
+              }
+            >
+              { `R$ ${product.price.replace('.', ',')}` }
+            </td>
+            <td
+              data-testid={
+                `seller_order_details__element-order-table-sub-total-${index}`
+              }
+            >
+              { `R$ ${product.sub_total.replace('.', ',')}` }
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
