@@ -7,7 +7,12 @@
 // });
 
 // export const requestLogin = async (endpoint, body) => {
-//   const { data } = await api.post(endpoint, body);
+//  const { data } = await api.post(endpoint, body);
+//  return data;
+// };
+
+// export const request = async (endpoint, body, token) => {
+//   const { data } = await api.post(endpoint, body, { headers: { Authorization: token } });
 //   return data;
 // };
 
