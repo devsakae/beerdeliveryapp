@@ -1,5 +1,3 @@
-'use strict';
-
 const SaleModel = (sequelize, DataTypes) => {
   const Sale = sequelize.define('Sale', {
     userId: DataTypes.INTEGER,

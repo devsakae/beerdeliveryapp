@@ -1,5 +1,3 @@
-'use strict';
-
 const ProductModel = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     name: DataTypes.STRING,
@@ -8,7 +6,7 @@ const ProductModel = (sequelize, DataTypes) => {
   }, {
     tableName: 'products',
     underscored: true,
-    timestamps: false
+    timestamps: false,
   });
 
   // Product.associate = (models) => {
