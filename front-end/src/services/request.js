@@ -6,8 +6,8 @@ const api = axios.create({
   baseURL: `http://localhost:${process.env.REACT_APP_BACKEND_PORT || PORT}`,
 });
 
-export const requestLogin = async (endpoint, body) => {
-  const { data } = await api.post(endpoint, body);
+export const request = async (endpoint, body, token) => {
+  const { data } = await api.post(endpoint, body, { headers: { Authorization: token } });
   return data;
 };
 
