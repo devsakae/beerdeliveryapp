@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { requestRole, request } from '../services/request';
-import { getFromLocalStorage } from '../services/localStorage';
 import cartContext from '../Context/CartContext';
+import { getFromLocalStorage } from '../services/localStorage';
+// Refatoramos porque quebrou reqs 25, 27, 28, 29.
+// import { request, requestRole } from '../services/request';
 
 export default function DetailsOrder() {
   const [seller, setSeller] = useState('2');
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [listSellers, setListSellers] = useState([]);
-  const [token, setToken] = useState('');
   const [idOrder, setIdOrder] = useState(false);
   const { cart } = useContext(cartContext);
 
@@ -17,19 +18,42 @@ export default function DetailsOrder() {
     event.preventDefault();
   }
 
+  const getRole = async () => {
+    axios
+      .get('http://localhost:3001/login/role')
+      .then((response) => {
+        setListSellers(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
-    try {
-      const getRole = async () => {
-        const list = await requestRole('/login/role');
-        setListSellers(list);
-        setToken(getFromLocalStorage('user').token);
-      }; getRole();
-    } catch (error) {
-      console.log(error);
-    }
+    getRole();
   }, []);
 
-  const registerSale = async () => {
+  // Refatoramos porque quebrou reqs 25, 27, 28, e 29
+  const registerSaleOnDB = async (payload) => {
+    const { token } = getFromLocalStorage('user');
+    axios
+      .post(
+        'http://localhost:3001/sales',
+        payload,
+        { headers: { Authorization: token } },
+        { mode: 'no-cors' },
+      )
+      .then((response) => {
+        const { id } = response.data;
+        setIdOrder(id);
+        console.log('salvou no DB o seguinte:', response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const registerSale = () => {
     const listSoldProducts = cart.filter((p) => p.quantity > 0);
     const sumProductsSold = listSoldProducts.reduce((acc, cur) => {
       acc += Number(cur.item.price);
@@ -41,11 +65,11 @@ export default function DetailsOrder() {
       deliveryAddress: address,
       deliveryNumber: number,
       saleDate: date.getTime(),
-      status: 'pendente',
+      status: 'Pendente',
       sellerId: Number(seller),
     };
-    const registeredSaleId = await request('/sales', payload, token);
-    setIdOrder(registeredSaleId);
+    console.log(payload);
+    registerSaleOnDB(payload);
   };
 
   if (idOrder) return <Redirect to={ `/customer/orders/${idOrder}` } />;
@@ -61,16 +85,12 @@ export default function DetailsOrder() {
             data-testid="customer_checkout__select-seller"
             value={ seller }
           >
-            {listSellers.length > 0 && (
-              listSellers.map((s, i) => (
-                <option
-                  key={ `${s.name}-${i}` }
-                  value={ s.id }
-                >
+            {listSellers.length > 0
+              && listSellers.map((s, i) => (
+                <option key={ `${s.name}-${i}` } value={ s.id }>
                   {s.name}
                 </option>
-              ))
-            )}
+              ))}
           </select>
         </label>
         <label htmlFor="address">
