@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default function StatusOrder({ order }) {
+export default function StatusOrder({ order, changeStatus }) {
   const [btnPreparing, setBtnPreparing] = useState(true);
   const [btnDelivery, setBtnDelivery] = useState(true);
 
   useEffect(() => {
     if (order.status === 'Pendente') setBtnPreparing(false);
-    if (order.status === 'Preparando') setBtnDelivery(false);
+    if (order.status === 'Preparando') setBtnDelivery(true);
   }, [order.status]);
 
   return (
@@ -33,6 +33,7 @@ export default function StatusOrder({ order }) {
       <button
         type="button"
         disabled={ btnPreparing }
+        onClick={ () => changeStatus() }
         data-testid="seller_order_details__button-preparing-check"
       >
         PREPARAR PEDIDO
@@ -41,6 +42,7 @@ export default function StatusOrder({ order }) {
       <button
         type="button"
         disabled={ btnDelivery }
+        onClick={ () => changeStatus() }
         data-testid="seller_order_details__button-dispatch-check"
       >
         SAIU PARA ENTREGA

@@ -10,7 +10,33 @@ const path = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_B
 
 export default function SellerOrderDetails() {
   const [order, setOrder] = useState({});
+  // const [status, setStatus] = useState('');
   const { id } = useParams();
+
+  const changeStatus = () => {
+    const { token } = getFromLocalStorage('user');
+    let actualStatus = 'Preparando';
+    if (order.status === actualStatus) actualStatus = 'Em Trânsito';
+    axios.put(
+      `${path}/sales/${id}`,
+      {
+        status: actualStatus,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      },
+      {
+        mode: 'no-cors',
+      },
+    )
+      .then((response) => {
+        setOrder(response.data);
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     const { token } = getFromLocalStorage('user');
@@ -22,7 +48,7 @@ export default function SellerOrderDetails() {
         },
       },
       {
-        mode: 'no-corse',
+        mode: 'no-cors',
       },
     )
       .then((response) => {
@@ -35,7 +61,7 @@ export default function SellerOrderDetails() {
   return (
     <>
       <Header />
-      <StatusOrder order={ order } />
+      <StatusOrder order={ order } changeStatus={ changeStatus } />
       <TableSellersOdersDetails />
     </>
   );
