@@ -56,6 +56,7 @@ export default function DetailsOrder() {
         productId: p.item.id,
         quantity: p.quantity,
       }));
+    // console.log('saleProducts:', saleProducts);
     axios
       .post(
         'http://localhost:3001/sales',
@@ -67,10 +68,8 @@ export default function DetailsOrder() {
         { mode: 'no-cors' },
       )
       .then((response) => {
-        const { id } = response.data;
-        // registerSaleProductsOnDB(id, cart.filter((p) => p.quantity > 0));
-        setIdOrder(id);
-        console.log('salvou no DB o seguinte:', response.data);
+        setIdOrder(response.data);
+        // console.log('salvou no DB o seguinte:', response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -83,7 +82,7 @@ export default function DetailsOrder() {
       acc += (Number(cur.item.price) * Number(cur.quantity));
       return acc;
     }, 0);
-    console.log('sumProductsSold:', sumProductsSold);
+    // console.log('sumProductsSold:', sumProductsSold);
     const date = new Date();
     const payload = {
       totalPrice: sumProductsSold,
@@ -93,7 +92,6 @@ export default function DetailsOrder() {
       status: 'Pendente',
       sellerId: Number(seller),
     };
-    console.log(payload);
     registerSaleOnDB(payload);
   };
 
