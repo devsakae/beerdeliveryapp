@@ -31,7 +31,7 @@ const { SaleProduct } = require('../../database/models');
 //   return orderItems;
 // };
 
-const createSaleProducts = async (payload) => await SaleProduct.create(payload);
+const createSaleProducts = async (payload) => SaleProduct.create(payload);
 
 module.exports = {
   // getOrderItemsBySaleId,

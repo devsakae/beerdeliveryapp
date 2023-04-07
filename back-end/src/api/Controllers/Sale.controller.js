@@ -28,7 +28,6 @@ const registerSale = async (req, res, next) => {
     const newPayload = { ...payload, userId };
     const { id } = await SaleService.registerSale(newPayload);
     saleProducts.forEach(async (prod) => {
-      console.log('item:', prod);
       await SaleProductService.createSaleProducts({
         saleId: id,
         ...prod,
