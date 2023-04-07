@@ -33,7 +33,6 @@ export default function SellerOrderDetails() {
     )
       .then((response) => {
         setOrder(response.data);
-        console.log(response);
       })
       .catch((err) => console.log(err));
   };
@@ -53,7 +52,6 @@ export default function SellerOrderDetails() {
     )
       .then((response) => {
         setOrder(response.data);
-        console.log(response);
       })
       .catch((err) => console.log(err));
   }, [id]);
