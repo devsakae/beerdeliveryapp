@@ -21,7 +21,7 @@ const getOrderItems = `
 `;
 
 const getOrderItemsBySaleId = async (id) => {
-  const orderItems = sequelize.query(
+  const orderItems = await sequelize.query(
     getOrderItems,
     { raw: true, type: QueryTypes.SELECT, replacements: [id] },
   );
