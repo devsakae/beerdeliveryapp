@@ -1,5 +1,5 @@
 const { validateToken } = require('../Utils/Jwt');
-const { SaleService } = require('../Services');
+const { SaleService, SaleProductService } = require('../Services');
 
 const getAllSales = async (_req, res, next) => {
   try {
@@ -24,8 +24,13 @@ const registerSale = async (req, res, next) => {
   try {
     const { headers: { authorization } } = req;
     const { id: userId } = validateToken(authorization);
-    const payload = { ...req.body, userId };
-    const { id } = await SaleService.registerSale(payload);
+    const { payload, saleProducts } = req.body;
+    const newPayload = { ...payload, userId };
+    const { id } = await SaleService.registerSale(newPayload);
+    await SaleProductService.createSaleProducts({
+      saleId: id,
+      ...saleProducts,
+    });
     return res.status(201).json(id);
   } catch (error) {
     return next(error);

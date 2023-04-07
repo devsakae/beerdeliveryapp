@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      total_price: Sequelize.DECIMAL,
+      total_price: Sequelize.DECIMAL(8,2),
       delivery_address: Sequelize.STRING,
       delivery_number: Sequelize.STRING,
       sale_date: Sequelize.DATE,

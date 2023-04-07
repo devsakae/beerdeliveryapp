@@ -2,6 +2,8 @@ const { QueryTypes } = require('sequelize');
 // const ErrorNotFound = require('../../middlewares/errors');
 const { sequelize } = require('../../database/models/index');
 
+const { SaleProduct } = require('../../database/models');
+
 const getOrderItems = `
   SELECT
     s.id as id,
@@ -29,6 +31,9 @@ const getOrderItemsBySaleId = async (id) => {
   return orderItems;
 };
 
+const createSaleProducts = async (payload) => SaleProduct.create(payload);
+
 module.exports = {
   getOrderItemsBySaleId,
+  createSaleProducts,
 };

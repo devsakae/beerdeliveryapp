@@ -33,18 +33,42 @@ export default function DetailsOrder() {
     getRole();
   }, []);
 
+  // const registerSaleProductsOnDB = async (saleId, saleProducts) => {
+  //   axios
+  //     .post(
+  //       `http://localhost:3001/sales/products/${saleId}`,
+  //       saleProducts,
+  //       { mode: 'no-cors' },
+  //     )
+  //     .then((response) => {
+  //       console.log('salvou no DB o seguinte:', response.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
   // Refatoramos porque quebrou reqs 25, 27, 28, e 29
   const registerSaleOnDB = async (payload) => {
     const { token } = getFromLocalStorage('user');
+    const saleProducts = cart.filter((p) => p.quantity > 0)
+      .map((p) => ({
+        productId: p.item.id,
+        quantity: p.quantity,
+      }));
     axios
       .post(
         'http://localhost:3001/sales',
-        payload,
+        {
+          payload,
+          saleProducts,
+        },
         { headers: { Authorization: token } },
         { mode: 'no-cors' },
       )
       .then((response) => {
         const { id } = response.data;
+        // registerSaleProductsOnDB(id, cart.filter((p) => p.quantity > 0));
         setIdOrder(id);
         console.log('salvou no DB o seguinte:', response.data);
       })
@@ -56,9 +80,10 @@ export default function DetailsOrder() {
   const registerSale = () => {
     const listSoldProducts = cart.filter((p) => p.quantity > 0);
     const sumProductsSold = listSoldProducts.reduce((acc, cur) => {
-      acc += Number(cur.item.price);
+      acc += (Number(cur.item.price) * Number(cur.quantity));
       return acc;
     }, 0);
+    console.log('sumProductsSold:', sumProductsSold);
     const date = new Date();
     const payload = {
       totalPrice: sumProductsSold,
