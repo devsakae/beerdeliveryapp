@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
-export default function SellersOdersDetails() {
+export default function TableSellersOdersDetails() {
   const [sale, setSale] = useState([]);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
