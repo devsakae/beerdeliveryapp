@@ -27,19 +27,13 @@ const registerSale = async (req, res, next) => {
     const { payload, saleProducts } = req.body;
     const newPayload = { ...payload, userId };
     const { id } = await SaleService.registerSale(newPayload);
-    console.log('id:', id);
-    await SaleProductService.createSaleProducts({
-      saleId: 1,
-      productId: 2,
-      quantity: 3,
+    saleProducts.forEach(async (prod) => {
+      console.log('item:', prod);
+      await SaleProductService.createSaleProducts({
+        saleId: id,
+        ...prod,
+      });
     });
-    // saleProducts.forEach(async (prod) => {
-    //   console.log('item:', prod);
-      // await SaleProductService.createSaleProducts({
-      //   saleId: id,
-      //   ...prod,
-      // });
-    // });
     return res.status(201).json(id);
   } catch (error) {
     return next(error);

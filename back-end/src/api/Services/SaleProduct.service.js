@@ -31,12 +31,7 @@ const { SaleProduct } = require('../../database/models');
 //   return orderItems;
 // };
 
-const createSaleProducts = async (payload) => {
-  console.log('cheguei');
-  const response = await SaleProduct.create({ ...payload });
-  console.log('response:', response);
-  return response;
-};
+const createSaleProducts = async (payload) => await SaleProduct.create(payload);
 
 module.exports = {
   // getOrderItemsBySaleId,
