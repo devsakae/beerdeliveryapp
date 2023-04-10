@@ -21,12 +21,12 @@ function CustomerOrderDetailRow(orderItem, index) {
       <td
         data-testid={ `customer_order_details__element-order-table-unit-price-${index}` }
       >
-        {price}
+        {String(Number(price).toFixed(2)).replace(/\./, ',')}
       </td>
       <td
         data-testid={ `customer_order_details__element-order-table-sub-total-${index}` }
       >
-        {subtotal}
+        {String(Number(subtotal).toFixed(2)).replace(/\./, ',')}
       </td>
     </tr>
   );

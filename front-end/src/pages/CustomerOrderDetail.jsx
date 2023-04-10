@@ -108,7 +108,7 @@ function CustomerOrderDetail() {
       <span
         data-testid="customer_order_details__element-order-total-price"
       >
-        { String(orderItems[0].total).replace(/\./, ',') }
+        { String(Number(orderItems[0].total).toFixed(2)).replace(/\./, ',') }
       </span>
     </div>
   );
