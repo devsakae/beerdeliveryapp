@@ -13,10 +13,10 @@ const getOrderItems = `
     p.price as price,
     sp.quantity as quantity,
     (p.price * sp.quantity) as subtotal
-  FROM \`delivery-app-dev\`.sales_products sp
-  INNER JOIN \`delivery-app-dev\`.products p ON p.id = sp.product_id
-  INNER JOIN \`delivery-app-dev\`.sales s ON s.id  = sp.sale_id
-  INNER JOIN \`delivery-app-dev\`.users vendor ON vendor.id  = s.seller_id
+  FROM sales_products sp
+  INNER JOIN products p ON p.id = sp.product_id
+  INNER JOIN sales s ON s.id  = sp.sale_id
+  INNER JOIN users vendor ON vendor.id  = s.seller_id
   WHERE s.id = ?
 `;
 
