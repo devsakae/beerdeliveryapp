@@ -6,6 +6,7 @@ const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_B
 
 export default function TableSellersOdersDetails() {
   const [sale, setSale] = useState([]);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
@@ -19,7 +20,11 @@ export default function TableSellersOdersDetails() {
         },
       )
       .then((response) => {
-        console.log(response);
+        const sumProductsSold = response.data.reduce((acc, cur) => {
+          acc += (Number(cur.price) * Number(cur.quantity));
+          return acc;
+        }, 0);
+        setTotal(sumProductsSold);
         setSale(response.data);
         setLoading(false);
       })
@@ -28,55 +33,66 @@ export default function TableSellersOdersDetails() {
       });
   }, [id]);
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Descrição</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Sub-total</th>
-        </tr>
-      </thead>
-      <tbody>
-        { !loading && sale.map((product, index) => (
-          <tr key={ index }>
-            <td
-              data-testid={
-                `seller_order_details__element-order-table-item-number-${index}`
-              }
-            >
-              {index + 1}
-            </td>
-            <td
-              data-testid={ `seller_order_details__element-order-table-name-
-                ${index}` }
-            >
-              {product.name}
-            </td>
-            <td
-              data-testid={ `seller_order_details__element-order-table-quantity-
-                ${index}` }
-            >
-              {product.quantity}
-            </td>
-            <td
-              data-testid={
-                `seller_order_details__element-order-table-unit-price-${index}`
-              }
-            >
-              { `R$ ${product.price.replace('.', ',')}` }
-            </td>
-            <td
-              data-testid={
-                `seller_order_details__element-order-table-sub-total-${index}`
-              }
-            >
-              { `R$ ${product.sub_total.replace('.', ',')}` }
-            </td>
+    <div>
+      <p
+        data-testid="seller_order_details__element-order-total-price"
+      >
+        {`Total: R$${new Intl.NumberFormat('pt-br', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+          .format(total)}`}
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          { !loading && sale.map((product, index) => (
+            <tr key={ index }>
+              <td
+                data-testid={
+                  `seller_order_details__element-order-table-item-number-${index}`
+                }
+              >
+                {index + 1}
+              </td>
+              <td
+                data-testid={ `seller_order_details__element-order-table-name-
+                  ${index}` }
+              >
+                {product.name}
+              </td>
+              <td
+                data-testid={ `seller_order_details__element-order-table-quantity-
+                  ${index}` }
+              >
+                {product.quantity}
+              </td>
+              <td
+                data-testid={
+                  `seller_order_details__element-order-table-unit-price-${index}`
+                }
+              >
+                { `R$ ${product.price.replace('.', ',')}` }
+              </td>
+              <td
+                data-testid={
+                  `seller_order_details__element-order-table-sub-total-${index}`
+                }
+              >
+                { `R$ ${product.sub_total.replace('.', ',')}` }
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

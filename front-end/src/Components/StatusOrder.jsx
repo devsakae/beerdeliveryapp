@@ -5,6 +5,13 @@ export default function StatusOrder({ order, changeStatus }) {
   const [btnPreparing, setBtnPreparing] = useState(true);
   const [btnDelivery, setBtnDelivery] = useState(true);
 
+  const formatDate = (notFormattedDate) => {
+    const date = new Date(notFormattedDate);
+    return `${date.getDate()
+      .toString().padStart(2, '0')}/${(date.getMonth() + 1)
+      .toString().padStart(2, '0')}/${date.getFullYear()}`;
+  };
+
   useEffect(() => {
     if (order.status === 'Pendente') setBtnPreparing(false);
     if (order.status === 'Preparando') setBtnDelivery(true);
@@ -21,7 +28,7 @@ export default function StatusOrder({ order, changeStatus }) {
       <div
         data-testid="seller_order_details__element-order-details-label-order-date"
       >
-        { order.saleDate }
+        { formatDate(order.saleDate) }
 
       </div>
       <div

@@ -9,7 +9,7 @@ module.exports = {
         autoIncrement: true,
       },
       name: Sequelize.STRING,
-      price: Sequelize.DECIMAL(4, 2),
+      price: Sequelize.DECIMAL(5, 2),
       url_image: Sequelize.STRING,
     });
   },
