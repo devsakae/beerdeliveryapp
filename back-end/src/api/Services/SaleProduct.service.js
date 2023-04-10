@@ -1,6 +1,7 @@
-// const { QueryTypes } = require('sequelize');
-// // const ErrorNotFound = require('../../middlewares/errors');
-// const { sequelize } = require('../../database/models/index');
+const { QueryTypes } = require('sequelize');
+// const ErrorNotFound = require('../../middlewares/errors');
+const { SaleProduct } = require('../../database/models/index');
+const { sequelize } = require('../../database/models/index');
 
 const getOrderItems = `
   SELECT
@@ -25,10 +26,12 @@ const getOrderItemsBySaleId = async (id) => {
     getOrderItems,
     { raw: true, type: QueryTypes.SELECT, replacements: [id] },
   );
+  return orderItems;
+};
 
 const createSaleProducts = async (payload) => SaleProduct.create(payload);
 
 module.exports = {
-  // getOrderItemsBySaleId,
+  getOrderItemsBySaleId,
   createSaleProducts,
 };
