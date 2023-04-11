@@ -7,11 +7,11 @@ function CartProvider({ children }) {
   const [total, setTotal] = useState(0);
   const [menu, setMenu] = useState([]);
   const [cart, setCart] = useState([]);
-  
-  const pegaCarrinho = (cartBackup) => {
+
+  const pegaCarrinho = useCallback((cartBackup) => {
     const myLocalCart = getFromLocalStorage('fazo4_cart') || cartBackup;
     setCart(myLocalCart);
-  };
+  }, []);
 
   const fetchProducts = useCallback(async () => {
     const response = await fetch('http://localhost:3001/products');
@@ -19,7 +19,7 @@ function CartProvider({ children }) {
     const initCart = data.map((p) => ({ quantity: 0, item: { ...p } }));
     setMenu(initCart);
     pegaCarrinho(initCart);
-  }, []);
+  }, [pegaCarrinho]);
 
   useEffect(() => {
     if (cart.length > 0) {
@@ -37,7 +37,7 @@ function CartProvider({ children }) {
     const newCart = [...cart];
     newCart[prodIndex].quantity += 1;
     setCart(newCart);
-  }, [cart, total]);
+  }, [cart]);
 
   const decreaseQuantity = useCallback((prod) => {
     const prodIndex = cart.findIndex(({ item }) => item.id === prod.item.id);
@@ -46,7 +46,7 @@ function CartProvider({ children }) {
       newCart[prodIndex].quantity -= 1;
       setCart(newCart);
     }
-  }, [cart, total]);
+  }, [cart]);
 
   const handleQuantityChange = useCallback((evt, prod) => {
     const prodIndex = cart.findIndex(({ item }) => item.id === prod.item.id);

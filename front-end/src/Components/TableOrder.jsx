@@ -7,12 +7,11 @@ export default function TableOrder() {
     cart,
     pegaCarrinho,
     total,
-    deleteItem,
   } = useContext(cartContext);
 
   useEffect(() => {
     pegaCarrinho();
-  }, [])
+  }, [pegaCarrinho]);
 
   return (
     <div>
