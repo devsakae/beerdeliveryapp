@@ -10,6 +10,16 @@ const getAllSales = async (_req, res, next) => {
   }
 };
 
+const getOrdersByUserId = async (req, res, next) => {
+  try {
+    const { params: { id } } = req;
+    const dataValues = await SaleService.getOrdersByUserId(id);
+    return res.status(200).json(dataValues);
+  } catch (error) {
+    return next(error);
+  }
+};
+
 const getSaleById = async (req, res, next) => {
   try {
     const { params: { id } } = req;
@@ -65,4 +75,5 @@ const deleteSale = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllSales, getSaleById, registerSale, updateSale, deleteSale };
+module.exports = {
+  getAllSales, getOrdersByUserId, getSaleById, registerSale, updateSale, deleteSale };

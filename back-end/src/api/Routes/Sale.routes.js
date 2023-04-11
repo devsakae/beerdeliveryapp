@@ -13,6 +13,11 @@ route.get(
   SaleController.getSaleById,
 );
 
+route.get(
+  '/customer/:id',
+  SaleController.getOrdersByUserId,
+);
+
 route.post(
   '/',
   SaleController.registerSale,
