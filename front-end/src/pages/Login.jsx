@@ -19,8 +19,10 @@ function Login() {
 
   useEffect(() => {
     const getUser = getFromLocalStorage('user') || {};
-    if (getUser.token) history.push(goto);
-  }, [])
+    if (getUser.role === 'administrator') history.push('/admin/manage');
+    if (getUser.role === 'seller') history.push('/seller/orders');
+    if (getUser.role === 'customer') history.push(goto);
+  }, [goto, history]);
 
   useEffect(() => {
     const validEmail = regexEmail.test(email);
