@@ -1,11 +1,19 @@
 const { validateToken } = require('../Utils/Jwt');
 const { SaleService, SaleProductService } = require('../Services');
 
-const getAllSales = async (req, res, next) => {
+const getAllSales = async (_req, res, next) => {
   try {
-    const { headers: { authorization } } = req;
-    const { id } = validateToken(authorization);
-    const dataValues = await SaleService.getAllSales(id);
+    const dataValues = await SaleService.getAllSales();
+    return res.status(200).json(dataValues);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const getOrdersByUserId = async (req, res, next) => {
+  try {
+    const { params: { id } } = req;
+    const dataValues = await SaleService.getOrdersByUserId(id);
     return res.status(200).json(dataValues);
   } catch (error) {
     return next(error);
@@ -67,4 +75,5 @@ const deleteSale = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllSales, getSaleById, registerSale, updateSale, deleteSale };
+module.exports = {
+  getAllSales, getOrdersByUserId, getSaleById, registerSale, updateSale, deleteSale };

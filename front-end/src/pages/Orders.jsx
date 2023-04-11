@@ -11,7 +11,10 @@ function Orders() {
   const [ordersList, setOrdersList] = useState([]);
 
   useEffect(() => {
-    axios.get(`${PATH}/sales`, { headers: { Authorization: token } }, { mode: 'no-cors' })
+    const user = getFromLocalStorage('user') || {};
+    const { id } = user;
+    console.log(id);
+    axios.get(`${PATH}/sales/customer/${id}`, { mode: 'no-cors' })
       .then(({ data }) => { setOrdersList(data); }).catch((err) => console.log(err));
   }, [token]);
 

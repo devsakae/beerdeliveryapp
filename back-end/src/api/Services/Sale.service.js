@@ -1,6 +1,8 @@
 const { Sale } = require('../../database/models');
 
-const getAllSales = async (id) => Sale.findAll({ where: { userId: id } });
+const getAllSales = async () => Sale.findAll();
+
+const getOrdersByUserId = async (id) => Sale.findAll({ where: { userId: id } });
 
 const getSaleById = async (id) => Sale.findByPk(id);
 
@@ -10,4 +12,5 @@ const updateSale = async (id, payload) => Sale.update({ ...payload }, { where: {
 
 const deleteSale = async (id) => Sale.destroy({ where: { id } });
 
-module.exports = { getAllSales, getSaleById, registerSale, updateSale, deleteSale };
+module.exports = {
+  getAllSales, getOrdersByUserId, getSaleById, registerSale, updateSale, deleteSale };
