@@ -1,6 +1,6 @@
 const { Sale } = require('../../database/models');
 
-const getAllSales = async () => Sale.findAll();
+const getAllSales = async (id) => Sale.findAll({ where: { userId: id } });
 
 const getSaleById = async (id) => Sale.findByPk(id);
 
