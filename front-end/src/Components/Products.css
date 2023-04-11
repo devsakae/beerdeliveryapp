@@ -1,0 +1,30 @@
+.allCards {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5px;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 5px;
+  width: 95vw;
+}
+
+.productCard {
+  align-items: center;
+  border: 1px black solid;
+  justify-content: space-evenly;
+  padding: 10px;
+  min-width: 30%;
+}
+
+.qtyBtn {
+  width: 50px;
+}
+
+.qtyInput {
+  width: 80px;
+}
+
+button, input {
+  width: 150px;
+}
