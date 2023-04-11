@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import cartContext from '../Context/CartContext';
 import './Products.css';
@@ -60,5 +61,10 @@ export default function ProductCard({ prod }) {
         </button>
       </div>
     </div>
-  )
+  );
 }
+
+ProductCard.propTypes = {
+  prod: PropTypes.object,
+  item: PropTypes.object,
+}.isRequired;
