@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { saveToLocalStorage } from '../services/localStorage';
+import { getFromLocalStorage, saveToLocalStorage } from '../services/localStorage';
 import style from './User.module.css';
 
 const MIN_PASSWORD_LENGTH = 6;
@@ -16,6 +16,11 @@ function Login() {
   const [invalidUser, setInvalidUser] = useState(false);
   const history = useHistory();
   let goto = '/customer/products';
+
+  useEffect(() => {
+    const getUser = getFromLocalStorage('user') || {};
+    if (getUser.token) history.push(goto);
+  }, [])
 
   useEffect(() => {
     const validEmail = regexEmail.test(email);

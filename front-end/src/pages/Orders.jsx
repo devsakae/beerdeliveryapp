@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { getFromLocalStorage } from '../services/localStorage';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
+import { getFromLocalStorage } from '../services/localStorage';
 
 const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
@@ -14,6 +14,13 @@ function Orders() {
     axios.get(`${PATH}/sales`, { headers: { Authorization: token } }, { mode: 'no-cors' })
       .then(({ data }) => { setOrdersList(data); }).catch((err) => console.log(err));
   }, [token]);
+
+  const formatDate = (notFormattedDate) => {
+    const date = new Date(notFormattedDate);
+    return `${date.getDate()
+      .toString().padStart(2, '0')}/${(date.getMonth() + 1)
+      .toString().padStart(2, '0')}/${date.getFullYear()}`;
+  };
 
   return (
     <section>
@@ -29,10 +36,10 @@ function Orders() {
                 {order.status}
               </p>
               <p data-testid={ `customer_orders__element-order-date-${order.id}` }>
-                {order.saleDate}
+                { formatDate(order.saleDate) }
               </p>
               <p data-testid={ `customer_orders__element-card-price-${order.id}` }>
-                {order.totalPrice}
+                { order.totalPrice.split('.').join(',') }
               </p>
             </Link>
           ))

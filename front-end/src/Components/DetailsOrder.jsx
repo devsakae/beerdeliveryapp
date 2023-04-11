@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import cartContext from '../Context/CartContext';
-import { getFromLocalStorage } from '../services/localStorage';
+import { getFromLocalStorage, removeKeyFromLocalStorage } from '../services/localStorage';
 // Refatoramos porque quebrou reqs 25, 27, 28, 29.
 // import { request, requestRole } from '../services/request';
 
@@ -77,6 +77,7 @@ export default function DetailsOrder() {
   };
 
   const registerSale = () => {
+    removeKeyFromLocalStorage('fazo4_cart');
     const listSoldProducts = cart.filter((p) => p.quantity > 0);
     const sumProductsSold = listSoldProducts.reduce((acc, cur) => {
       acc += (Number(cur.item.price) * Number(cur.quantity));
