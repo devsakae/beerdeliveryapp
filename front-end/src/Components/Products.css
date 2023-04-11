@@ -13,8 +13,8 @@
   align-items: center;
   border: 1px black solid;
   justify-content: space-evenly;
-  padding: 10px;
   min-width: 30%;
+  padding: 10px;
 }
 
 .qtyBtn {
