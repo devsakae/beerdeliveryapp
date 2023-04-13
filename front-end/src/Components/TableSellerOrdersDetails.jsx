@@ -34,15 +34,6 @@ export default function TableSellersOdersDetails() {
   }, [id]);
   return (
     <div>
-      <p
-        data-testid="seller_order_details__element-order-total-price"
-      >
-        {`Total: R$${new Intl.NumberFormat('pt-br', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })
-          .format(total)}`}
-      </p>
       <table>
         <thead>
           <tr>
@@ -93,6 +84,15 @@ export default function TableSellersOdersDetails() {
           ))}
         </tbody>
       </table>
+      <p
+        data-testid="seller_order_details__element-order-total-price"
+      >
+        {`Total: R$ ${new Intl.NumberFormat('pt-br', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+          .format(total)}`}
+      </p>
     </div>
   );
 }

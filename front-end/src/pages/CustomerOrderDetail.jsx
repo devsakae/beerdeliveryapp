@@ -7,25 +7,6 @@ const { useParams } = require('react-router-dom');
 
 const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
-// const orderItemsMock = [ // mock
-//   {
-//     // Seller
-//     seller: 'Vendedor 1',
-
-//     // Sale
-//     id: 1,
-//     saleDate: '12/12/24',
-//     status: 'Entregue',
-//     total: 20,
-
-//     // sale_product -> Product
-//     name: 'Item 1',
-//     price: 10,
-//     quantity: 2,
-//     subtotal: 20,
-//   },
-// ];
-
 function formatDate(dateString) {
   const date = new Date(dateString);
   const year = date.getUTCFullYear();

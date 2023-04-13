@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import './StatusOrder.css';
 
 export default function StatusOrder({ order, changeStatus }) {
   const [btnPreparing, setBtnPreparing] = useState(true);
@@ -18,24 +19,21 @@ export default function StatusOrder({ order, changeStatus }) {
   }, [order.status]);
 
   return (
-    <div style={ { display: 'flex', gap: '15px' } }>
+    <div className="orderdetail">
       <div
-        data-testid="seller_order_details__element-order-details-label-order-id"
+        data-testid="seller_order_details__element-order-details-label-order-id"  
       >
-        { order.id }
-
+        { `Pedido n. ${order.id}` }
       </div>
       <div
         data-testid="seller_order_details__element-order-details-label-order-date"
       >
-        { formatDate(order.saleDate) }
-
+        { `Comprado em ${formatDate(order.saleDate)}` }
       </div>
       <div
         data-testid="seller_order_details__element-order-details-label-delivery-status"
       >
-        { order.status }
-
+        { `Status: ${order.status}` }
       </div>
       <button
         type="button"
@@ -44,7 +42,6 @@ export default function StatusOrder({ order, changeStatus }) {
         data-testid="seller_order_details__button-preparing-check"
       >
         PREPARAR PEDIDO
-
       </button>
       <button
         type="button"
@@ -53,7 +50,6 @@ export default function StatusOrder({ order, changeStatus }) {
         data-testid="seller_order_details__button-dispatch-check"
       >
         SAIU PARA ENTREGA
-
       </button>
     </div>
   );

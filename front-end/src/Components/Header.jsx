@@ -22,12 +22,13 @@ export default function Header() {
         </div>
         <div className="halfheader">
         { userIsAdmin && <MenuAdmin /> }
-        {/* { userIsSeller && <MenuSeller /> } */}
         { (userIsCustomer || userIsSeller) && <MenuCustomer role={ role } /> }
         <div className='headerClient'>
-          <p data-testid="customer_products__element-navbar-user-full-name">
-          { name }
-          </p>
+          <h3
+            data-testid="customer_products__element-navbar-user-full-name"
+          >
+            { name }
+          </h3>
           <Link
             to="/"
             data-testid="customer_products__element-navbar-link-logout"

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../Components/Header';
+import Layout from '../Components/Layout';
 import StatusOrder from '../Components/StatusOrder';
 import TableSellersOdersDetails from '../Components/TableSellerOrdersDetails';
 import { getFromLocalStorage } from '../services/localStorage';
@@ -57,10 +57,9 @@ export default function SellerOrderDetails() {
   }, [id]);
 
   return (
-    <>
-      <Header />
+    <Layout>
       <StatusOrder order={ order } changeStatus={ changeStatus } />
       <TableSellersOdersDetails />
-    </>
+    </Layout>
   );
 }

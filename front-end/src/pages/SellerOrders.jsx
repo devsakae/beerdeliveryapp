@@ -1,12 +1,11 @@
 import React from 'react';
-import Header from '../Components/Header';
+import Layout from '../Components/Layout';
 import TableSellerOrders from '../Components/TableSellerOrders';
 
 export default function SellerOrders() {
   return (
-    <>
-      <Header />
+    <Layout>
       <TableSellerOrders />
-    </>
+    </Layout>
   );
 }
