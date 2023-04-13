@@ -1,0 +1,35 @@
+table {
+  min-width: 200px;
+  width: 90vw;
+  margin: 20px auto;
+  text-align: center;
+  line-height: 1.5;
+}
+
+thead {
+  line-height: 2.3;
+  background-color: bisque;
+}
+
+tr:hover {
+  background-color: rgb(242, 233, 208);
+  cursor: pointer;
+}
+
+.bigger {
+  width: 45%;
+}
+
+.transit {
+  background-color: rgb(254, 133, 157);
+}
+
+.Entregue {
+  color: darkgreen;
+}
+
+.checkouttotalvalue {
+  font-size: large;
+  text-align: right;
+  margin-right: 50px;
+}

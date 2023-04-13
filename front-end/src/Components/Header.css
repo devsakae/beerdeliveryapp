@@ -1,10 +1,9 @@
 nav {
   align-items: center;
-  border-bottom: 1px black solid;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -5px, rgba(0, 0, 0, 0.04) 0px 5px 5px -5px;
   display: flex;
   height: 160px;
   justify-content: space-between;
-  padding: 0 25px;
 }
 
 img {

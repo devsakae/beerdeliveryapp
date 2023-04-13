@@ -5,7 +5,7 @@
   justify-content: center;
 }
 
-input {
+/* input {
   height: 25px;
   min-width: 50px;
 }
@@ -18,7 +18,7 @@ option, select, button {
 button:enabled {
   background-color: darkolivegreen;
   color: white;
-}
+} */
 
 .messagebox {
   background-color: salmon;

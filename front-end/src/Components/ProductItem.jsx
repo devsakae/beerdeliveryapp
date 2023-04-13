@@ -14,6 +14,7 @@ export default function ProductItem({ prod, i }) {
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-name-${i}` }
+        style={{ textAlign: 'left', paddingLeft: '15px' }}
       >
         { prod.item.name }
       </td>
@@ -25,20 +26,20 @@ export default function ProductItem({ prod, i }) {
       <td
         data-testid={ `customer_checkout__element-order-table-unit-price-${i}` }
       >
-        {new Intl.NumberFormat('pt-br', {
+        { `R$ ${new Intl.NumberFormat('pt-br', {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })
-          .format(prod.item.price)}
+          .format(prod.item.price)}` }
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-sub-total-${i}` }
       >
-        { new Intl.NumberFormat('pt-br', {
+        { `R$ ${new Intl.NumberFormat('pt-br', {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })
-          .format(prod.item.price * prod.quantity) }
+          .format(prod.item.price * prod.quantity)}` }
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-remove-${i}` }

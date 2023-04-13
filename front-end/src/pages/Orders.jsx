@@ -1,14 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Layout from '../Components/Layout';
 import { getFromLocalStorage } from '../services/localStorage';
+import './Orders.css';
 
 const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 function Orders() {
   const [token] = useState(getFromLocalStorage('user').token);
   const [ordersList, setOrdersList] = useState([]);
+  const history = useHistory();
+  const transit = (is) => is.status === 'Em Trânsito';
 
   useEffect(() => {
     const user = getFromLocalStorage('user') || {};
@@ -27,24 +30,36 @@ function Orders() {
 
   return (
     <Layout>
-      {ordersList.length > 0 && (
-        ordersList.map((order, index) => (
-          <Link style={{ display: 'flex', gap: '10px' }} key={ index } to={ `/customer/orders/${order.id}` }>
-            <p data-testid={ `customer_orders__element-order-id-${order.id}` }>
-              {order.id}
-            </p>
-            <p data-testid={ `customer_orders__element-delivery-status-${order.id}` }>
-              {order.status}
-            </p>
-            <p data-testid={ `customer_orders__element-order-date-${order.id}` }>
-              { formatDate(order.saleDate) }
-            </p>
-            <p data-testid={ `customer_orders__element-card-price-${order.id}` }>
-              { order.totalPrice.split('.').join(',') }
-            </p>
-          </Link>
-        ))
-      )}
+      <table>
+        <thead>
+          <tr>
+            <th>Order id</th>
+            <th>Status</th>
+            <th>Data do pedido</th>
+            <th>Valor total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ordersList.length > 0 && (
+            ordersList.map((order, index) => (
+              <tr className={ `content ${transit(order) && 'transit'} ${order.status}` } key={ index } onClick={ () => history.push(`/customer/orders/${order.id}`) }>
+                <td data-testid={ `customer_orders__element-order-id-${order.id}` }>
+                  {order.id}
+                </td>
+                <td className="bigger" data-testid={ `customer_orders__element-delivery-status-${order.id}` }>
+                  {order.status}
+                </td>
+                <td data-testid={ `customer_orders__element-order-date-${order.id}` }>
+                  { formatDate(order.saleDate) }
+                </td>
+                <td data-testid={ `customer_orders__element-card-price-${order.id}` }>
+                  { `R$ ${order.totalPrice.split('.').join(',')}` }
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
     </Layout>
   );
 }

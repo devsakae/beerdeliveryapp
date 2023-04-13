@@ -1,18 +1,12 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import BuyButton from '../Components/BuyButton';
 import Layout from '../Components/Layout';
 import ProductCard from '../Components/ProductCard';
 import '../Components/Products.css';
 import cartContext from '../Context/CartContext';
 
 function Products() {
-  const history = useHistory();
-
-  const {
-    total,
-    cart,
-    fetchProducts,
-  } = useContext(cartContext);
+  const { cart, fetchProducts } = useContext(cartContext);
 
   useEffect(() => {
     fetchProducts();
@@ -20,24 +14,12 @@ function Products() {
 
   return (
     <Layout>
-      <button
-        type="button"
-        data-testid="customer_products__button-cart"
-        onClick={ () => history.push('/customer/checkout') }
-        disabled={ total === 0 }
-      >
-        <span
-          data-testid="customer_products__checkout-bottom-value"
-        >
-          { new Intl.NumberFormat('pt-br', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })
-            .format(total) }
-        </span>
-      </button>
+      <h2>Nossos produtos</h2>
       <div className="allCards">
         { cart?.map((prod, idx) => (<ProductCard key={ idx } prod={ prod } />)) }
+      </div>
+      <div className="floating">
+        <BuyButton />
       </div>
     </Layout>
   );

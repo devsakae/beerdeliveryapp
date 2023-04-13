@@ -1,3 +1,17 @@
+button, input[type="submit"], input[type="reset"] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+h2 {
+  text-align: center;
+}
+
 .allCards {
   align-items: center;
   display: flex;
@@ -7,15 +21,22 @@
   margin: 0 auto;
   padding: 5px;
   width: 95vw;
+  margin-top: 30px;
 }
 
 .productCard {
   align-items: center;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   justify-content: space-evenly;
-  min-width: 180px;
-  padding: 10px;
+  min-width: 220px;
+  padding: 30px;
   text-align: center;
+}
+
+.productCard button, input[type='submit'] {
+	background-color:rgb(26, 160, 127);
+  color: white;
+  height: 30px;
 }
 
 .price {
@@ -36,7 +57,22 @@
   width: 80px;
 }
 
-button, input {
-  width: 150px;
+.floating {
+	position: fixed;
+	width: 150px;
+	height: 50px;
+	bottom: 40px;
+	right: 40px;
+  text-align: center;
+	background-color:rgb(26, 160, 127);
+  border-radius: 5px;
+	color: #FFF;
+	box-shadow: 2px 2px 3px #999;
 }
 
+.buyBtn {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

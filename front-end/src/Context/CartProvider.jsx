@@ -13,6 +13,14 @@ function CartProvider({ children }) {
     setCart(myLocalCart);
   }, []);
 
+  const formatPrice = useCallback(() => {
+    return `R$ ${new Intl.NumberFormat('pt-br', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+      .format(prod.item.price * prod.quantity)}`
+  }, []);
+
   const fetchProducts = useCallback(async () => {
     const response = await fetch('http://localhost:3001/products');
     const data = await response.json();
@@ -72,6 +80,7 @@ function CartProvider({ children }) {
     handleQuantityChange,
     deleteItem,
     pegaCarrinho,
+    formatPrice
   }), [
     cart,
     total,
@@ -82,6 +91,7 @@ function CartProvider({ children }) {
     handleQuantityChange,
     deleteItem,
     pegaCarrinho,
+    formatPrice
   ]);
 
   return (

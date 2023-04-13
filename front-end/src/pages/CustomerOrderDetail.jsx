@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import CustomerOrderDetailRow from '../Components/CustomerOrderDetailRow';
-import Header from '../Components/Header';
+import Layout from '../Components/Layout';
 
 const { useParams } = require('react-router-dom');
 
@@ -55,8 +55,7 @@ function CustomerOrderDetail() {
   if (orderItems.length === 0) return (<div>Carregando...</div>);
 
   return (
-    <div>
-      <Header />
+    <Layout>
       <table>
         <tbody>
           <tr>
@@ -110,7 +109,7 @@ function CustomerOrderDetail() {
       >
         { String(Number(orderItems[0].total).toFixed(2)).replace(/\./, ',') }
       </span>
-    </div>
+    </Layout>
   );
 }
 

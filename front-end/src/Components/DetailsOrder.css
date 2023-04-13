@@ -1,0 +1,91 @@
+.formcontainer {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  margin: 0 auto;
+}
+
+.deliveryinfoline {
+  display: flex;
+  flex-direction: row nowrap;
+  height: 5vh;
+  gap: 10px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.deliveryfield input, select {
+  width: 280px;
+  height: 20px;
+}
+
+.deliverytext {
+  width: 40%;
+  text-align: right;
+}
+
+.submitBtn {
+  width: 130px;
+  margin: 0 auto;
+  height: 40px;
+  color: #000;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  overflow: hidden;
+  border-radius: 5px;
+  border: none;
+  background-color: #80ed99
+}
+.submitBtn:hover {
+  border-radius: 5px;
+  padding-right: 24px;
+  padding-left:8px;
+}
+.submitBtn:hover:after {
+  opacity: 1;
+  right: 10px;
+}
+.submitBtn:after {
+  content: "\00BB";
+  position: absolute;
+  opacity: 0;
+  font-size: 20px;
+  line-height: 40px;
+  top: 0;
+  right: -20px;
+  transition: 0.4s;
+}
+
+/* 
+.deliveryform {
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
+  width: 90vw;
+  justify-content: space-evenly;
+}
+
+.deliveryformdiv {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.deliveryform select, input {
+  width: 350px;
+}
+
+label {
+  width: 100%;
+  border: 1px red solid;
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: space-evenly;
+} */

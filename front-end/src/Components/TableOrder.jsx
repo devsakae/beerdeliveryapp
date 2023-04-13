@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import cartContext from '../Context/CartContext';
+import '../pages/Orders.css';
 import ProductItem from './ProductItem';
 
 export default function TableOrder() {
@@ -20,7 +21,7 @@ export default function TableOrder() {
         <thead>
           <tr>
             <th>Item</th>
-            <th>Descrição</th>
+            <th style={{ textAlign: 'left', paddingLeft: '15px' }}>Descrição</th>
             <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-Total</th>
@@ -35,8 +36,9 @@ export default function TableOrder() {
       </table>
       <p
         data-testid="customer_checkout__element-order-total-price"
+        className="checkouttotalvalue"
       >
-        {`Total: R$${new Intl.NumberFormat('pt-br', {
+        {`Total: R$ ${new Intl.NumberFormat('pt-br', {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })
