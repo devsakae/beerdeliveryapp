@@ -1,0 +1,15 @@
+nav {
+  align-items: center;
+  border-bottom: 1px black solid;
+  display: flex;
+  height: 10vh;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+
+.sidemenu {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}

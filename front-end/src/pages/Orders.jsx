@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../Components/Header';
+import Layout from '../Components/Layout';
 import { getFromLocalStorage } from '../services/localStorage';
 
 const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
@@ -26,29 +26,26 @@ function Orders() {
   };
 
   return (
-    <section>
-      <Header />
-      <ul>
-        {ordersList.length > 0 && (
-          ordersList.map((order, index) => (
-            <Link key={ index } to={ `/customer/orders/${order.id}` }>
-              <p data-testid={ `customer_orders__element-order-id-${order.id}` }>
-                {order.id}
-              </p>
-              <p data-testid={ `customer_orders__element-delivery-status-${order.id}` }>
-                {order.status}
-              </p>
-              <p data-testid={ `customer_orders__element-order-date-${order.id}` }>
-                { formatDate(order.saleDate) }
-              </p>
-              <p data-testid={ `customer_orders__element-card-price-${order.id}` }>
-                { order.totalPrice.split('.').join(',') }
-              </p>
-            </Link>
-          ))
-        )}
-      </ul>
-    </section>
+    <Layout>
+      {ordersList.length > 0 && (
+        ordersList.map((order, index) => (
+          <Link style={{ display: 'flex', gap: '10px' }} key={ index } to={ `/customer/orders/${order.id}` }>
+            <p data-testid={ `customer_orders__element-order-id-${order.id}` }>
+              {order.id}
+            </p>
+            <p data-testid={ `customer_orders__element-delivery-status-${order.id}` }>
+              {order.status}
+            </p>
+            <p data-testid={ `customer_orders__element-order-date-${order.id}` }>
+              { formatDate(order.saleDate) }
+            </p>
+            <p data-testid={ `customer_orders__element-card-price-${order.id}` }>
+              { order.totalPrice.split('.').join(',') }
+            </p>
+          </Link>
+        ))
+      )}
+    </Layout>
   );
 }
 

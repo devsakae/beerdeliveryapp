@@ -4,7 +4,7 @@ import {
   getFromLocalStorage,
   removeKeyFromLocalStorage,
 } from '../services/localStorage';
-import style from './Header.module.css';
+import './Header.css';
 import MenuAdmin from './MenuAdmin';
 import MenuCustomer from './MenuCustomer';
 import MenuSeller from './MenuSeller';
@@ -16,25 +16,27 @@ export default function Header() {
   const userIsCustomer = role === 'customer';
   return (
     <header>
-      <nav className={ style }>
-        <div>
+      <nav>
+        <div className='sidemenu'>
           { userIsAdmin && <MenuAdmin /> }
           { userIsSeller && <MenuSeller /> }
           { userIsCustomer && <MenuCustomer /> }
         </div>
-        <div
-          data-testid="customer_products__element-navbar-user-full-name"
-        >
-          {name}
-        </div>
-        <div>
-          <Link
-            to="/"
-            data-testid="customer_products__element-navbar-link-logout"
-            onClick={ () => removeKeyFromLocalStorage('user') }
+        <div className='sidemenu'>
+          <div
+            data-testid="customer_products__element-navbar-user-full-name"
           >
-            Sair
-          </Link>
+            {name}
+          </div>
+          <div>
+            <Link
+              to="/"
+              data-testid="customer_products__element-navbar-link-logout"
+              onClick={ () => removeKeyFromLocalStorage('user') }
+            >
+              Logout
+            </Link>
+          </div>
         </div>
       </nav>
     </header>

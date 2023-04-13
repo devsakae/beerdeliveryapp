@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import Header from '../Components/Header';
+import Layout from '../Components/Layout';
 import ProductCard from '../Components/ProductCard';
 import '../Components/Products.css';
 import cartContext from '../Context/CartContext';
@@ -19,8 +19,7 @@ function Products() {
   }, [fetchProducts]);
 
   return (
-    <>
-      <Header />
+    <Layout>
       <button
         type="button"
         data-testid="customer_products__button-cart"
@@ -40,7 +39,7 @@ function Products() {
       <div className="allCards">
         { cart?.map((prod, idx) => (<ProductCard key={ idx } prod={ prod } />)) }
       </div>
-    </>
+    </Layout>
   );
 }
 

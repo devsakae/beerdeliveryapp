@@ -12,15 +12,6 @@ export default function ProductCard({ prod }) {
 
   return (
     <div className="productCard">
-      <p
-        data-testid={ `customer_products__element-card-price-${prod.item.id}` }
-      >
-        { new Intl.NumberFormat('pt-br', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })
-          .format(prod.item.price) }
-      </p>
       <img
         src={ prod.item.urlImage }
         alt={ `Imagem do produto ${prod.item.name}` }
@@ -33,6 +24,12 @@ export default function ProductCard({ prod }) {
           data-testid={ `customer_products__element-card-title-${prod.item.id}` }
         >
           { prod.item.name }
+        </p>
+        <p
+        className='price'
+          data-testid={ `customer_products__element-card-price-${prod.item.id}` }
+        >
+            { `R$ ${prod.item.price.split('.').join(',')}` }
         </p>
         <button
           type="button"

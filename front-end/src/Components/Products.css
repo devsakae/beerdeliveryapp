@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   flex-flow: row wrap;
-  gap: 5px;
+  gap: 20px;
   justify-content: center;
   margin: 0 auto;
   padding: 5px;
@@ -11,20 +11,32 @@
 
 .productCard {
   align-items: center;
-  border: 1px black solid;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   justify-content: space-evenly;
-  min-width: 30%;
+  min-width: 180px;
   padding: 10px;
+  text-align: center;
+}
+
+.price {
+  font-size: large;
+  font-weight: 700;
+  line-height: 0.2;
 }
 
 .qtyBtn {
+  font-size: larger;
   width: 50px;
 }
 
 .qtyInput {
+  border: 0;
+  font-size: medium;
+  text-align: center;
   width: 80px;
 }
 
 button, input {
   width: 150px;
 }
+
