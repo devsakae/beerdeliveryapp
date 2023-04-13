@@ -2,14 +2,50 @@ nav {
   align-items: center;
   border-bottom: 1px black solid;
   display: flex;
-  height: 10vh;
+  height: 160px;
   justify-content: space-between;
-  padding: 0 15px;
+  padding: 0 25px;
 }
 
-.sidemenu {
+img {
+  display: float;
+}
+
+.headerClient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: cornflowerblue;
+  height: 160px;
+  min-width: 250px;
+}
+
+.halfheader {
   align-items: center;
   display: flex;
   justify-content: space-around;
-  width: 100%;
+}
+
+.menuicons {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 160px;
+}
+
+.bgyellow {
+  background-color: burlywood;
+}
+
+.bgyellow:hover {
+  background-color: rgb(207, 167, 115);
+}
+
+.bgcoral {
+  background-color: coral;
+}
+
+.bgcoral:hover {
+  background-color: rgb(235, 110, 64);
 }

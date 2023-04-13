@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../images/logo.svg';
 import {
   getFromLocalStorage,
   removeKeyFromLocalStorage,
@@ -7,7 +8,6 @@ import {
 import './Header.css';
 import MenuAdmin from './MenuAdmin';
 import MenuCustomer from './MenuCustomer';
-import MenuSeller from './MenuSeller';
 
 export default function Header() {
   const { name, role } = getFromLocalStorage('user');
@@ -17,26 +17,25 @@ export default function Header() {
   return (
     <header>
       <nav>
-        <div className='sidemenu'>
-          { userIsAdmin && <MenuAdmin /> }
-          { userIsSeller && <MenuSeller /> }
-          { userIsCustomer && <MenuCustomer /> }
+        <div className="halfheader">
+          <img src={ logo } />
         </div>
-        <div className='sidemenu'>
-          <div
-            data-testid="customer_products__element-navbar-user-full-name"
-          >
-            {name}
-          </div>
-          <div>
-            <Link
-              to="/"
-              data-testid="customer_products__element-navbar-link-logout"
-              onClick={ () => removeKeyFromLocalStorage('user') }
+        <div className="halfheader">
+        { userIsAdmin && <MenuAdmin /> }
+        {/* { userIsSeller && <MenuSeller /> } */}
+        { (userIsCustomer || userIsSeller) && <MenuCustomer role={ role } /> }
+        <div className='headerClient'>
+          <p data-testid="customer_products__element-navbar-user-full-name">
+          { name }
+          </p>
+          <Link
+            to="/"
+            data-testid="customer_products__element-navbar-link-logout"
+            onClick={ () => removeKeyFromLocalStorage('user') }
             >
-              Logout
-            </Link>
-          </div>
+            Logout
+          </Link>
+        </div>
         </div>
       </nav>
     </header>

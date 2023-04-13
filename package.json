@@ -45,6 +45,7 @@
     "sequelize-cli": "6.4.1"
   },
   "dependencies": {
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "react-icons": "^4.8.0"
   }
 }
