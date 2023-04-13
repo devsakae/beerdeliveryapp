@@ -13,12 +13,12 @@ function CartProvider({ children }) {
     setCart(myLocalCart);
   }, []);
 
-  const formatPrice = useCallback(() => {
+  const formatPrice = useCallback((prod) => {
     return `R$ ${new Intl.NumberFormat('pt-br', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })
-      .format(prod.item.price * prod.quantity)}`
+      .format(prod)}`
   }, []);
 
   const fetchProducts = useCallback(async () => {

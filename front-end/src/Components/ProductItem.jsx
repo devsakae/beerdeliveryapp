@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import cartContext from '../Context/CartContext';
 
-export default function ProductItem({ prod, i }) {
+export default function ProductItem({ prod, i, noBtn }) {
   const { deleteItem } = useContext(cartContext);
 
   return (
@@ -44,12 +44,12 @@ export default function ProductItem({ prod, i }) {
       <td
         data-testid={ `customer_checkout__element-order-table-remove-${i}` }
       >
-        <button
+       { !noBtn && <button
           type="button"
           onClick={ () => deleteItem(prod.item.id) }
         >
           Remover
-        </button>
+        </button> }
       </td>
     </tr>
   );
