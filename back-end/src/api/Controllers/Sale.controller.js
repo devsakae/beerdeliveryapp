@@ -3,8 +3,8 @@ const { SaleService, SaleProductService } = require('../Services');
 
 const getAllSales = async (_req, res, next) => {
   try {
-    const dataValues = await SaleService.getAllSales();
-    return res.status(200).json(dataValues);
+    const response = await SaleService.getAllSales();
+    return res.status(200).json(response);
   } catch (error) {
     return next(error);
   }
@@ -13,8 +13,8 @@ const getAllSales = async (_req, res, next) => {
 const getOrdersByUserId = async (req, res, next) => {
   try {
     const { params: { id } } = req;
-    const dataValues = await SaleService.getOrdersByUserId(id);
-    return res.status(200).json(dataValues);
+    const response = await SaleService.getOrdersByUserId(id);
+    return res.status(200).json(response);
   } catch (error) {
     return next(error);
   }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import TotalPriceBox from './TotalPriceBox';
 
 const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
@@ -32,6 +33,7 @@ export default function TableSellersOdersDetails() {
         console.log(error);
       });
   }, [id]);
+
   return (
     <div>
       <table>
@@ -84,15 +86,13 @@ export default function TableSellersOdersDetails() {
           ))}
         </tbody>
       </table>
-      <p
-        data-testid="seller_order_details__element-order-total-price"
-      >
+      <TotalPriceBox data-testid="seller_order_details__element-order-total-price">
         {`Total: R$ ${new Intl.NumberFormat('pt-br', {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })
           .format(total)}`}
-      </p>
+      </TotalPriceBox>
     </div>
   );
 }

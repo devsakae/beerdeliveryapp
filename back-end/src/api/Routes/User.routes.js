@@ -13,4 +13,9 @@ route.get(
   UserController.getUsersSellers,
 );
 
+route.get(
+  '/:id',
+  UserController.getUserById,
+);
+
 module.exports = route;

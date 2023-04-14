@@ -22,6 +22,16 @@ const getUsersSellers = async (_req, res, next) => {
   }
 };
 
+const getUserById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const response = await UserService.getUserById(id);
+    return res.status(200).json(response);  
+  } catch (error) {
+    return next(error);
+  }
+};
+
 const createUser = async (req, res, next) => {
   try {
     const password = hashPassword(req.body.password);
@@ -56,4 +66,4 @@ const getUsers = async (req, res, next) => {
   }
 }
 
-module.exports = { Login, getUsersSellers, createUser, addNewUser, getUsers };
+module.exports = { Login, getUsersSellers, createUser, addNewUser, getUsers, getUserById };

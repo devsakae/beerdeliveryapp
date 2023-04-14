@@ -10,13 +10,28 @@ const path = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_B
 
 export default function SellerOrderDetails() {
   const [order, setOrder] = useState({});
-  // const [status, setStatus] = useState('');
   const { id } = useParams();
+  const { token } = getFromLocalStorage('user');
+
+  useEffect(() => {
+    axios.get(
+      `${path}/sales/${id}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      },
+      {
+        mode: 'no-cors',
+      },
+    )
+      .then((response) => setOrder(response.data))
+      .catch((err) => console.log(err));
+  }, [id]);
 
   const changeStatus = () => {
-    const { token } = getFromLocalStorage('user');
-    let actualStatus = 'Preparando';
-    if (order.status === actualStatus) actualStatus = 'Em Trânsito';
+    let actualStatus;
+    (order.status === 'Pendente') ? actualStatus = 'Preparando' : actualStatus = 'Em Trânsito';
     axios.put(
       `${path}/sales/${id}`,
       {
@@ -31,30 +46,9 @@ export default function SellerOrderDetails() {
         mode: 'no-cors',
       },
     )
-      .then((response) => {
-        setOrder(response.data);
-      })
+      .then((response) => setOrder(response.data))
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    const { token } = getFromLocalStorage('user');
-    axios.get(
-      `${path}/sales/${id}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      },
-      {
-        mode: 'no-cors',
-      },
-    )
-      .then((response) => {
-        setOrder(response.data);
-      })
-      .catch((err) => console.log(err));
-  }, [id]);
 
   return (
     <Layout>

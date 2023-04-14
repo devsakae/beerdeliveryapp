@@ -16,9 +16,9 @@ function Orders() {
   useEffect(() => {
     const user = getFromLocalStorage('user') || {};
     const { id } = user;
-    console.log(id);
     axios.get(`${PATH}/sales/customer/${id}`, { mode: 'no-cors' })
-      .then(({ data }) => { setOrdersList(data); }).catch((err) => console.log(err));
+      .then(({ data }) => setOrdersList(data))
+      .catch((err) => console.log(err));
   }, [token]);
 
   const formatDate = (notFormattedDate) => {

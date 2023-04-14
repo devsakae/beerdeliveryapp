@@ -1,0 +1,11 @@
+.pricebox {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
+  width: 250px;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px black solid;
+  box-shadow: 0 5px #495057;
+}
