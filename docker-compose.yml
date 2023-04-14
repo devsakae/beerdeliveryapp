@@ -2,7 +2,7 @@ version: '3.9'
 services:
   db:
     image: mysql:8.0.21
-    container_name: fazo4-db
+    container_name: beerdeliveryapp
     platform: linux/x86_64
     ports:
       - 3306:3306
