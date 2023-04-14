@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getFromLocalStorage, saveToLocalStorage } from '../services/localStorage';
-import style from './User.module.css';
+import './Login.css';
 
 const MIN_PASSWORD_LENGTH = 6;
 const regexEmail = /\S+@\S+\.\S+/;
@@ -59,23 +59,23 @@ function Login() {
   };
 
   return (
-    <div className={ style.userBox }>
-      <form onSubmit={ handleSubmit }>
+    <div className="container">
+      <form onSubmit={ handleSubmit } className='userbox'>
         <label htmlFor="email">
-          Login:
           <input
             type="email"
             name="email"
+            placeholder='E-mail'
             value={ email }
             data-testid="common_login__input-email"
             onChange={ handleEmailChange }
           />
         </label>
         <label htmlFor="password">
-          Senha:
           <input
             type="password"
             name="password"
+            placeholder='Senha'
             value={ password }
             data-testid="common_login__input-password"
             onChange={ handlePasswordChange }
@@ -85,13 +85,15 @@ function Login() {
           type="submit"
           data-testid="common_login__button-login"
           disabled={ isActiveButton }
+          className='css-button-arrow--black'
         >
-          Submit
+          Login
         </button>
         <button
           type="submit"
           data-testid="common_login__button-register"
           onClick={ () => history.push('/register') }
+          className='redirectBtn'
         >
           Ainda não tenho conta
         </button>

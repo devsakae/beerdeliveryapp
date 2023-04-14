@@ -1,31 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import cartContext from '../Context/CartContext';
 
 export default function TableSellerOrders() {
   const history = useHistory();
+  const { formatPrice, formatDate } = useContext(cartContext);
   const [sales, setSales] = useState([]);
+
   useEffect(() => {
-    async function fetchSales() {
-      const response = await fetch('http://localhost:3001/sales');
-      const salesData = await response.json();
-      setSales(salesData);
-    }
-    fetchSales();
+    axios.get('http://localhost:3001/sales')
+    .then((response) => {
+      setSales(response.data)
+    })
+    .catch((err) => console.log(err))
   }, []);
+
   return (
     <table>
       <thead>
         <tr>
-          <th>Pedido</th>
-          <th>Status</th>
+          <th onClick={ () => handleOrderList('id') }>Pedido</th>
+          <th onClick={ () => handleOrderList('status') }>Status</th>
           <th>Data</th>
           <th>Preço</th>
-          <th>Endereço</th>
+          <th style={{ textAlign: 'left', paddingLeft: '15px' }}>Endereço</th>
         </tr>
       </thead>
       <tbody>
         {
-          sales.map((s, i) => (
+          sales?.map((s, i) => (
             <tr
               key={ i }
               onClick={ () => history.push(`/seller/orders/${s.id}`) }
@@ -44,15 +48,16 @@ export default function TableSellerOrders() {
               <td
                 data-testid={ `seller_orders__element-order-date-${s.id}` }
               >
-                { s.saleDate }
+                { formatDate(s.saleDate) }
               </td>
               <td
                 data-testid={ `seller_orders__element-card-price-${s.id}` }
               >
-                { s.totalPrice }
+                { formatPrice(s.totalPrice) }
               </td>
               <td
                 data-testid={ `seller_orders__element-card-address-${s.id}` }
+                style={{ textAlign: 'left', paddingLeft: '15px' }}
               >
                 { `${s.deliveryAddress}, ${s.deliveryNumber}` }
               </td>

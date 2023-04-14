@@ -1,0 +1,8 @@
+.warningbox {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  height: 5vh;
+  font-weight: 700;
+  background-color: rgb(253, 162, 130);
+}

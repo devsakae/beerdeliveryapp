@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { saveToLocalStorage } from '../services/localStorage';
-import style from './User.module.css';
+import './Login.css';
 
 const MIN_NAME_LENGTH = 12;
 const MIN_PASSWORD_LENGTH = 6;
@@ -53,33 +53,33 @@ export default function Register() {
   // Estamos usando react-router-dom v5.6.1, que não tem suporte para Navigate
   // { userLoggedIn && <Navigate to="/customers/products" /> }
   return (
-    <div className={ style.userBox }>
-      <form onSubmit={ handleSubmit }>
+    <div className='container'>
+      <form onSubmit={ handleSubmit } className='userbox'>
         <label htmlFor="name">
-          Nome:
           <input
             type="text"
             name="name"
+            placeholder='Nome completo'
             value={ name }
             data-testid="common_register__input-name"
             onChange={ handleNameChange }
           />
         </label>
         <label htmlFor="email">
-          E-mail:
           <input
             type="email"
             name="email"
+            placeholder='E-mail'
             value={ email }
             data-testid="common_register__input-email"
             onChange={ handleEmailChange }
           />
         </label>
         <label htmlFor="password">
-          Senha:
           <input
             type="password"
             name="password"
+            placeholder='Senha'
             value={ password }
             data-testid="common_register__input-password"
             onChange={ handlePasswordChange }
@@ -89,12 +89,14 @@ export default function Register() {
           type="submit"
           data-testid="common_register__button-register"
           disabled={ isActiveButton }
+          className="css-button-arrow--black"
         >
           Cadastrar
         </button>
         <button
           type="submit"
           onClick={ () => history.push('/login') }
+          className='redirectBtn'
         >
           Já tenho cadastro
         </button>

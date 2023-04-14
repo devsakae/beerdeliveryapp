@@ -46,4 +46,14 @@ const addNewUser = async (req, res, next) => {
   }
 };
 
-module.exports = { Login, getUsersSellers, createUser, addNewUser };
+const getUsers = async (req, res, next) => {
+  try {
+    validateToken(req.headers.authorization);
+    const response = await UserService.getUsers();
+    return res.status(200).json(response);
+  } catch (error) {
+    return next(error);
+  }
+}
+
+module.exports = { Login, getUsersSellers, createUser, addNewUser, getUsers };

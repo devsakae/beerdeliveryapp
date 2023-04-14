@@ -1,0 +1,74 @@
+section { 
+  width: 90vw;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.addNewUser {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.addNewUser input {
+  height: 25px;
+  min-width: 50px;
+}
+
+.addNewUser option, select {
+  min-height: 30px;
+  max-width: 150px;
+}
+
+.addNewUser button {
+  min-width: 130px;
+  height: 30px;
+  color: grey;
+  background-color: bisque;
+}
+
+.addNewUser button:enabled {
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  overflow: hidden;
+  border-radius: 5px;
+  border: none;
+  background-color: #ef233c
+}
+.addNewUser button:enabled:hover {
+  border-radius: 5px;
+  padding-right: 24px;
+  padding-left:8px;
+}
+.addNewUser button:enabled:hover:after {
+  opacity: 1;
+  right: 10px;
+}
+.addNewUser button:enabled:after {
+  content: "\00BB";
+  position: absolute;
+  opacity: 0;
+  font-size: 20px;
+  line-height: 30px;
+  top: 0;
+  right: -20px;
+  transition: 0.4s;
+}
+
+.messagebox {
+  background-color: salmon;
+  border: 1px black solid;
+  font-size: small;
+  font-weight: 600;
+  margin: 30px;
+  max-width: 250px;
+  text-align: center;
+}

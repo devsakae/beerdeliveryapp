@@ -114,6 +114,7 @@ export default function DetailsOrder() {
               type="text"
               id="address"
               name="address"
+              placeholder="Digite seu endereço completo"
               value={address}
               onChange={({ target: { value } }) => setAddress(value)}
               data-testid="customer_checkout__input-address"
@@ -127,6 +128,7 @@ export default function DetailsOrder() {
               type="number"
               id="number"
               name="number"
+              placeholder="Número"
               value={number}
               onChange={({ target: { value } }) => setNumber(value)}
               data-testid="customer_checkout__input-address-number"

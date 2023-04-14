@@ -12,8 +12,14 @@
   background-color: bisque;
   font-size: small;
   padding: 5px 15px;
+  height: 40px;
 }
 
 .orderdetail button:active {
   background-color: rgb(227, 199, 165);
+}
+
+.orderdetail button:disabled {
+  color: rgb(182, 182, 182);
+  background-color: antiquewhite;
 }

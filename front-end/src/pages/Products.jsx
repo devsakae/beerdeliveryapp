@@ -15,11 +15,11 @@ function Products() {
   return (
     <Layout>
       <h2>Nossos produtos</h2>
-      <div className="allCards">
-        { cart?.map((prod, idx) => (<ProductCard key={ idx } prod={ prod } />)) }
-      </div>
       <div className="floating">
         <BuyButton />
+      </div>
+      <div className="allCards">
+        { cart?.map((prod, idx) => (<ProductCard key={ idx } prod={ prod } />)) }
       </div>
     </Layout>
   );

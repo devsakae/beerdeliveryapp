@@ -9,11 +9,11 @@ import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';
 import CustomerOrderDetail from './pages/CustomerOrderDetail';
 import Login from './pages/Login';
+import Orders from './pages/Orders';
 import Products from './pages/Products';
 import Register from './pages/Register';
 import SellerOrdersDetails from './pages/SellerOrderDetails';
 import SellerOrders from './pages/SellerOrders';
-import Orders from './pages/Orders';
 
 function App() {
   return (
@@ -23,9 +23,9 @@ function App() {
         <Route exact path="/login" component={ Login } />
         <Route exact path="/register" component={ Register } />
         <Route exact path="/admin/manage" component={ Admin } />
-        <Route exact path="/seller/orders" component={ SellerOrders } />
-        <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />
         <CartProvider>
+          <Route exact path="/seller/orders" component={ SellerOrders } />
+          <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />
           <Route exact path="/customer/checkout" component={ Checkout } />
           <Route exact path="/customer/products" component={ Products } />
           <Route exact path="/customer/orders" component={ Orders } />

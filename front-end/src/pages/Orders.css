@@ -21,11 +21,15 @@ tr:hover {
 }
 
 .transit {
-  background-color: rgb(254, 133, 157);
+  background-color: rgb(133, 254, 159);
+}
+
+.transit:hover {
+  background-color: rgb(133, 254, 159);
 }
 
 .Entregue {
-  color: darkgreen;
+  color: rgb(194, 189, 189);
 }
 
 .checkouttotalvalue {

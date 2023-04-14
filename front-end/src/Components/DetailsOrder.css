@@ -60,32 +60,3 @@
   right: -20px;
   transition: 0.4s;
 }
-
-/* 
-.deliveryform {
-  align-items: center;
-  display: flex;
-  margin: 0 auto;
-  width: 90vw;
-  justify-content: space-evenly;
-}
-
-.deliveryformdiv {
-  align-items: center;
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  flex-direction: column;
-}
-
-.deliveryform select, input {
-  width: 350px;
-}
-
-label {
-  width: 100%;
-  border: 1px red solid;
-  display: flex;
-  flex-direction: row nowrap;
-  justify-content: space-evenly;
-} */

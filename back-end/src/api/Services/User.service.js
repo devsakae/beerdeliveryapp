@@ -34,4 +34,6 @@ const createUser = async (payload) => {
   return { id, name, email, role, token };
 };
 
-module.exports = { findUserByEmail, getUsersSellers, createUser };
+const getUsers = async () => User.findAll({ attributes: { exclude: ['password'] } })
+
+module.exports = { findUserByEmail, getUsersSellers, createUser, getUsers };

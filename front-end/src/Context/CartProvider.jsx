@@ -21,6 +21,13 @@ function CartProvider({ children }) {
       .format(prod)}`
   }, []);
 
+  const formatDate = useCallback((notFormattedDate) => {
+    const date = new Date(notFormattedDate);
+    return `${date.getDate()
+      .toString().padStart(2, '0')}/${(date.getMonth() + 1)
+      .toString().padStart(2, '0')}/${date.getFullYear()}`;
+  }, []);
+
   const fetchProducts = useCallback(async () => {
     const response = await fetch('http://localhost:3001/products');
     const data = await response.json();
@@ -80,7 +87,8 @@ function CartProvider({ children }) {
     handleQuantityChange,
     deleteItem,
     pegaCarrinho,
-    formatPrice
+    formatPrice,
+    formatDate,
   }), [
     cart,
     total,
@@ -91,7 +99,8 @@ function CartProvider({ children }) {
     handleQuantityChange,
     deleteItem,
     pegaCarrinho,
-    formatPrice
+    formatPrice,
+    formatDate,
   ]);
 
   return (

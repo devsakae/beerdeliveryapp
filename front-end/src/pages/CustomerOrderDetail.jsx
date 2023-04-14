@@ -32,7 +32,6 @@ function CustomerOrderDetail() {
       });
   }, [id]);
 
-
   return (
     <Layout>
       { (orderItems.length === 0) ? (<div>Carregando...</div>) : (<h2>Detalhes do seu pedido</h2>) }
@@ -51,12 +50,16 @@ function CustomerOrderDetail() {
           { !loading && orderItems?.map((order, idx) => <ProductItem noBtn i={ idx } key={ idx } prod={ { quantity: order.quantity, item: { id: order.id, name: order.name, price: order.price } } } />) }
         </tbody>
       </table>
-      <span
+      <p
         data-testid="customer_order_details__element-order-total-price"
+        style={{ textAlign: 'right', marginRight: '80px' }}
       >
-        { !loading && formatPrice(orderItems[0].total) }
-        {/* { String(Number(orderItems[0].total).toFixed(2)).replace(/\./, ',') } */}
-      </span>
+        { `Total: R$ ${new Intl.NumberFormat('pt-br', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+          .format(orderItems[0].total)}`}
+      </p>
     </Layout>
   );
 }
