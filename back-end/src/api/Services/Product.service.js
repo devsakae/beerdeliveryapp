@@ -1,10 +1,7 @@
 const { Product, sequelize } = require('../../database/models');
 // const ErrorNotFound = require('../../middlewares/errors');
 
-const createProduct = async (body) => {
-  const newProduct = await Product.create(body);
-  return newProduct;
-};
+const createProduct = async (body) => Product.create(body);
 
 const getAllProducts = async () => {
   const products = await Product.findAll();

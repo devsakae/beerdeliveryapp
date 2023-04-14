@@ -1,7 +1,9 @@
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getFromLocalStorage, saveToLocalStorage } from '../services/localStorage';
 import CartContext from './CartContext';
+const api = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 function CartProvider({ children }) {
   const [total, setTotal] = useState(0);
@@ -29,11 +31,13 @@ function CartProvider({ children }) {
   }, []);
 
   const fetchProducts = useCallback(async () => {
-    const response = await fetch('http://localhost:3001/products');
-    const data = await response.json();
-    const initCart = data.map((p) => ({ quantity: 0, item: { ...p } }));
-    setMenu(initCart);
-    pegaCarrinho(initCart);
+    axios.get(`${api}/products`, { mode: 'no-cors' })
+    .then((response) => {
+      const firstCart = response.data.map((p) => ({ quantity: 0, item: p }))
+      setMenu(firstCart);
+      pegaCarrinho(firstCart);
+    })
+    .catch((err) => console.log(err));
   }, [pegaCarrinho]);
 
   useEffect(() => {

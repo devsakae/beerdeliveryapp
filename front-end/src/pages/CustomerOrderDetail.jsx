@@ -22,11 +22,16 @@ function CustomerOrderDetail() {
   };
 
   useEffect(() => {
-    axios.get(`${PATH}/sale_product/${id}`)
+    const Canceltoken = axios.CancelToken;
+    const source = Canceltoken.source();
+    axios.get(`${PATH}/sale_product/${id}`, {
+      cancelToken: source.token
+    })
       .then((response) => setOrderItems(response.data))
       .catch((err) => handleWarning(err.message))
       .finally(() => setLoading(false));
-  }, [id]);
+    return () => source.cancel();
+  }, []);
 
   return (
     <Layout>
@@ -51,7 +56,7 @@ function CustomerOrderDetail() {
         data-testid="customer_order_details__element-order-total-price"
         style={{ textAlign: 'right', marginRight: '80px' }}
       >
-        { !loading && formatPrice(orderItems[0].total) }
+        { !loading && formatPrice(orderItems[0]?.total) }
       </p>
     </Layout>
   );

@@ -1,7 +1,20 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import './StatusOrder.css';
+const api = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 export default function CustomerOrderDetailStatus({ order }) {
+  const [tempStatus, setTempStatus] = useState(order.status);
+  const { id } = useParams();
+
+  const handleStatus = (event) => {
+    event.preventDefault();
+    axios.put(`${api}/sales/${id}`, { status: 'Entregue' }, { mode: 'no-cors' })
+    .then((_r) => setTempStatus('Entregue'))
+    .catch((err) => console.log(err));
+  };
+
   const prefix = 'customer_order_details_';
   const testId = `${prefix}_element-order-details-label-delivery-status${order.id}`;
 
@@ -33,12 +46,13 @@ export default function CustomerOrderDetailStatus({ order }) {
       <div
         data-testid={ testId }
       >
-        { `Status: ${order.status}` }
+        { `Status: ${tempStatus}` }
       </div>
       <button
         type="button"
         data-testid={ `${prefix}_button-delivery-check` }
-        disabled={ order.status !== 'Em trânsito' }
+        onClick={ handleStatus }
+        disabled={ tempStatus !== 'Em Trânsito' }
       >
         Marcar como entregue
       </button>

@@ -10,7 +10,8 @@ function Products() {
 
   useEffect(() => {
     fetchProducts();
-  }, [fetchProducts]);
+    return fetchProducts();
+  }, []);
 
   return (
     <Layout>

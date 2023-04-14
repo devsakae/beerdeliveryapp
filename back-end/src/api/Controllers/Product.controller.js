@@ -3,9 +3,9 @@ const { ProductService } = require('../Services');
 
 const createProduct = async (req, res, next) => {
     try {
+        // validateToken(req.headers.authorization);
         const { body } = req;
         const newProduct = await ProductService.createProduct(body);
-        if (!newProduct) return res.status(404).json({ message: 'Not Found' });
         return res.status(201).json(newProduct);
     } catch (error) {
         next(error);
