@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 
 import CartProvider from './Context/CartProvider';
-import Admin from './pages/Admin';
+import AdminUsers from './pages/AdminUsers';
 import Checkout from './pages/Checkout';
 import CustomerOrderDetail from './pages/CustomerOrderDetail';
 import Login from './pages/Login';
@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/" render={ () => <Redirect to="/login" /> } />
         <Route exact path="/login" component={ Login } />
         <Route exact path="/register" component={ Register } />
-        <Route exact path="/admin/manage" component={ Admin } />
+        <Route exact path="/admin/manage" component={ AdminUsers } />
         <CartProvider>
           <Route exact path="/seller/orders" component={ SellerOrders } />
           <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />

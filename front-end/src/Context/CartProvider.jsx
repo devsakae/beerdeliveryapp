@@ -38,6 +38,7 @@ function CartProvider({ children }) {
       pegaCarrinho(firstCart);
     })
     .catch((err) => console.log(err));
+    return () => {};
   }, [pegaCarrinho]);
 
   useEffect(() => {

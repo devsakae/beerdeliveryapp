@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useRef } from "react";
 import { getFromLocalStorage } from '../services/localStorage';
+import './AdminAddUser.css';
 const api = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 export default function AdminAddProduct({ handleWarning }) {
@@ -24,7 +25,7 @@ export default function AdminAddProduct({ handleWarning }) {
   return (
     <section>
       <h2>Adicionar novo produto</h2>
-      <form>
+      <form className="addNewUser">
         <label htmlFor="name">
           <input
             id="name"

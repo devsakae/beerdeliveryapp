@@ -22,6 +22,7 @@ export default function AddUser({ handleSubmit }) {
     const validPassword = password.length >= MIN_PASSWORD_LENGTH;
     const validData = (!validEmail || !validPassword || !validName);
     setIsActiveButton(validData);
+    return () => setIsActiveButton(validData);
   }, [name, email, password]);
 
   return (

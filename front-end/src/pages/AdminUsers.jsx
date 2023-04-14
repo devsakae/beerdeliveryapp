@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import AdminAddProduct from "../Components/AdminAddProduct";
 import AdminAddUser from "../Components/AdminAddUser";
 import AdminUserList from "../Components/AdminUserList";
 import Layout from "../Components/Layout";
@@ -73,10 +72,9 @@ export default function Admin() {
       <AdminAddUser
         handleSubmit={ handleSubmit }
       />
-      <AdminAddProduct handleWarning={ handleWarning } />
       {loading ? (
         <p>Carregando...</p>
-      ) : (
+        ) : (
         <AdminUserList token={token} users={users} />
       )}
     </Layout>

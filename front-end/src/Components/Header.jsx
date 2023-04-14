@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../images/logo.svg';
 import {
-  getFromLocalStorage,
-  removeKeyFromLocalStorage,
+  getFromLocalStorage
 } from '../services/localStorage';
 import './Header.css';
 import MenuAdmin from './MenuAdmin';
@@ -32,7 +31,7 @@ export default function Header() {
           <Link
             to="/"
             data-testid="customer_products__element-navbar-link-logout"
-            onClick={ () => removeKeyFromLocalStorage('user') }
+            onClick={ () => localStorage.clear() }
             >
             Logout
           </Link>

@@ -3,7 +3,6 @@ import AdminUserListItem from './AdminUserListItem';
 export default function AdminUserList({ error, users }) {
   return (
     <section>
-      <h2>Usuários cadastrados</h2>
       <div>
         { error && (<div>{ error }</div>) }
         <table>
