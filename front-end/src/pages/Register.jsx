@@ -107,7 +107,7 @@ export default function Register() {
           data-testid="common_register__button-register"
           disabled={ isActiveButton }
           className="css-button-arrow--black"
-          onClick={ () => handleSubmit() }
+          onClick={ handleSubmit }
         >
           Cadastrar
         </button>

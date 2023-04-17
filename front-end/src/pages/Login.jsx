@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
@@ -12,7 +11,8 @@ import "./Login.css";
 const MIN_PASSWORD_LENGTH = 6;
 const regexEmail = /\S+@\S+\.\S+/;
 const SUCCESSFULL_STATUS = 200;
-const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
+const PATH = `http://${process.env.REACT_APP_HOSTNAME}`;
+const railwaypath = 'http://beerdeliveryapp.up.railway.app';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -43,24 +43,22 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setInvalidUser(false);
-    axios
-      .post(
-        `${PATH}/login`,
-        {
-          email,
-          password,
-        },
-        {
-          mode: "no-cors",
-        }
-      )
+    // axios
+    //   .post(
+    //     `${railwaypath}/login`,
+    //     {
+    //       email,
+    //       password,
+    //     }
+    //   )
+    const header = new Headers();
+    fetch(`${railwaypath}/login`, { email, password }, { headers: header })
       .then((response) => {
-        if (response.status === SUCCESSFULL_STATUS) {
-          saveToLocalStorage("user", response.data);
-          if (response.data.role === "administrator") goto = "/admin/manage";
-          if (response.data.role === "seller") goto = "/seller/orders";
-          history.push(goto);
-        }
+        console.log('aqui:', response);
+        saveToLocalStorage("user", response.data);
+        if (response.data.role === "administrator") goto = "/admin/manage";
+        if (response.data.role === "seller") goto = "/seller/orders";
+        history.push(goto);
       })
       .catch((error) => {
         setInvalidUser(true);
