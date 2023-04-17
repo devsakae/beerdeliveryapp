@@ -41,11 +41,11 @@
     "mysql2": "2.3.3",
     "pm2": "5.2.0",
     "puppeteer": "13.5.1",
+    "react-icons": "^4.8.0",
     "sequelize": "6.17.0",
     "sequelize-cli": "6.4.1"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "react-icons": "^4.8.0"
+    "cors": "^2.8.5"
   }
 }

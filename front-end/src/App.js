@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 
 import CartProvider from './Context/CartProvider';
+import AdminProducts from './pages/AdminProducts';
 import AdminUsers from './pages/AdminUsers';
 import Checkout from './pages/Checkout';
 import CustomerOrderDetail from './pages/CustomerOrderDetail';
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/login" component={ Login } />
         <Route exact path="/register" component={ Register } />
         <Route exact path="/admin/manage" component={ AdminUsers } />
+        <Route exact path="/admin/products" component={ AdminProducts } />
         <CartProvider>
           <Route exact path="/seller/orders" component={ SellerOrders } />
           <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />
