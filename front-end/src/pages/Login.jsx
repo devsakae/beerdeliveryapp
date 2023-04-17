@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
@@ -10,8 +11,8 @@ import "./Login.css";
 
 const MIN_PASSWORD_LENGTH = 6;
 const regexEmail = /\S+@\S+\.\S+/;
-const SUCCESSFULL_STATUS = 200;
-const PATH = `http://${process.env.REACT_APP_HOSTNAME}`;
+// const SUCCESSFULL_STATUS = 200;
+// const PATH = `http://${process.env.REACT_APP_HOSTNAME}`;
 const railwaypath = 'https://beerdeliveryapp.up.railway.app';
 
 function Login() {
@@ -43,16 +44,14 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setInvalidUser(false);
-    // axios
-    //   .post(
-    //     `${railwaypath}/login`,
-    //     {
-    //       email,
-    //       password,
-    //     }
-    //   )
-    const header = new Headers();
-    fetch(`${railwaypath}/login`, { email, password }, { headers: header })
+    axios
+      .post(
+        `${railwaypath}/login`,
+        {
+          email,
+          password,
+        }
+      )
       .then((response) => {
         console.log('aqui:', response);
         saveToLocalStorage("user", response.data);
@@ -126,8 +125,8 @@ function Login() {
           data-testid="common_login__element-invalid-email"
           hidden={!invalidUser}
         >
-          Favor verificar sua conta
-          {warning}
+          <p>Favor verificar sua conta</p>
+          <legend>{ warning }</legend>
         </div>
       </form>
     </LayoutRoot>
