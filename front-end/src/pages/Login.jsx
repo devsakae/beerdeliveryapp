@@ -53,7 +53,6 @@ function Login() {
         }
       )
       .then((response) => {
-        console.log('aqui:', response);
         saveToLocalStorage("user", response.data);
         if (response.data.role === "administrator") goto = "/admin/manage";
         if (response.data.role === "seller") goto = "/seller/orders";

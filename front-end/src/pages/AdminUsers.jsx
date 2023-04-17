@@ -5,7 +5,7 @@ import AdminUserList from '../Components/AdminUserList';
 import Layout from '../Components/Layout';
 import WarningBox from '../Components/WarningBox';
 
-const api = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
+const api = `http://${process.env.REACT_APP_HOSTNAME}`;
 const SECONDS_IN_MS = 5000;
 
 export default function Admin() {
