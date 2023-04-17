@@ -7,17 +7,17 @@ import './Header.css';
 
 export default function MenuAdmin() {
   return (
-    <IconContext.Provider value={{ color: 'black', size: '80px' }}>
+    <IconContext.Provider value={ { color: 'black', size: '80px' } }>
       <Link
         to="/admin/products"
-        className='menuicons bgcoral'
+        className="menuicons bgcoral"
       >
         <RiInkBottleFill />
       </Link>
       <Link
         to="/admin/manage"
         data-testid="customer_products__element-navbar-link-products"
-        className='menuicons bgyellow'
+        className="menuicons bgyellow"
       >
         <HiUsers />
       </Link>

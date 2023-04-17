@@ -21,7 +21,7 @@ export default function TableOrder() {
         <thead>
           <tr>
             <th>Item</th>
-            <th style={{ textAlign: 'left', paddingLeft: '15px' }}>Descrição</th>
+            <th style={ { textAlign: 'left', paddingLeft: '15px' } }>Descrição</th>
             <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-Total</th>

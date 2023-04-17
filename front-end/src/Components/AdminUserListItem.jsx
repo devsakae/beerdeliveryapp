@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default function AdminUserListItem({ user }) {
   return (
@@ -8,5 +8,5 @@ export default function AdminUserListItem({ user }) {
       <td>{ user.email }</td>
       <td>{ user.role }</td>
     </tr>
-  )
+  );
 }

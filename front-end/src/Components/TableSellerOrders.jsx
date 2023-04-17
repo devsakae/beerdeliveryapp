@@ -10,10 +10,10 @@ export default function TableSellerOrders() {
 
   useEffect(() => {
     axios.get('http://localhost:3001/sales')
-    .then((response) => {
-      setSales(response.data)
-    })
-    .catch((err) => console.log(err))
+      .then((response) => {
+        setSales(response.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -24,7 +24,7 @@ export default function TableSellerOrders() {
           <th onClick={ () => handleOrderList('status') }>Status</th>
           <th>Data</th>
           <th>Preço</th>
-          <th style={{ textAlign: 'left', paddingLeft: '15px' }}>Endereço</th>
+          <th style={ { textAlign: 'left', paddingLeft: '15px' } }>Endereço</th>
         </tr>
       </thead>
       <tbody>
@@ -57,7 +57,7 @@ export default function TableSellerOrders() {
               </td>
               <td
                 data-testid={ `seller_orders__element-card-address-${s.id}` }
-                style={{ textAlign: 'left', paddingLeft: '15px' }}
+                style={ { textAlign: 'left', paddingLeft: '15px' } }
               >
                 { `${s.deliveryAddress}, ${s.deliveryNumber}` }
               </td>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getFromLocalStorage, saveToLocalStorage } from '../services/localStorage';
 import CartContext from './CartContext';
+
 const api = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 function CartProvider({ children }) {
@@ -15,13 +16,11 @@ function CartProvider({ children }) {
     setCart(myLocalCart);
   }, []);
 
-  const formatPrice = useCallback((prod) => {
-    return `R$ ${new Intl.NumberFormat('pt-br', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })
-      .format(prod)}`
-  }, []);
+  const formatPrice = useCallback((prod) => `R$ ${new Intl.NumberFormat('pt-br', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+    .format(prod)}`, []);
 
   const formatDate = useCallback((notFormattedDate) => {
     const date = new Date(notFormattedDate);
@@ -32,12 +31,12 @@ function CartProvider({ children }) {
 
   const fetchProducts = useCallback(async () => {
     axios.get(`${api}/products`, { mode: 'no-cors' })
-    .then((response) => {
-      const firstCart = response.data.map((p) => ({ quantity: 0, item: p }))
-      setMenu(firstCart);
-      pegaCarrinho(firstCart);
-    })
-    .catch((err) => console.log(err));
+      .then((response) => {
+        const firstCart = response.data.map((p) => ({ quantity: 0, item: p }));
+        setMenu(firstCart);
+        pegaCarrinho(firstCart);
+      })
+      .catch((err) => console.log(err));
     return () => {};
   }, [pegaCarrinho]);
 

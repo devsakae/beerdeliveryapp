@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './StatusOrder.css';
+
 const api = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 export default function CustomerOrderDetailStatus({ order }) {
@@ -11,8 +12,8 @@ export default function CustomerOrderDetailStatus({ order }) {
   const handleStatus = (event) => {
     event.preventDefault();
     axios.put(`${api}/sales/${id}`, { status: 'Entregue' }, { mode: 'no-cors' })
-    .then((_r) => setTempStatus('Entregue'))
-    .catch((err) => console.log(err));
+      .then((_r) => setTempStatus('Entregue'))
+      .catch((err) => console.log(err));
   };
 
   const prefix = 'customer_order_details_';
@@ -57,5 +58,5 @@ export default function CustomerOrderDetailStatus({ order }) {
         Marcar como entregue
       </button>
     </div>
-  )
+  );
 }

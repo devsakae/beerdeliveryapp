@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './AdminAddUser.css';
+
 const MIN_NAME_LENGTH = 12;
 const MIN_PASSWORD_LENGTH = 6;
 const regexEmail = /\S+@\S+\.\S+/;
 
 export default function AddUser({ handleSubmit }) {
   const [isActiveButton, setIsActiveButton] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("seller");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('seller');
 
   const handleName = (event) => setName(event.target.value);
   const handleEmail = (event) => setEmail(event.target.value);

@@ -18,14 +18,14 @@ function CustomerOrderDetail() {
 
   const handleWarning = (content) => {
     setWarning(content);
-    setTimeout(() => setWarning(''), 5000)
+    setTimeout(() => setWarning(''), 5000);
   };
 
   useEffect(() => {
     const Canceltoken = axios.CancelToken;
     const source = Canceltoken.source();
     axios.get(`${PATH}/sale_product/${id}`, {
-      cancelToken: source.token
+      cancelToken: source.token,
     })
       .then((response) => setOrderItems(response.data))
       .catch((err) => handleWarning(err.message))
@@ -42,7 +42,7 @@ function CustomerOrderDetail() {
         <thead>
           <tr>
             <th>Item</th>
-            <th style={{ textAlign: 'left', paddingLeft: '15px' }}>Descrição</th>
+            <th style={ { textAlign: 'left', paddingLeft: '15px' } }>Descrição</th>
             <th>Quantidade</th>
             <th>Valor Unitario</th>
             <th>Sub-total</th>
@@ -54,7 +54,7 @@ function CustomerOrderDetail() {
       </table>
       <p
         data-testid="customer_order_details__element-order-total-price"
-        style={{ textAlign: 'right', marginRight: '80px' }}
+        style={ { textAlign: 'right', marginRight: '80px' } }
       >
         { !loading && formatPrice(orderItems[0]?.total) }
       </p>

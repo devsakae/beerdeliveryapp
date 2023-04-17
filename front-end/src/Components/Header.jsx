@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../images/logo.svg';
 import {
-  getFromLocalStorage
+  getFromLocalStorage,
 } from '../services/localStorage';
 import './Header.css';
 import MenuAdmin from './MenuAdmin';
@@ -20,22 +20,22 @@ export default function Header() {
           <img src={ logo } />
         </div>
         <div className="halfheader">
-        { userIsAdmin && <MenuAdmin /> }
-        { (userIsCustomer || userIsSeller) && <MenuCustomer role={ role } /> }
-        <div className='headerClient'>
-          <h3
-            data-testid="customer_products__element-navbar-user-full-name"
-          >
-            { name }
-          </h3>
-          <Link
-            to="/"
-            data-testid="customer_products__element-navbar-link-logout"
-            onClick={ () => localStorage.clear() }
+          { userIsAdmin && <MenuAdmin /> }
+          { (userIsCustomer || userIsSeller) && <MenuCustomer role={ role } /> }
+          <div className="headerClient">
+            <h3
+              data-testid="customer_products__element-navbar-user-full-name"
             >
-            Logout
-          </Link>
-        </div>
+              { name }
+            </h3>
+            <Link
+              to="/"
+              data-testid="customer_products__element-navbar-link-logout"
+              onClick={ () => localStorage.clear() }
+            >
+              Logout
+            </Link>
+          </div>
         </div>
       </nav>
     </header>

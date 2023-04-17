@@ -1,19 +1,19 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
-import cartContext from "../Context/CartContext";
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import cartContext from '../Context/CartContext';
 import {
   getFromLocalStorage,
   removeKeyFromLocalStorage,
-} from "../services/localStorage";
-import "./DetailsOrder.css";
+} from '../services/localStorage';
+import './DetailsOrder.css';
 // Refatoramos porque quebrou reqs 25, 27, 28, 29.
 // import { request, requestRole } from '../services/request';
 
 export default function DetailsOrder() {
-  const [seller, setSeller] = useState("2");
-  const [address, setAddress] = useState("");
-  const [number, setNumber] = useState("");
+  const [seller, setSeller] = useState('2');
+  const [address, setAddress] = useState('');
+  const [number, setNumber] = useState('');
   const [listSellers, setListSellers] = useState([]);
   const [idOrder, setIdOrder] = useState(false);
   const { cart } = useContext(cartContext);
@@ -24,7 +24,7 @@ export default function DetailsOrder() {
 
   const getRole = async () => {
     axios
-      .get("http://localhost:3001/login/role")
+      .get('http://localhost:3001/login/role')
       .then((response) => {
         setListSellers(response.data);
       })
@@ -39,7 +39,7 @@ export default function DetailsOrder() {
 
   // Refatoramos porque quebrou reqs 25, 27, 28, e 29
   const registerSaleOnDB = async (payload) => {
-    const { token } = getFromLocalStorage("user");
+    const { token } = getFromLocalStorage('user');
     const saleProducts = cart
       .filter((p) => p.quantity > 0)
       .map((p) => ({
@@ -48,13 +48,13 @@ export default function DetailsOrder() {
       }));
     axios
       .post(
-        "http://localhost:3001/sales",
+        'http://localhost:3001/sales',
         {
           payload,
           saleProducts,
         },
         { headers: { Authorization: token } },
-        { mode: "no-cors" }
+        { mode: 'no-cors' },
       )
       .then((response) => {
         setIdOrder(response.data);
@@ -65,7 +65,7 @@ export default function DetailsOrder() {
   };
 
   const registerSale = () => {
-    removeKeyFromLocalStorage("fazo4_cart");
+    removeKeyFromLocalStorage('fazo4_cart');
     const listSoldProducts = cart.filter((p) => p.quantity > 0);
     const sumProductsSold = listSoldProducts.reduce((acc, cur) => {
       acc += Number(cur.item.price) * Number(cur.quantity);
@@ -78,29 +78,29 @@ export default function DetailsOrder() {
       deliveryAddress: address,
       deliveryNumber: number,
       saleDate: date.getTime(),
-      status: "Pendente",
+      status: 'Pendente',
       sellerId: Number(seller),
     };
     registerSaleOnDB(payload);
   };
 
-  if (idOrder) return <Redirect to={`/customer/orders/${idOrder}`} />;
+  if (idOrder) return <Redirect to={ `/customer/orders/${idOrder}` } />;
 
   return (
     <div>
       <h2>Detalhes e Endereço para Entrega</h2>
-      <form onSubmit={handleSubmit} className="formcontainer">
+      <form onSubmit={ handleSubmit } className="formcontainer">
         <label htmlFor="seller" className="deliveryinfoline">
           <div className="deliverytext">P. Vendedora Responsável:</div>
           <div className="deliveryfield">
             <select
-              onChange={({ target: { value } }) => setSeller(value)}
+              onChange={ ({ target: { value } }) => setSeller(value) }
               data-testid="customer_checkout__select-seller"
-              value={seller}
+              value={ seller }
             >
-              {listSellers.length > 0 &&
-                listSellers.map((s, i) => (
-                  <option key={`${s.name}-${i}`} value={s.id}>
+              {listSellers.length > 0
+                && listSellers.map((s, i) => (
+                  <option key={ `${s.name}-${i}` } value={ s.id }>
                     {s.name}
                   </option>
                 ))}
@@ -115,8 +115,8 @@ export default function DetailsOrder() {
               id="address"
               name="address"
               placeholder="Digite seu endereço completo"
-              value={address}
-              onChange={({ target: { value } }) => setAddress(value)}
+              value={ address }
+              onChange={ ({ target: { value } }) => setAddress(value) }
               data-testid="customer_checkout__input-address"
             />
           </div>
@@ -129,8 +129,8 @@ export default function DetailsOrder() {
               id="number"
               name="number"
               placeholder="Número"
-              value={number}
-              onChange={({ target: { value } }) => setNumber(value)}
+              value={ number }
+              onChange={ ({ target: { value } }) => setNumber(value) }
               data-testid="customer_checkout__input-address-number"
             />
           </div>
@@ -138,7 +138,7 @@ export default function DetailsOrder() {
         <button
           type="submit"
           data-testid="customer_checkout__button-submit-order"
-          onClick={registerSale}
+          onClick={ registerSale }
           className="submitBtn"
         >
           ENVIAR

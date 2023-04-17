@@ -1,5 +1,6 @@
 import React from 'react';
 import AdminUserListItem from './AdminUserListItem';
+
 export default function AdminUserList({ error, users }) {
   return (
     <section>
@@ -20,5 +21,5 @@ export default function AdminUserList({ error, users }) {
         </table>
       </div>
     </section>
-  )
+  );
 }

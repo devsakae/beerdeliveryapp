@@ -1,7 +1,8 @@
 import axios from 'axios';
-import React, { useRef } from "react";
+import React, { useRef } from 'react';
 import { getFromLocalStorage } from '../services/localStorage';
 import './AdminAddUser.css';
+
 const api = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 export default function AdminAddProduct({ handleWarning }) {
@@ -18,8 +19,8 @@ export default function AdminAddProduct({ handleWarning }) {
       urlImage: inputImage.current.value,
     };
     axios.post(`${api}/products`, payload, { headers: { Authorization: token }, mode: 'no-cors' })
-    .then((response) => handleWarning(`Item ${response.data.name} adicionado com sucesso`))
-    .catch((err) => handleWarning(err.message));
+      .then((response) => handleWarning(`Item ${response.data.name} adicionado com sucesso`))
+      .catch((err) => handleWarning(err.message));
   };
 
   return (

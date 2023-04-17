@@ -25,5 +25,5 @@ export default function BuyButton() {
           .format(total)}` }
       </p>
     </button>
-  )
+  );
 }

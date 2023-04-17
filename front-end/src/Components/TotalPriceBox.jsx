@@ -3,8 +3,8 @@ import './TotalPriceBox.css';
 
 export default function TotalPriceBox({ children }) {
   return (
-    <div className='pricebox'>
+    <div className="pricebox">
       { children }
     </div>
-  )
+  );
 }

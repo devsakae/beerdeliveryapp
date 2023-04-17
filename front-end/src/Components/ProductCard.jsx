@@ -26,10 +26,10 @@ export default function ProductCard({ prod }) {
           { prod.item.name }
         </p>
         <p
-        className='price'
+          className="price"
           data-testid={ `customer_products__element-card-price-${prod.item.id}` }
         >
-            { `R$ ${prod.item.price.split('.').join(',')}` }
+          { `R$ ${prod.item.price.split('.').join(',')}` }
         </p>
         <button
           type="button"

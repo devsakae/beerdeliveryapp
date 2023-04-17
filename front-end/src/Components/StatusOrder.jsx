@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
-import "./StatusOrder.css";
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import './StatusOrder.css';
 
 export default function StatusOrder({ order, changeStatus }) {
   const [tempStatus, setTempStatus] = useState('');
@@ -9,22 +9,22 @@ export default function StatusOrder({ order, changeStatus }) {
 
   const formatDate = (notFormattedDate) => {
     const date = new Date(notFormattedDate);
-    return `${date.getDate().toString().padStart(2, "0")}/${(
+    return `${date.getDate().toString().padStart(2, '0')}/${(
       date.getMonth() + 1
     )
       .toString()
-      .padStart(2, "0")}/${date.getFullYear()}`;
+      .padStart(2, '0')}/${date.getFullYear()}`;
   };
 
   const handleStatus = () => {
-    if (order.status === "Pendente") {
+    if (order.status === 'Pendente') {
       setTempStatus('Preparando');
       setBtnPreparing(true);
     }
-    if (order.status === "Preparando") {
-      setTempStatus('Em trânsito')
+    if (order.status === 'Preparando') {
+      setTempStatus('Em trânsito');
       setBtnDelivery(true);
-    };
+    }
     changeStatus();
   };
 

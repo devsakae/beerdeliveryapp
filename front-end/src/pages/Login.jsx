@@ -60,12 +60,12 @@ function Login() {
 
   return (
     <div className="container">
-      <form onSubmit={ handleSubmit } className='userbox'>
+      <form onSubmit={ handleSubmit } className="userbox">
         <label htmlFor="email">
           <input
             type="email"
             name="email"
-            placeholder='E-mail'
+            placeholder="E-mail"
             value={ email }
             data-testid="common_login__input-email"
             onChange={ handleEmailChange }
@@ -75,7 +75,7 @@ function Login() {
           <input
             type="password"
             name="password"
-            placeholder='Senha'
+            placeholder="Senha"
             value={ password }
             data-testid="common_login__input-password"
             onChange={ handlePasswordChange }
@@ -85,7 +85,7 @@ function Login() {
           type="submit"
           data-testid="common_login__button-login"
           disabled={ isActiveButton }
-          className='css-button-arrow--black'
+          className="css-button-arrow--black"
         >
           Login
         </button>
@@ -93,7 +93,7 @@ function Login() {
           type="submit"
           data-testid="common_login__button-register"
           onClick={ () => history.push('/register') }
-          className='redirectBtn'
+          className="redirectBtn"
         >
           Ainda não tenho conta
         </button>

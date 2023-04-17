@@ -53,13 +53,13 @@ export default function Register() {
   // Estamos usando react-router-dom v5.6.1, que não tem suporte para Navigate
   // { userLoggedIn && <Navigate to="/customers/products" /> }
   return (
-    <div className='container'>
-      <form onSubmit={ handleSubmit } className='userbox'>
+    <div className="container">
+      <form onSubmit={ handleSubmit } className="userbox">
         <label htmlFor="name">
           <input
             type="text"
             name="name"
-            placeholder='Nome completo'
+            placeholder="Nome completo"
             value={ name }
             data-testid="common_register__input-name"
             onChange={ handleNameChange }
@@ -69,7 +69,7 @@ export default function Register() {
           <input
             type="email"
             name="email"
-            placeholder='E-mail'
+            placeholder="E-mail"
             value={ email }
             data-testid="common_register__input-email"
             onChange={ handleEmailChange }
@@ -79,7 +79,7 @@ export default function Register() {
           <input
             type="password"
             name="password"
-            placeholder='Senha'
+            placeholder="Senha"
             value={ password }
             data-testid="common_register__input-password"
             onChange={ handlePasswordChange }
@@ -96,7 +96,7 @@ export default function Register() {
         <button
           type="submit"
           onClick={ () => history.push('/login') }
-          className='redirectBtn'
+          className="redirectBtn"
         >
           Já tenho cadastro
         </button>

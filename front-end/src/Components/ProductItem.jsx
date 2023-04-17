@@ -14,7 +14,7 @@ export default function ProductItem({ prod, i, noBtn }) {
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-name-${i}` }
-        style={{ textAlign: 'left', paddingLeft: '15px' }}
+        style={ { textAlign: 'left', paddingLeft: '15px' } }
       >
         { prod.item.name }
       </td>
@@ -44,7 +44,7 @@ export default function ProductItem({ prod, i, noBtn }) {
       <td
         data-testid={ `customer_checkout__element-order-table-remove-${i}` }
       >
-       { !noBtn && <button
+        { !noBtn && <button
           type="button"
           onClick={ () => deleteItem(prod.item.id) }
         >

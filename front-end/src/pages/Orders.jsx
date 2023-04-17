@@ -31,7 +31,7 @@ function Orders() {
   return (
     <Layout>
       <h2>Seus pedidos</h2>
-      <p style={{ textAlign: 'center', marginTop: '-15px' }}>Clique no pedido para ver mais detalhes</p>
+      <p style={ { textAlign: 'center', marginTop: '-15px' } }>Clique no pedido para ver mais detalhes</p>
       <table>
         <thead>
           <tr>

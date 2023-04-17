@@ -3,6 +3,6 @@ import './Warning.css';
 
 export default function WarningBox({ content }) {
   return (
-    <div className='warningbox'>{ content }</div>
-  )
+    <div className="warningbox">{ content }</div>
+  );
 }
