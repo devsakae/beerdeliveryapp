@@ -32,7 +32,7 @@ app.use('/admin', AdminRouter);
 // Rota sale_products
 app.use('/sale_product', SaleProductRouter);
 
-app.get('/teste', res.status(200).json({ message: 'Teste ok' }));
+app.get('/teste', (_req, res) => res.status(200).json({ message: 'Teste ok' }));
 
 // Middleware de erro (!! pode ser melhor trabalhado em outro arquivo !!)
 app.use((error, _req, res, _next) => {
