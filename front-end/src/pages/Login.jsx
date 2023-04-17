@@ -12,7 +12,7 @@ import "./Login.css";
 const MIN_PASSWORD_LENGTH = 6;
 const regexEmail = /\S+@\S+\.\S+/;
 // const SUCCESSFULL_STATUS = 200;
-// const PATH = `http://${process.env.REACT_APP_HOSTNAME}`;
+const path = `https://${process.env.REACT_APP_HOSTNAME}`;
 const railwaypath = 'https://beerdeliveryapp.up.railway.app';
 
 function Login() {
@@ -46,7 +46,7 @@ function Login() {
     setInvalidUser(false);
     axios
       .post(
-        `${railwaypath}/login`,
+        `${path}/login`,
         {
           email,
           password,
