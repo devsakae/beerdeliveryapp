@@ -64,6 +64,6 @@ const getUsers = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-}
+};
 
 module.exports = { Login, getUsersSellers, createUser, addNewUser, getUsers, getUserById };

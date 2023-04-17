@@ -1,8 +1,13 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { getFromLocalStorage, saveToLocalStorage } from '../services/localStorage';
-import './Login.css';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { useHistory } from "react-router-dom";
+import LayoutRoot from "../Components/LayoutRoot";
+import {
+  getFromLocalStorage,
+  saveToLocalStorage,
+} from "../services/localStorage";
+import "./Login.css";
 
 const MIN_PASSWORD_LENGTH = 6;
 const regexEmail = /\S+@\S+\.\S+/;
@@ -10,24 +15,26 @@ const SUCCESSFULL_STATUS = 200;
 const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isActiveButton, setIsActiveButton] = useState(true);
   const [invalidUser, setInvalidUser] = useState(false);
+  const [warning, setWarning] = useState("");
   const history = useHistory();
-  let goto = '/customer/products';
+  let goto = "/customer/products";
 
   useEffect(() => {
-    const getUser = getFromLocalStorage('user') || {};
-    if (getUser.role === 'administrator') history.push('/admin/manage');
-    if (getUser.role === 'seller') history.push('/seller/orders');
-    if (getUser.role === 'customer') history.push(goto);
+    const getUser = getFromLocalStorage("user") || {};
+    if (getUser.role === "administrator") history.push("/admin/manage");
+    if (getUser.role === "seller") history.push("/seller/orders");
+    if (getUser.role === "customer") history.push(goto);
   }, [goto, history]);
 
   useEffect(() => {
     const validEmail = regexEmail.test(email);
     const validPassword = password.length >= MIN_PASSWORD_LENGTH;
-    const validData = (!validEmail || !validPassword);
+    const validData = !validEmail || !validPassword;
     setIsActiveButton(validData);
   }, [email, password]);
 
@@ -36,63 +43,82 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setInvalidUser(false);
-    axios.post(`${PATH}/login`, {
-      email,
-      password,
-    }, {
-      mode: 'no-cors',
-    })
+    axios
+      .post(
+        `${PATH}/login`,
+        {
+          email,
+          password,
+        },
+        {
+          mode: "no-cors",
+        }
+      )
       .then((response) => {
         if (response.status === SUCCESSFULL_STATUS) {
-          saveToLocalStorage('user', response.data);
-          if (response.data.role === 'administrator') goto = '/admin/manage';
-          if (response.data.role === 'seller') goto = '/seller/orders';
+          saveToLocalStorage("user", response.data);
+          if (response.data.role === "administrator") goto = "/admin/manage";
+          if (response.data.role === "seller") goto = "/seller/orders";
           history.push(goto);
         }
       })
       .catch((error) => {
         setInvalidUser(true);
-        setEmail('');
-        setPassword('');
-        console.log(error);
+        setEmail("");
+        setPassword("");
+        setWarning(error.message);
       });
   };
 
   return (
-    <div className="container">
-      <form onSubmit={ handleSubmit } className="userbox">
+    <LayoutRoot>
+      <form className="userbox">
+        <h2>Beer Delivery App</h2>
+        <legend style={{ margin: '-20px 0 20px 0' }}>O jeito mais rápido de ficar bêbado</legend>
         <label htmlFor="email">
           <input
             type="email"
             name="email"
             placeholder="E-mail"
-            value={ email }
+            value={email}
             data-testid="common_login__input-email"
-            onChange={ handleEmailChange }
+            onChange={handleEmailChange}
           />
         </label>
         <label htmlFor="password">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             placeholder="Senha"
-            value={ password }
+            value={password}
             data-testid="common_login__input-password"
-            onChange={ handlePasswordChange }
+            onChange={handlePasswordChange}
           />
+          {showPassword ? (
+            <AiFillEyeInvisible
+              onClick={() => setShowPassword(false)}
+              className="showpassword"
+            />
+          ) : (
+            <AiFillEye
+              onClick={() => setShowPassword(true)}
+              className="showpassword"
+            />
+          )}
         </label>
         <button
           type="submit"
           data-testid="common_login__button-login"
-          disabled={ isActiveButton }
+          disabled={isActiveButton}
           className="css-button-arrow--black"
+          onClick={ handleSubmit }
         >
           Login
         </button>
         <button
           type="submit"
           data-testid="common_login__button-register"
-          onClick={ () => history.push('/register') }
+          onClick={() => history.push("/register")}
           className="redirectBtn"
         >
           Ainda não tenho conta
@@ -100,12 +126,13 @@ function Login() {
         <div
           id="error-msg"
           data-testid="common_login__element-invalid-email"
-          hidden={ !invalidUser }
+          hidden={!invalidUser}
         >
           Favor verificar sua conta
+          {warning}
         </div>
       </form>
-    </div>
+    </LayoutRoot>
   );
 }
 

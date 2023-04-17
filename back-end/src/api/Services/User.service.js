@@ -12,7 +12,8 @@ const findUserByEmail = async (userData) => {
   return { id, name, email, role, token };
 };
 
-const getUsersSellers = async () => User.findAll({ where: { role: 'seller' }, attributes: { exclude: ['password'] } });
+const getUsersSellers = async () => User
+.findAll({ where: { role: 'seller' }, attributes: { exclude: ['password'] } });
 
 const getUserById = async (id) => User.find({ id });
 
@@ -35,6 +36,6 @@ const createUser = async (payload) => {
   return { id, name, email, role, token };
 };
 
-const getUsers = async () => User.findAll({ attributes: { exclude: ['password'] } })
+const getUsers = async () => User.findAll({ attributes: { exclude: ['password'] } });
 
 module.exports = { findUserByEmail, getUsersSellers, createUser, getUsers, getUserById };

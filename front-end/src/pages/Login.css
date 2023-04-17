@@ -7,15 +7,13 @@
 }
 
 .userbox {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  background-color: #FCE38A;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-width: 300px;
-  padding: 40px;
+  min-width: 30vw;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
+  height: 290px;
 }
 
 .userbox label {
@@ -23,22 +21,35 @@
   flex-direction: row nowrap;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px;
 }
 
 .userbox input {
   height: 25px;
-  min-width: 250px;
+  min-width: 320px;
+  border-radius: 3px;
+}
+
+.showpassword {
+  position: absolute;
+  margin-left: 280px;
+  cursor: pointer;
 }
 
 .redirectBtn {
   font-size: small;
 }
 
+input {
+  border: 0.5px grey solid;
+}
+
 .css-button-arrow--black {
-  min-width: 150px;
-  height: 40px;
+  width: 330px;
+  min-height: 40px;
   color: #fff;
   padding: 5px 10px;
+  font-size: small;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -48,8 +59,9 @@
   overflow: hidden;
   border-radius: 5px;
   border: none;
-  background-color: #343a40
+  background-color: #343a40;
 }
+
 .css-button-arrow--black:hover {
   border-radius: 5px;
   padding-right: 24px;
@@ -63,7 +75,44 @@
   content: "\00BB";
   position: absolute;
   opacity: 0;
-  font-size: 20px;
+  line-height: 40px;
+  top: 0;
+  right: -20px;
+  transition: 0.4s;
+}
+
+.googlebtn {
+  width: 330px;
+  min-height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: small;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  overflow: hidden;
+  border-radius: 5px;
+  border: none;
+  background-color: crimson;
+}
+
+.googlebtn:hover {
+  border-radius: 5px;
+  padding-right: 24px;
+  padding-left: 8px;
+}
+.googlebtn:hover:after {
+  opacity: 1;
+  right: 10px;
+}
+
+.googlebtn:after {
+  content: "\00BB";
+  position: absolute;
+  opacity: 0;
   line-height: 40px;
   top: 0;
   right: -20px;

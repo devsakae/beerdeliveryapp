@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "firebase": "^9.19.1",
     "react-icons": "^4.8.0"
   }
 }

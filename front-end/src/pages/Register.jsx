@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useHistory } from 'react-router-dom';
+import LayoutRoot from '../Components/LayoutRoot';
+import OAuth from '../Components/OAuth';
 import { saveToLocalStorage } from '../services/localStorage';
 import './Login.css';
 
@@ -13,6 +16,7 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isActiveButton, setIsActiveButton] = useState(true);
   const [existantUser, setExistantUser] = useState(false);
   const history = useHistory();
@@ -50,11 +54,13 @@ export default function Register() {
         console.log(error);
       });
   };
+
   // Estamos usando react-router-dom v5.6.1, que não tem suporte para Navigate
   // { userLoggedIn && <Navigate to="/customers/products" /> }
   return (
-    <div className="container">
+    <LayoutRoot>
       <form onSubmit={ handleSubmit } className="userbox">
+        <h2>Faça seu registro!</h2>
         <label htmlFor="name">
           <input
             type="text"
@@ -77,22 +83,35 @@ export default function Register() {
         </label>
         <label htmlFor="password">
           <input
-            type="password"
+            type={ showPassword ? 'text' : 'password' }
             name="password"
             placeholder="Senha"
             value={ password }
             data-testid="common_register__input-password"
             onChange={ handlePasswordChange }
           />
+          {showPassword ? (
+            <AiFillEyeInvisible
+              onClick={() => setShowPassword(false)}
+              className="showpassword"
+            />
+          ) : (
+            <AiFillEye
+              onClick={() => setShowPassword(true)}
+              className="showpassword"
+            />
+          )}
         </label>
         <button
           type="submit"
           data-testid="common_register__button-register"
           disabled={ isActiveButton }
           className="css-button-arrow--black"
+          onClick={ () => handleSubmit() }
         >
           Cadastrar
         </button>
+        <OAuth />
         <button
           type="submit"
           onClick={ () => history.push('/login') }
@@ -108,6 +127,6 @@ export default function Register() {
           Favor verificar sua conta
         </div>
       </form>
-    </div>
+    </LayoutRoot>
   );
 }
