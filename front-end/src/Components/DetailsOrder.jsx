@@ -46,7 +46,7 @@ export default function DetailsOrder() {
       }));
     axios
       .post(
-        `${api}/sales`,
+        `${process.env.REACT_APP_HOSTNAME}/sales`,
         {
           payload,
           saleProducts,

@@ -31,7 +31,7 @@ export default function SellerOrderDetails() {
     let actualStatus;
     (order.status === 'Pendente') ? actualStatus = 'Preparando' : actualStatus = 'Em Trânsito';
     axios.put(
-      `${path}/sales/${id}`,
+      `${process.env.REACT_APP_HOSTNAME}/sales/${id}`,
       {
         status: actualStatus,
       },
