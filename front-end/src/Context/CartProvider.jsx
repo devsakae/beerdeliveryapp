@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getFromLocalStorage, saveToLocalStorage } from '../services/localStorage';
 import CartContext from './CartContext';
 
-const api = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
+const api = `https://${process.env.REACT_APP_HOSTNAME}`;
 
 function CartProvider({ children }) {
   const [total, setTotal] = useState(0);

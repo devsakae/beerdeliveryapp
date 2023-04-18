@@ -9,6 +9,7 @@ import {
 import './DetailsOrder.css';
 // Refatoramos porque quebrou reqs 25, 27, 28, 29.
 // import { request, requestRole } from '../services/request';
+const api = `https://${process.env.REACT_APP_HOSTNAME}`;
 
 export default function DetailsOrder() {
   const [seller, setSeller] = useState('2');
@@ -24,7 +25,7 @@ export default function DetailsOrder() {
 
   const getRole = async () => {
     axios
-      .get('http://localhost:3001/login/role')
+      .get(`${api}/login/role`)
       .then((response) => {
         setListSellers(response.data);
       })
@@ -48,7 +49,7 @@ export default function DetailsOrder() {
       }));
     axios
       .post(
-        'http://localhost:3001/sales',
+        `${api}/sales`,
         {
           payload,
           saleProducts,

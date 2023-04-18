@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { getFromLocalStorage } from '../services/localStorage';
 import './AdminAddUser.css';
 
-const api = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
+const api = `https://${process.env.REACT_APP_HOSTNAME}`;
 
 export default function AdminAddProduct({ handleWarning }) {
   const inputName = useRef();
