@@ -2,6 +2,16 @@
 # 🍺 Beer Delivery App
 
 Sistema completo em React + Node de um aplicativo de delivery de bebidas alcoolicas (cervejas).
+
+## Screenshots
+
+<img src="https://github.com/devsakae/beerdeliveryapp/blob/main/front-end/public/beerdeliveryappscreens.gif" />
+
+## Live mode (frontend only)
+
+[http://beerdeliveryapp.vercel.com
+](https://beerdeliveryapp.vercel.app/login)
+
 ## 🔗 Links
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](http://portfolio.sakae.social)
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/rodrigosakae)
