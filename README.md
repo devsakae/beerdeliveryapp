@@ -27,7 +27,7 @@ Sistema completo em React + Node de um aplicativo de delivery de bebidas alcooli
 ```bash
   git clone git@github.com:devsakae/beerdeliveryapp.git
 ```
-Após isso, acesse a pasta do projeto:
+Após isso, acesse a pasta do projeto (todos os comandos abaixo devem ser feitos na raiz do projeto)
 ```bash
   cd beerdeliveryapp
 ```
@@ -49,12 +49,27 @@ docker-compose up -d
 npm run dev:prestart
 ```
 
-5. Rode em modo development
+6. Rode em modo development
 ```bash
 npm run dev
 ```
 
 O front-end está configurado para rodar na porta 3000 (padrão) http://localhost:3000
+
+## Usuários iniciais
+
+*Administrador*:
+Email: admin@beerdeliveryapp.com
+Senha: p@ssw0rd_@dm1n
+
+*Vendedor*:
+Email: quiosque@beerdeliveryapp.com
+Senha: ilovebeer
+
+*Cliente Pé Dagua*:
+Email: pedagua@email.com
+Senha: 123456
+
 ## Stacks utilizadas
 
 *Frontend*: React, react-icons
