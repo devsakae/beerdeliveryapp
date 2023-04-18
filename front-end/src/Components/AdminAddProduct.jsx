@@ -3,8 +3,6 @@ import React, { useRef } from 'react';
 import { getFromLocalStorage } from '../services/localStorage';
 import './AdminAddUser.css';
 
-const api = `https://${process.env.REACT_APP_HOSTNAME}`;
-
 export default function AdminAddProduct({ handleWarning }) {
   const inputName = useRef();
   const inputPrice = useRef();
@@ -18,7 +16,7 @@ export default function AdminAddProduct({ handleWarning }) {
       price: inputPrice.current.value,
       urlImage: inputImage.current.value,
     };
-    axios.post(`${api}/products`, payload, { headers: { Authorization: token }, mode: 'no-cors' })
+    axios.post(`${process.env.REACT_APP_HOSTNAME}/products`, payload, { headers: { Authorization: token }, mode: 'no-cors' })
       .then((response) => handleWarning(`Item ${response.data.name} adicionado com sucesso`))
       .catch((err) => handleWarning(err.message));
   };

@@ -4,6 +4,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import AuthForm from './Components/AuthForm';
 import CartProvider from './Context/CartProvider';
 import AdminProducts from './pages/AdminProducts';
 import AdminUsers from './pages/AdminUsers';
@@ -22,6 +23,7 @@ function App() {
       <Switch>
         <Route exact path="/" render={ () => <Redirect to="/login" /> } />
         <Route exact path="/login" component={ Login } />
+        <Route exact path="/googlelogin" component={ AuthForm } />
         <Route exact path="/register" component={ Register } />
         <Route exact path="/admin/manage" component={ AdminUsers } />
         <Route exact path="/admin/products" component={ AdminProducts } />

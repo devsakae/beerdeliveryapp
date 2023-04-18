@@ -7,8 +7,6 @@ import ProductItem from '../Components/ProductItem';
 import WarningBox from '../Components/WarningBox';
 import cartContext from '../Context/CartContext';
 
-const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
-
 function CustomerOrderDetail() {
   const { id } = useParams();
   const { formatPrice } = useContext(cartContext);
@@ -24,7 +22,7 @@ function CustomerOrderDetail() {
   useEffect(() => {
     const Canceltoken = axios.CancelToken;
     const source = Canceltoken.source();
-    axios.get(`${PATH}/sale_product/${id}`, {
+    axios.get(`${process.env.REACT_APP_HOSTNAME}/sale_product/${id}`, {
       cancelToken: source.token,
     })
       .then((response) => setOrderItems(response.data))

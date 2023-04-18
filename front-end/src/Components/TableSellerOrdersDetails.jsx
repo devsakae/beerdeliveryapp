@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import TotalPriceBox from './TotalPriceBox';
 
-const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
-
 export default function TableSellersOdersDetails() {
   const [sale, setSale] = useState([]);
   const [total, setTotal] = useState(0);
@@ -14,7 +12,7 @@ export default function TableSellersOdersDetails() {
   useEffect(() => {
     axios
       .get(
-        `${PATH}/products/sale/${id}`,
+        `${process.env.REACT_APP_HOSTNAME}/products/sale/${id}`,
         {},
         {
           mode: 'no-cors',

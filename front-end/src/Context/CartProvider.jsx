@@ -4,8 +4,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getFromLocalStorage, saveToLocalStorage } from '../services/localStorage';
 import CartContext from './CartContext';
 
-const api = `https://${process.env.REACT_APP_HOSTNAME}`;
-
 function CartProvider({ children }) {
   const [total, setTotal] = useState(0);
   const [menu, setMenu] = useState([]);
@@ -30,7 +28,7 @@ function CartProvider({ children }) {
   }, []);
 
   const fetchProducts = useCallback(async () => {
-    axios.get(`${api}/products`, { mode: 'no-cors' })
+    axios.get(`${process.env.REACT_APP_HOSTNAME}/products`, { mode: 'no-cors' })
       .then((response) => {
         const firstCart = response.data.map((p) => ({ quantity: 0, item: p }));
         setMenu(firstCart);

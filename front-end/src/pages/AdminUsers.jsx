@@ -5,7 +5,6 @@ import AdminUserList from '../Components/AdminUserList';
 import Layout from '../Components/Layout';
 import WarningBox from '../Components/WarningBox';
 
-const api = `https://${process.env.REACT_APP_HOSTNAME}`;
 const SECONDS_IN_MS = 5000;
 
 export default function Admin() {
@@ -25,7 +24,7 @@ export default function Admin() {
     const { name, email, password, role } = data;
     axios
       .post(
-        `${api}/admin/newuser`,
+        `${process.env.REACT_APP_HOSTNAME}/admin/newuser`,
         {
           name,
           email,
@@ -52,7 +51,7 @@ export default function Admin() {
   useEffect(() => {
     axios
       .get(
-        `${api}/admin/users`,
+        `${process.env.REACT_APP_HOSTNAME}/admin/users`,
         {
           headers: {
             Authorization: token,

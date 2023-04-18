@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import cartContext from '../Context/CartContext';
-const api = `https://${process.env.REACT_APP_HOSTNAME}`;
 
 export default function TableSellerOrders() {
   const history = useHistory();
@@ -10,7 +9,7 @@ export default function TableSellerOrders() {
   const [sales, setSales] = useState([]);
 
   useEffect(() => {
-    axios.get(`${api}/sales`)
+    axios.get(`${process.env.REACT_APP_HOSTNAME}/sales`)
       .then((response) => {
         setSales(response.data);
       })

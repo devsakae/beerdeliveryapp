@@ -7,9 +7,6 @@ import {
   removeKeyFromLocalStorage,
 } from '../services/localStorage';
 import './DetailsOrder.css';
-// Refatoramos porque quebrou reqs 25, 27, 28, 29.
-// import { request, requestRole } from '../services/request';
-const api = `https://${process.env.REACT_APP_HOSTNAME}`;
 
 export default function DetailsOrder() {
   const [seller, setSeller] = useState('2');
@@ -25,7 +22,7 @@ export default function DetailsOrder() {
 
   const getRole = async () => {
     axios
-      .get(`${api}/login/role`)
+      .get(`${process.env.REACT_APP_HOSTNAME}/login/role`)
       .then((response) => {
         setListSellers(response.data);
       })

@@ -20,7 +20,6 @@ export default function Register() {
   const [isActiveButton, setIsActiveButton] = useState(true);
   const [existantUser, setExistantUser] = useState(false);
   const history = useHistory();
-  const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
 
   useEffect(() => {
     const validName = name.length >= MIN_NAME_LENGTH;
@@ -36,7 +35,7 @@ export default function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setExistantUser(false);
-    axios.post(`${PATH}/register`, {
+    axios.post(`${process.env.REACT_APP_HOSTNAME}/register`, {
       name,
       email,
       password,

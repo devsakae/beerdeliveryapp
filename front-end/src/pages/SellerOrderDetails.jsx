@@ -6,8 +6,6 @@ import StatusOrder from '../Components/StatusOrder';
 import TableSellersOdersDetails from '../Components/TableSellerOrdersDetails';
 import { getFromLocalStorage } from '../services/localStorage';
 
-const path = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
-
 export default function SellerOrderDetails() {
   const [order, setOrder] = useState({});
   const { id } = useParams();
@@ -15,7 +13,7 @@ export default function SellerOrderDetails() {
 
   useEffect(() => {
     axios.get(
-      `${path}/sales/${id}`,
+      `${process.env.REACT_APP_HOSTNAME}/sales/${id}`,
       {
         headers: {
           Authorization: token,

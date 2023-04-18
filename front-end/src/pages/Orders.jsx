@@ -5,8 +5,6 @@ import Layout from '../Components/Layout';
 import { getFromLocalStorage } from '../services/localStorage';
 import './Orders.css';
 
-const PATH = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_BACKEND_PORT}`;
-
 function Orders() {
   const [token] = useState(getFromLocalStorage('user').token);
   const [ordersList, setOrdersList] = useState([]);
@@ -16,7 +14,7 @@ function Orders() {
   useEffect(() => {
     const user = getFromLocalStorage('user') || {};
     const { id } = user;
-    axios.get(`${PATH}/sales/customer/${id}`, { mode: 'no-cors' })
+    axios.get(`${process.env.REACT_APP_HOSTNAME}/sales/customer/${id}`, { mode: 'no-cors' })
       .then(({ data }) => setOrdersList(data))
       .catch((err) => console.log(err));
   }, [token]);

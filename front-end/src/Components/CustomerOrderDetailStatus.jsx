@@ -3,15 +3,13 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './StatusOrder.css';
 
-const api = `https://${process.env.REACT_APP_HOSTNAME}`;
-
 export default function CustomerOrderDetailStatus({ order }) {
   const [tempStatus, setTempStatus] = useState(order.status);
   const { id } = useParams();
 
   const handleStatus = (event) => {
     event.preventDefault();
-    axios.put(`${api}/sales/${id}`, { status: 'Entregue' }, { mode: 'no-cors' })
+    axios.put(`${process.env.REACT_APP_HOSTNAME}/sales/${id}`, { status: 'Entregue' }, { mode: 'no-cors' })
       .then((_r) => setTempStatus('Entregue'))
       .catch((err) => console.log(err));
   };
